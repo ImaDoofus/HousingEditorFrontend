@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="86.699mm" height="42.333mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.0" viewBox="0 0 8670 4233" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">.fil9 {fill:none} .fil7 {fill:url(#a)} .fil3 {fill:url(#i)} .fil0 {fill:url(#h)} .fil8 {fill:url(#g)} .fil4 {fill:url(#f)} .fil1 {fill:url(#e)} .fil6 {fill:url(#d)} .fil5 {fill:url(#c)} .fil2 {fill:url(#b)}</style>
+  <clipPath id="j">
+   <path d="m1410-519h6731v4064h-6731v-4064z"/>
+  </clipPath>
+  <linearGradient id="a" x1="2763.7" x2="1419.5" y1="-12.55" y2="4655.4" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#004AAB" offset="0"/>
+   <stop stop-color="#9ff" offset="1"/>
+  </linearGradient>
+  <linearGradient id="i" x1="5067.9" x2="9532.1" y1="1084.3" y2="672.38" gradientUnits="userSpaceOnUse" xlink:href="#a"></linearGradient>
+  <linearGradient id="h" x1="6173.5" x2="10638" y1="929.99" y2="518.11" gradientUnits="userSpaceOnUse" xlink:href="#a"></linearGradient>
+  <linearGradient id="g" x1="1683.2" x2="4162.3" y1="4553.2" y2="1043.5" gradientUnits="userSpaceOnUse" xlink:href="#a"></linearGradient>
+  <linearGradient id="f" x1="6967.7" x2="4079.7" y1="-562.69" y2="3408.8" gradientUnits="userSpaceOnUse" xlink:href="#a"></linearGradient>
+  <linearGradient id="e" x1="8073.3" x2="5185.3" y1="-716.96" y2="3254.6" gradientUnits="userSpaceOnUse" xlink:href="#a"></linearGradient>
+  <linearGradient id="d" x1="1512.1" x2="5638.6" y1="2175.2" y2="230.8" gradientUnits="userSpaceOnUse" xlink:href="#a"></linearGradient>
+  <linearGradient id="c" x1="4432.9" x2="7851.2" y1="3343.2" y2="966.98" gradientUnits="userSpaceOnUse" xlink:href="#a"></linearGradient>
+  <linearGradient id="b" x1="5538.5" x2="8956.8" y1="3188.9" y2="812.72" gradientUnits="userSpaceOnUse" xlink:href="#a"></linearGradient>
+ </defs>
+ <g clip-path="url(#j)">
+  <path class="fil0" d="m9371-2899c-184-262-321 2094 452 5499 517 2276 3243 3117 3032 2915 211 202 190 442 79 574-119 141-356 182-573-67 217 249-1658-1145-3454-2638-1790-1487-3458-3131-2987-3196-471 65 0-1115 990-1988 965-850 2277-1361 2461-1099z"/>
+  <path class="fil1" d="m6584-2428c-272-165 414 1853 2286 4819 1221 1934 3924 2206 3671 2040 253 166 306 414 242 577-69 174-282 288-564 114 282 174-1931-566-4107-1412-2169-844-4275-1871-3846-2086-429 215-355-1054 310-2197 648-1113 1736-2020 2008-1855z"/>
+  <path class="fil2" d="m5243-2058c-263-231 1010 2802 3025 4480 1846 1539 4022 2549 3739 2411 283 138 362 357 301 515-65 167-280 274-563 110 283 164-1917-611-4098-1432-2183-822-4289-1848-3875-2034-414 186-189-915 219-2036 407-1123 989-2245 1252-2014z"/>
+  <path class="fil3" d="m8266-2745c-184-262-321 2094 452 5499 516 2276 3243 3118 3032 2915 211 203 189 443 78 574-119 141-356 182-573-67 217 249-1657-1145-3454-2637-1789-1487-3457-3132-2987-3197-470 65 1-1115 991-1987 965-851 2277-1362 2461-1100z"/>
+  <path class="fil4" d="m5479-2273c-273-165 414 1852 2286 4818 1221 1935 3923 2206 3671 2040 252 166 305 415 241 577-69 175-282 289-564 114 282 175-1930-566-4106-1412-2170-844-4275-1871-3847-2085-428 214-354-1055 311-2198 648-1112 1735-2019 2008-1854z"/>
+  <path class="fil5" d="m4138-1904c-264-231 1010 2802 3024 4480 1847 1539 4022 2549 3740 2412 282 137 361 356 300 515-64 166-280 274-563 109 283 165-1916-611-4098-1432s-4289-1847-3874-2034c-415 187-189-914 218-2036 408-1122 989-2245 1253-2014z"/>
+  <path class="fil6" d="m3246-2532c-262-184 413 2077 2302 5014 1262 1964 4113 1824 3845 1705 268 119 329 351 270 513-64 173-273 292-561 132 288 160-1949-510-4147-1300-2190-786-4319-1763-3899-1985-420 222-380-1048 252-2206 617-1128 1676-2057 1938-1873z"/>
+  <path class="fil7" d="m788-1138c-313-62 1021 1600 3793 3749 1808 1402 4441 734 4147 664 294 70 429 286 424 461-5 187-167 367-491 299 324 68-2008 127-4342 74-2327-52-4657-299-4328-647-329 348-693-870-458-2171 230-1267 942-2491 1255-2429z"/>
+  <path class="fil8" d="m-347-333c-326-126 1906 2289 4372 3179 2261 816 4651 1023 4339 990 312 33 461 212 457 382-3 178-169 353-491 295 322 58-2010 80-4341 52-2332-27-4662-272-4336-589-326 317-490-795-490-1988 0-1194 164-2447 490-2321z"/>
+ </g>
+ <path class="fil9" d="m1410-519h6731v4064h-6731v-4064z"/>
+</svg>

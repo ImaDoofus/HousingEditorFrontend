@@ -1,0 +1,12 @@
+.on_activation_block_text {
+	font-weight: bold !important;
+}
+
+.block_header {
+	font-weight: bold !important;
+	font-size: 13px !important;
+}
+
+.blocklyText {
+  fill: black !important;
+}
