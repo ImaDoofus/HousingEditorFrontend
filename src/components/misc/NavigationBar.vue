@@ -17,6 +17,11 @@
 				<v-icon right>mdi-castle</v-icon>
 			</v-btn>
 
+			<v-btn v-if='showCreateItem' @click="$router.push('edit-item')" class="pr-5 mr-5">
+				<span>New Item</span>
+				<v-icon right>mdi-sword</v-icon>
+			</v-btn>
+
 			<v-btn text class="white--text pr-5 mr-5" v-if="loggedIn" @click="logout">Logout</v-btn>
 			<v-btn text class="white--text pr-5 mr-5" v-else @click="login">Login</v-btn>
 		</v-app-bar>
@@ -68,15 +73,18 @@ export default {
 	data: () => ({
 		drawer: false,
 		links: [
+			{ icon: 'mdi-home', text: 'Home', route: '/' },
 			{ icon: 'mdi-view-dashboard', text: 'Dashboard', route: '/dashboard' },
 			{ icon: 'mdi-castle', text: 'Actions', route: '/actions' },
 			{ icon: 'mdi-sword', text: 'Items', route: '/items' },
-			{ icon: 'mdi-information', text: 'About', route: '/about' },
+			{ icon: 'mdi-traffic-light', text: 'Housing Limits', route: '/housing-limits' },
+			{ icon: 'mdi-movie', text: 'Trailer', route: '/trailer' },
 		],
 		loggedIn: localStorage.getItem('token') ? true : false,
 		avatar: localStorage.getItem('avatar'),
 		name: localStorage.getItem('name'),
 		showCreateAction: false,
+		showCreateItem: false,
 	}),
 	methods: {
 		logout() {
@@ -93,8 +101,12 @@ export default {
 			case 'action-catalog':
 				this.showCreateAction = true;
 				break;
+			case 'item-catalog':
+				this.showCreateItem = true;
+				break;
 			default:
 				this.showCreateAction = false;
+				this.showCreateItem = false;
 				break;
 		}
 	}

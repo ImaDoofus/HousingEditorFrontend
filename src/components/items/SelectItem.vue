@@ -37,7 +37,6 @@ export default {
 	},
 	methods: {
 		selectItem() {
-			console.log(this.selection);
 			this.dialog = false;
 			this.$emit('itemSelected', this.selection);
 		},

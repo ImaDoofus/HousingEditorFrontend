@@ -30,10 +30,37 @@ export default {
 	components: {
 		CustomSnackbar,
 	},
+	data() {
+		return {
+			buttonEnabled: true,
+		}
+	},
 	methods: {
 		saveItem() {
-			this.$emit('submit');
+			if (!this.buttonEnabled) {
+				this.$refs.snackbar.show('You haven\'t made any changes yet!')
+				this.$refs.snackbar.color = 'blue';
+				this.$refs.snackbar.timeout = 1000;
+			} else {
+				this.$emit('submit');
+				this.buttonEnabled = false;
+			}
 		},
+		ctrlSHandler(e) {
+			if (e.key === 's' && (e.ctrlKey || e.metaKey)) {
+				e.preventDefault();
+				this.saveItem();
+			}
+		},
+		setSaveEnabled(enabled) {
+			this.buttonEnabled = enabled;
+		}
 	},
+	mounted: function () {
+		document.addEventListener("keydown", this.ctrlSHandler);
+	},
+	beforeDestroy() {
+		document.removeEventListener("keydown", this.ctrlSHandler);
+	}
 }
 </script>

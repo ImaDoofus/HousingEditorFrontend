@@ -2,8 +2,8 @@
 	<v-container>
 		<v-row>
 			<v-col col="12">
-				<v-footer padless class="base justify-center ">
-					<v-card flat tile class="base text-center">
+				<v-footer padless class="background justify-center ">
+					<v-card flat tile class="background text-center">
 						<v-card-text>
 							<v-btn v-for="icon in icons" :key="icon[0]" class="mx-4" icon @click="openIcon(icon[1])">
 								<v-icon size="24px">{{ icon[0] }}</v-icon>

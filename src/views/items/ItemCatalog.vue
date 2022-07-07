@@ -17,8 +17,8 @@
 				</v-col>
 				<v-col cols="12" sm="12" md="10" lg="10">
 					<v-row>
-						<v-col cols="12" sm="6" md="6" lg="4" v-for="(action, index) in actions" :key="`action-${index}`">
-							<ActionCard :action="action" />
+						<v-col cols="12" sm="6" md="6" lg="4" v-for="(item, index) in items" :key="`item-${index}`">
+							<ItemCard :item="item" />
 						</v-col>
 					</v-row>
 					<v-row>
@@ -38,60 +38,48 @@
 <script>
 import NavigationBar from '@/components/misc/NavigationBar.vue';
 import CustomSnackbar from '@/components/misc/CustomSnackbar.vue';
-import ActionCard from '../../components/actions/ActionCard.vue';
+import ItemCard from '../../components/items/ItemCard.vue';
+import requestItemPage from '@/utils/requestItemPage.js';
 
 export default {
-	name: 'ActionCatalog',
+	name: 'ItemCatalog',
+	metaInfo() {
+		return {
+			title: 'Items',
+		}
+	},
 	components: {
 		NavigationBar,
 		CustomSnackbar,
-		ActionCard,
+		ItemCard,
 	},
 	data() {
 		return {
 			displayNum: 6,
-			actions: [],
+			items: [],
 			loading: false,
 			page: 1,
 			totalPages: 1,
 			sortBy: 'Likes (Most to Least)',
-			sortOptions: ['Likes (Most to Least)', 'Likes (Least to Most)', 'Name (A-Z)', 'Name (Z-A)', 'Date (Newest to Oldest)', 'Date (Oldest to Newest)']
+			sortOptions: ['Likes (Most to Least)', 'Likes (Least to Most)', 'Name (A-Z)', 'Name (Z-A)', 'Item (A-Z)', 'Item (Z-A)', 'Date (Newest to Oldest)', 'Date (Oldest to Newest)']
 		}
 	},
 	methods: {
 		async getPage(pageNum) {
 			if (this.loading) return;
 			this.loading = true;
-			this.actions = new Array(this.displayNum).fill({});
-			try {
-				const response = await fetch(`${this.$apiHostname}/api/items/page/${pageNum}?sort=${this.sortBy}`);
-				const json = await response.json();
-				if (this.page !== json.page) {
-					return this.getPage(this.page);
-				}
-				this.totalPages = json.totalPages;
-				console.log(json)
-				this.actions = json.docs;
-				this.loading = false;
-				console.log(this.urlParams)
-				this.url.searchParams.set('page', this.page);
-				this.url.searchParams.set('sort', this.sortBy);
-				window.history.pushState({}, '', this.url);
-			} catch (e) {
-				console.log(e);
-				this.$refs.snackbar.shown = true;
-				this.$refs.snackbar.text = 'Error getting actions';
-			}
+			this.items = new Array(this.displayNum).fill({})
+			const json = await requestItemPage(this.$apiHostname, pageNum, this.displayNum, this.sortBy);
+			if (!json) return this.$refs.snackbar.show('Error loading items', false);
+			this.totalPages = json.totalPages;
+			this.items = json.docs;
+			this.loading = false;
 		}
 	},
 	mounted() {
-		console.log(window.location)
-
 		this.url = new URL(window.location);
-		console.log(this.url.href)
 		this.sortBy = this.url.searchParams.get('sort') || 'Likes (Most to Least)';
 		this.page = parseInt(this.url.searchParams.get('page')) || 1;
-		console.log(this.page, this.sort)
 		this.getPage(this.page);
 	}
 }

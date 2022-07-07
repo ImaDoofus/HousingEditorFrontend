@@ -64,7 +64,7 @@ Blockly.Blocks['send_to_lobby'] = {
 				['Build Battle', 'Build Battle'],
 				['Duels', 'Duels'],
 				['Wool Wars', 'Wool Wars'],
-			]))
+			]), 'LOBBY')
 
 		this.setPreviousStatement(true, 'action');
 		this.setNextStatement(true, 'action');

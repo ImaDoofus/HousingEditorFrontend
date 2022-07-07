@@ -2,7 +2,7 @@
 	<div>
 		<NavigationBar />
 		<v-row class="d-flex justify-center pt-5">
-			<v-col cols="6" class="text-center">
+			<v-col cols="6">
 				<ActionCard :action="action" />
 			</v-col>
 		</v-row>
@@ -16,6 +16,12 @@ import ActionCard from "@/components/actions/ActionCard.vue";
 
 export default {
 	name: 'SingleAction',
+	metaInfo() {
+		return {
+			title: this.getTitle(),
+			titleTemplate: '%s | Action',
+		}
+	},
 	components: {
 		ActionCard,
 		NavigationBar,
@@ -35,14 +41,15 @@ export default {
 			}).then(res => {
 				return res.json();
 			}).then(json => {
-				console.log(json)
 				this.action = json;
 			});
+		},
+		getTitle() {
+			return this.action?.post?.title  || 'Loading...';
 		}
 	},
 	mounted() {
 		this.id = this.$route.params.id;
-		console.log(this.id);
 		if (this.id) {
 			this.getAction();
 		} else {

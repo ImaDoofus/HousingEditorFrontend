@@ -65,7 +65,6 @@ export default {
 					'Authorization': `Bearer ${localStorage.getItem('token')}`,
 				},
 			}).then(res => {
-				console.log(res)
 				if (!res.ok) throw new Error(res.status); 
 				this.fetching = false;
 			}).catch(err => {

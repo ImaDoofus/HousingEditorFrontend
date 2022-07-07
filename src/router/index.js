@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LoginView from '../views/login/LoginView.vue'
-import AboutPage from '../views/home/AboutPage.vue'
+import TrailerPage from '../views/home/TrailerPage.vue'
 import LinkAccount from '../views/login/LinkAccount.vue'
 import EditAction from '../views/actions/EditAction.vue'
 import ActionCatalog from '../views/actions/ActionCatalog.vue'
@@ -10,6 +10,10 @@ import DashboardPage from '../views/profile/DashboardPage.vue'
 import EditItem from '../views/items/EditItem.vue'
 import ItemCatalog from '../views/items/ItemCatalog.vue'
 import SingleAction from '../views/actions/SingleAction.vue'
+import SingleItem from '../views/items/SingleItem.vue'
+import ProfilePage from '../views/profile/ProfilePage.vue'
+import ContactPage from '../views/home/ContactPage.vue'
+import HousingLimits from '../views/home/HousingLimits.vue'
 
 Vue.use(VueRouter)
 
@@ -21,7 +25,7 @@ const routes = [
 	},
 	{
 		path: '*',
-		redirect: '/dashboard'
+		redirect: '/'
 	},
 	{
 		path: '/login',
@@ -29,9 +33,9 @@ const routes = [
 		component: LoginView
 	},
 	{
-		path: '/about',
-		name: 'about',
-		component: AboutPage
+		path: '/trailer',
+		name: 'trailer',
+		component: TrailerPage
 	},
 	{
 		path: '/link-account',
@@ -68,6 +72,26 @@ const routes = [
 		name: 'item-catalog',
 		component: ItemCatalog
 	},
+	{
+		path: '/item/:id',
+		name: 'item',
+		component: SingleItem
+	},
+	{
+		path: '/profile/:userId',
+		name: 'profile',
+		component: ProfilePage
+	},
+	{
+		path: '/contact',
+		name: 'contact',
+		component: ContactPage
+	},
+	{
+		path: '/housing-limits',
+		name: 'housing-limits',
+		component: HousingLimits
+	}
 ]
 
 const router = new VueRouter({

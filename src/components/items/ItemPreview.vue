@@ -2,21 +2,22 @@
 	<div class="pa-1 wrapper1">
 		<div class="d-flex flex-column px-1 wrapper2">
 			<div class="d-flex align-center">
-				<div class="white--text">
-				<span v-for="(nameLine, index) in name" :key="`text-${index}`"
-					:style="`
-					color: ${nameLine.color};
-					text-decoration: ${nameLine.underlined ? 'underline' : ''} ${nameLine.strikethrough ? 'line-through' : ''};
-					${nameLine.bold ? 'text-shadow: 1px 0px;' : ''}
-					${nameLine.italic ? 'font-style: italic;' : ''}
-					`"
-					class="minecraft-text">{{ nameLine.text }}</span>
+				<div class="white--text" v-if='nameArr.length > 0'>
+					<span v-for="(nameLine, index) in nameArr" :key="`text-${index}`"
+						:style="`
+						color: ${nameLine.color};
+						text-decoration: ${nameLine.underlined ? 'underline' : ''} ${nameLine.strikethrough ? 'line-through' : ''};
+						${nameLine.bold ? 'text-shadow: 1px 0px;' : ''}
+						${nameLine.italic ? 'font-style: italic;' : ''}
+						`"
+						class="minecraft-text">{{ nameLine.text }}</span>
 				</div>
+				<span v-else class="white--text">{{ this.item.name }}</span>
 				<v-spacer></v-spacer>
-				<img :src="this.setItemIcon()" class="ml-5">
+				<img :src="this.getItemIcon()" class="ml-5">
 			</div>
 			<div class="white--text">
-				<span v-for="(loreLine, index) in lore" :key="`lore-${index}`"
+				<span v-for="(loreLine, index) in loreArr" :key="`lore-${index}`"
 					:style="`
 					color: ${loreLine.color};
 					text-decoration: ${loreLine.underlined ? 'underline' : ''} ${loreLine.strikethrough ? 'line-through' : ''};
@@ -25,25 +26,21 @@
 					`"
 					class="minecraft-text">{{ loreLine.text }}<br v-if="loreLine.break"></span>
 			</div>
-			<span class="grey--text text--darken-2">minecraft:{{ text_type }}</span>
+			<span class="grey--text text--darken-2">minecraft:{{ this.item.text_type }}</span>
 		</div>
 	</div>
 </template>
 
 <script>
-import items from '@/assets/minecraft-items/items.json'
 import fontWidths from '@/assets/fonts/fontWidths.json'
-import MCTextParser from '@/assets/utils/MinecraftTextParser'
+import MCTextParser from '@/utils/MinecraftTextParser'
 
 export default {
 	name: 'ItemPreview',
 	data() {
 		return {
-			name: [],
-			lore: [],
-			type: 0,
-			meta: 0,
-			text_type: '',
+			nameArr: [],
+			loreArr: [],
 
 			widths: {
 				'2': fontWidths.filter(char => { return char.width === 2 }),
@@ -56,40 +53,37 @@ export default {
 			},
 		}
 	},
+	props: ['item', 'name', 'lore'],
 	methods: {
-		setFromItem(item) {
-			this.meta = item.meta;
-			this.type = item.type;
-			this.setTextType();
-			this.setName(item.name);
-		},
-		setItemIcon() {
-			return require('@/assets/minecraft-items/items/' + this.type + '-' + this.meta + '.png');
-		},
-		setTextType() {
-			const found = items.find((item) => {
-				return this.type === item.type && this.meta === item.meta;
-			})
-			if (found) this.text_type = found.text_type;
-			else this.text_type = 'Unknown';
-		},
-		setLore(lore) {
-			this.lore = MCTextParser.parseText(lore)
-		},
-		setName(name) {
-			this.name = MCTextParser.parseText([name])
+		getItemIcon() {
+			return require('@/assets/minecraft-items/items/' + this.item.type + '-' + this.item.meta + '.png');
 		},
 	},
 	mounted() {
-		this.setFromItem(items[1])
+		if (this.name) this.nameArr = MCTextParser.parseText([this.name]);
+		this.loreArr = MCTextParser.parseText(this.lore);
 		this.interval = setInterval(() => {
-			this.name = MCTextParser.randomizeObfuscated(this.name);
-			this.lore = MCTextParser.randomizeObfuscated(this.lore);
+			this.loreArr = MCTextParser.randomizeObfuscated(this.loreArr);
+			this.nameArr = MCTextParser.randomizeObfuscated(this.nameArr);
 		}, 50)
 	},
 	destroyed() {
 		clearInterval(this.interval)
-	}
+	},
+	watch: {
+		name: {
+			handler() {
+				this.nameArr = MCTextParser.parseText([this.name]);
+			},
+			deep: true,
+		},
+		lore: {
+			handler() {
+				this.loreArr = MCTextParser.parseText(this.lore);
+			},
+			deep: true,
+		},
+	},
 }
 </script>
 

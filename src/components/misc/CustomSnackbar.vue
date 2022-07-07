@@ -40,6 +40,16 @@ export default {
 				};
 			}, 100);
 		},
+		setButton(text, color, action) {
+			this.buttonText = text;
+			this.buttonColor = color;
+			this.buttonAction = action;
+		},
+		show(message, success) {
+			this.shown = true;
+			this.text = message;
+			this.color = success ? 'success' : 'error';
+		}
 	},
 	watch: {
 		shown(val) {
@@ -49,8 +59,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .v-snack {
-	z-index: 10000;
+	z-index: 10000000 !important;
 }
 </style>>

@@ -5,7 +5,6 @@ Blockly.Blocks['parkour_checkpoint'] = {
 		this.setColour(180);
 		this.appendDummyInput()
 			.appendField(new Blockly.FieldLabel("Send to Parkour Checkpoint", "block_header"))
-			.setAlign(Blockly.ALIGN_CENTRE);
 
 		this.setPreviousStatement(true, 'action');
 		this.setNextStatement(true, 'action');
@@ -19,10 +18,10 @@ Blockly.Blocks['fail_parkour'] = {
 		this.setColour(110);
 		this.appendDummyInput()
 			.appendField(new Blockly.FieldLabel("Fail Parkour", "block_header"))
-			.setAlign(Blockly.ALIGN_CENTRE);
-		this.appendValueInput('TEXT')
+
+		this.appendValueInput('REASON')
 			.appendField('Reason:')
-			.setCheck(['TextComponent', 'TextJoin']);
+			.setCheck(['TextComponent']);
 		
 		this.setInputsInline(true);
 		this.setPreviousStatement(true, 'action');

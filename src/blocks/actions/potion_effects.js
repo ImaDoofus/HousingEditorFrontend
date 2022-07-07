@@ -55,11 +55,9 @@ Blockly.Blocks['apply_potion_effect'] = {
 
 Blockly.Blocks['clear_all_potion_effects'] = {
 	init: function() {
-
 		this.setColour(80);
 		this.appendDummyInput()
 			.appendField(new Blockly.FieldLabel("Clear potion effects", "block_header"))
-			.setAlign(Blockly.ALIGN_CENTRE);
 		
 		this.setPreviousStatement(true, 'action');
 		this.setNextStatement(true, 'action');

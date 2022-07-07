@@ -26,7 +26,6 @@ export default {
 	},
 	methods: {
 		async handleCredentialResponse(response) {
-			console.log(response)
 			try {
 				const postResponse = await fetch(`${this.$apiHostname}/api/users/login`, {
 					method: 'POST',
@@ -35,13 +34,10 @@ export default {
 						'Authorization': 'Bearer ' + response.credential
 					},
 				});
-				console.log(postResponse)
 				const postResponseJson = await postResponse.json();
-				console.log(postResponseJson)
 				if (postResponse.ok) {
 					localStorage.setItem('token', postResponseJson.token);
 					localStorage.setItem('userId', postResponseJson.userId);
-					console.log(postResponseJson)
 					if (!postResponseJson.linked) { // If user has not linked to their minecraft account
 						this.$router.push('/link-account');
 					} else {
@@ -59,12 +55,6 @@ export default {
 		},
 	},
 	mounted() {
-		console.log('mounted')
-		// let googleScript = document.createElement('script');
-		// googleScript.src = 'https://accounts.google.com/gsi/client';
-		// document.head.appendChild(googleScript);
-		
-		console.log(window.google);
 		window.google.accounts.id.initialize({
 			client_id: "708339058508-3ecqvdk1glefi99g7t8kro4pqjrgh56c.apps.googleusercontent.com",
 			callback: this.handleCredentialResponse,

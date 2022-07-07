@@ -12,7 +12,7 @@ export default class EventUtil {
 		'clear_all_potion_effects': 1,
 		'give_experience_levels': 1,
 		'send_to_lobby': 1,
-		'change_players_group': 1,
+		'change_player_group': 1,
 		'kill_player': 1,
 		'full_heal': 1,
 		'go_to_house_spawn': 1,
@@ -43,7 +43,6 @@ export default class EventUtil {
 	]
 
 	static findBlockScope(currentBlock, originalBlockID) {
-		console.log(currentBlock, currentBlock.getParent())
 		if (!currentBlock.getParent()) return { parent: currentBlock, isNested: false };
 		const parent = currentBlock.getParent();
 		if (EventUtil.scoped_blocks.indexOf(parent.type) > -1) { // if parent is block of type that scopes
@@ -66,10 +65,12 @@ export default class EventUtil {
 		if (!parent) return { isValid: true };
 		const blockName = block.type.replaceAll('_', ' ').replace(/\b\w/g, s => s.toUpperCase());
 		const parentName = parent.type.replaceAll('_', ' ').replace(/\b\w/g, s => s.toUpperCase());
-
-		console.log(block,parent)
+		
 		if (isNested) { // if the move event is nested in another block, includes action triggered, random action, conditional, etc
-			if (block.type === 'conditional' && parent.type === 'conditional') return { message: 'easter_egg', isValid: false };
+			if (parent.type === 'conditional') {
+				if (block.type === 'conditional') return { message: 'easter_egg', isValid: false };
+				if (block.type === 'random_action') return { message: 'Sorry, you can\'t nest a random action inside a conditional', isValid: false };
+			}
 			if (parent.type === 'random_action') {
 				if (block.type === 'conditional') return { message: 'Sorry, you can\'t nest a conditional in a random action', isValid: false };
 				if (block.type === 'random_action') return { message: 'Sorry, you can\'t nest a random action within itself', isValid: false };
@@ -77,26 +78,40 @@ export default class EventUtil {
 		}
 
 		let children;
+		let conditionalType = '';
+		const childrenObject = EventUtil.getScopeBlockChildren(parent);
 		if (parent.type === 'conditional') {
-			const childrenObject = EventUtil.getScopeBlockChildren(parent);
 			if (childrenObject.IF.map(block => block.id).indexOf(block.id) > -1) {
+				conditionalType = 'IF';
 				children = childrenObject.IF;
 			} else { 
+				conditionalType = 'ELSE';
 				children = childrenObject.ELSE;
 			}
 		} else {
-			children = EventUtil.getScopeBlockChildren(parent).ALL;
+			children = childrenObject.ALL;
 		}
 
-		const count = children.filter(child => child.type === block.type).length;
+		let counts = Object.assign(...Object.keys(EventUtil.maxOfType).map(key => ({ [key]: 0 })));
 
-		if (count > EventUtil.maxOfType[block.type]) {
-			const maxCount = EventUtil.maxOfType[block.type];
+		children.forEach(child => {
+			counts[child.type]++;
+		});
+		
+		const countsOver = Object.entries(counts).filter(entry => entry[1] > EventUtil.maxOfType[entry[0]]);
+		if (countsOver.length > 0) {
+			const over = countsOver[0];
+			const overName = over[0].replaceAll('_', ' ').replace(/\b\w/g, s => s.toUpperCase());
+			const maxCount = EventUtil.maxOfType[over[0]];
 			const plural = maxCount > 1 ? 's' : '';
 			if (EventUtil.scoped_blocks.indexOf(parent.type) > -1) { // if is a block that nests other blocks
-				return { message: `Sorry, you can only have <strong>${maxCount} ${blockName}</strong> block${plural} in a <strong>${parentName}</strong> block`, isValid: false };
+				if (parent.type === 'conditional') {
+					return { message: `Sorry, you can only have <strong>${maxCount} ${overName}</strong> block${plural} in a <strong>${parentName} ${conditionalType}</strong> statement`, isValid: false };
+				} else {
+					return { message: `Sorry, you can only have <strong>${maxCount} ${overName}</strong> block${plural} in a <strong>${parentName}</strong> block`, isValid: false };
+				}
 			} else {
-				return { message: `Sorry, you can only have <strong>${maxCount} ${blockName}</strong> block${plural} in this chain of blocks.`, isValid: false };
+				return { message: `Sorry, you can only have <strong>${maxCount} ${overName}</strong> block${plural} in this chain of blocks.`, isValid: false };
 			}
 		}
 
@@ -138,6 +153,8 @@ export default class EventUtil {
 		return children;
 	}
 
+	static selectionId = '';
+
 	static selectedTextBlock(event) {
 		if (event.type === Blockly.Events.CLICK || event.type === Blockly.Events.SELECTED) {
 			const blockId = event.blockId || event.newElementId;
@@ -146,7 +163,10 @@ export default class EventUtil {
 			const workspace = Blockly.mainWorkspace;
 			const block = workspace.getBlockById(blockId);
 	
-			if (block.type === 'text_component') return block;
+			if (block.type === 'text_component') {
+				EventUtil.selectionId = blockId;
+				return block;
+			}
 		}
 		return false;
 	}
@@ -155,7 +175,7 @@ export default class EventUtil {
 		if (event.type === Blockly.Events.TOOLBOX_ITEM_SELECT) return true;
 		if (event.type === Blockly.Events.CLICK || event.type === Blockly.Events.SELECTED) {
 			const blockId = event.blockId || event.newElementId;
-			if (!blockId) return true;
+			if (blockId !== EventUtil.selectionId) return true;
 		}
 	}
 

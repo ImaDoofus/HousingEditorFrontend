@@ -102,7 +102,6 @@ export default class MCTextParser {
 			}
 			newText += newChar;
 		}
-		console.log(newText)
 		return newText;
 	}
 }

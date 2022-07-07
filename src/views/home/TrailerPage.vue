@@ -154,13 +154,18 @@ import VideoParallax2 from '../../components/about/VideoParallax2.vue';
 import VideoParallax3 from '../../components/about/VideoParallax3.vue';
 
 export default {
-	name: 'AboutView',
+	name: 'TrailerPage',
+	metaInfo() {
+		return {
+			title: 'Trailer',
+		}
+	},
 	components: {
-    // ThreeJSParallax1,
-    VideoParallax1,
-    VideoParallax2,
-	VideoParallax3,
-},
+		// ThreeJSParallax1,
+		VideoParallax1,
+		VideoParallax2,
+		VideoParallax3,
+	},
 	data() {
 		return {
 			scroll: 0,
@@ -207,7 +212,7 @@ export default {
 	},
 	methods: {
 		done() {
-			this.$router.push('/dashboard');
+			this.$router.push('/');
 		},
 		showStars() {
 			return this.location > 1 && this.location < 5
@@ -244,12 +249,6 @@ export default {
 			if (this.location === location) {
 				this.next()
 			}
-			// if (this.autoMoveLocations.indexOf(this.location) > -1) {
-			// 	if (this.typewriterData[this.location].currentText === this.typewriterData[this.location].targetText) {
-			// 		console.log('finished typing')
-			// 		this.next();
-			// 	}
-			// }
 		},
 
 		back() {
@@ -258,7 +257,6 @@ export default {
 			this.typewriterData[this.location].currentText = ' ';
 			this.scroll = this.pauseLocations[this.location][0];
 			this.paused = false;
-			console.log(this.location, this.pauseLocations[this.location][0], this.scroll, this.paused);
 		},
 		next() {
 			this.dialog = false;
@@ -266,7 +264,6 @@ export default {
 			if (this.location < this.pauseLocations.length - 1) this.location++;
 			this.paused = false;
 			this.scrollSpeed = this.pauseLocations[this.location][1];
-			console.log(this.location, this.pauseLocations[this.location[0]], this.scroll, this.paused);
 		},
 		scrollLoop(timestamp) {
 			if (this.prevTimestamp === undefined) this.prevTimestamp = timestamp;
@@ -289,7 +286,6 @@ export default {
 		}
 	},
 	mounted() {
-		var b=[],d=Date.now();(function e(){var a=Date.now(),c=a-d;if(c){d=a;a=1/(c/1E3);10<=b.length&&b.shift();b.push(a);for(c=a=0;c<b.length;c++)a+=b[c];a/=b.length;document.title="FPS: "+Math.round(a)}requestAnimationFrame(e)})();
 		this.$vuetify.theme.dark = true;
 		requestAnimationFrame(this.scrollLoop)
 	},

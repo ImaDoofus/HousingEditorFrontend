@@ -6,7 +6,7 @@ Blockly.Blocks['set_name'] = {
 			.appendField(new Blockly.FieldLabel("Set Item Name", "block_header"))
 
 		this.appendValueInput('NAME')
-			.setCheck(['TextComponent', 'TextJoin'])
+			.setCheck(['TextComponent'])
 			.appendField('Lore:');
 
 		this.setPreviousStatement(true, 'item');

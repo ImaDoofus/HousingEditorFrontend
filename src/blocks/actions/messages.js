@@ -4,8 +4,8 @@ Blockly.Blocks['send_a_chat_message'] = {
 	init: function() {
 		this.appendDummyInput()
 			.appendField(new Blockly.FieldLabel('Send A Chat Message', 'block_header'))
-		this.appendValueInput('TEXT')
-			.setCheck(['TextComponent', 'TextJoin']);
+		this.appendValueInput('MESSAGE')
+			.setCheck(['TextComponent']);
 
 		this.setColour(140)
 		this.setPreviousStatement(true, 'action');
@@ -21,7 +21,7 @@ Blockly.Blocks['display_action_bar'] = {
 		this.appendDummyInput()
 			.appendField(new Blockly.FieldLabel('Display Action Bar', 'block_header'))
 		this.appendValueInput('TEXT')
-			.setCheck(['TextComponent', 'TextJoin']);
+			.setCheck(['TextComponent']);
 
 		this.setColour(250)
 		this.setPreviousStatement(true, 'action');
@@ -38,10 +38,10 @@ Blockly.Blocks['display_title'] = {
 			.appendField(new Blockly.FieldLabel('Display Title', 'block_header'))
 		this.appendValueInput('TITLE')
 			.appendField('Title:')
-			.setCheck(['TextComponent', 'TextJoin']);
+			.setCheck(['TextComponent']);
 		this.appendValueInput('SUBTITLE')
 			.appendField('Subtitle:')
-			.setCheck(['TextComponent', 'TextJoin']);
+			.setCheck(['TextComponent']);
 		this.appendDummyInput('STAY')
 			.appendField('Stay:')
 			.appendField(new Blockly.FieldNumber(1))
@@ -56,10 +56,10 @@ Blockly.Blocks['display_title'] = {
 		this.setPreviousStatement(true, 'action');
 		this.setNextStatement(true, 'action');
 		this.setTooltip('Displays a title (big text in the center of the players screen)' + '<br>'
-						+ '<b>Title: </b>' + 'Text Block, Join Text Block' + '<br>'
-						+ '<b>Subtitle: </b>' + 'Text Block, Join Text Block' + '<br>'
+						+ '<b>Title: </b>' + 'Bigger text' + '<br>'
+						+ '<b>Subtitle: </b>' + 'Smaller text' + '<br>'
 						+ '<b>Stay: </b>' + 'The time the title stays on screen (seconds)' + '<br>'
-						+ '<b>Fadein: </b>' + 'The time it takes the title to transition in (seconds)' + '<br>'
+						+ '<b>Fadein: </b>' + 'The time it takes to transition in' + '<br>'
 						+ '<b>Fadeout: </b>' + 'The time it takes to transition out');
 	}
 }

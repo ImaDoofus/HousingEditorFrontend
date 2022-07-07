@@ -26,7 +26,7 @@
 					<TipTap v-model='content'/>
 					<v-row justify="space-between" class="ma-1">
 						<v-btn text class="error mt-3" @click="cancel">Close</v-btn>
-						<v-btn text class="success mt-3" @click="submit" :loading="loading">Save Action</v-btn>
+						<v-btn text class="success mt-3" @click="save" :loading="loading">Save Action</v-btn>
 					</v-row>
 				</v-card-text>
 			</v-card>
@@ -58,13 +58,13 @@ export default {
 		cancel() {
 			this.dialog = false;
 		},
-		async submit() {
-			console.log(this.content)
+		save() {
 			if (this.$refs.form.validate()) {
 				this.$emit('submit', {
 					title: this.title,
 					content: this.content,
 				});
+				this.dialog = false;
 			}
 		},
 		ctrlSHandler(e) {

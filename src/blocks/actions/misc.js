@@ -7,7 +7,7 @@ Blockly.Blocks['set_gamemode'] = {
 		this.appendDummyInput()
 			.appendField(new Blockly.FieldLabel("Set Gamemode", "block_header"))
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldDropdown([["Survival", "survival"], ["Creative", "creative"], ["Adventure", "adventure"]]), "GAMEMODE");
+			.appendField(new Blockly.FieldDropdown([["Adventure", "adventure"], ["Survival", "survival"], ["Creative", "creative"]]), "GAMEMODE");
 		this.setPreviousStatement(true, 'action');
 		this.setNextStatement(true, 'action');
 		this.setColour(230);
@@ -21,7 +21,7 @@ Blockly.Blocks['give_experience_levels'] = {
 		this.appendDummyInput()
 			.appendField(new Blockly.FieldLabel("Give Experience Levels", "block_header"))
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldNumber(1, 1, 2147483647, 1), "EXPERIENCE_LEVELS");
+			.appendField(new Blockly.FieldNumber(1, 1, 2147483647, 1), "LEVELS");
 		this.setPreviousStatement(true, 'action');
 		this.setNextStatement(true, 'action');
 		this.setColour(100);
@@ -50,3 +50,53 @@ Blockly.Blocks['change_player_group'] = {
 		this.setHelpUrl("");
 	}
 }
+
+Blockly.Blocks['random_action'] = {
+	init: function() {
+		this.appendDummyInput()
+			.appendField(new Blockly.FieldLabel("Random Action", "block_header"))
+		this.appendStatementInput('ACTIONS')
+			.setCheck('action')
+		this.setPreviousStatement(true, 'action');
+		this.setNextStatement(true, 'action');
+		this.setColour(10);
+		this.setTooltip("Randomly executes one of the actions inside this block.");
+		this.setHelpUrl("");
+	}
+}
+
+Blockly.Blocks['set_compass_target'] = {
+	init: function() {
+		this.appendDummyInput()
+			.appendField(new Blockly.FieldLabel("Set Compass Target", "block_header"))
+
+		const dropdown = new Blockly.FieldDropdown([
+			['Custom Coordinates', 'custom_coordinates'],
+			['Housing Spawn', 'housing_spawn'],
+			['Current Location', 'current_location'],
+		]);
+		dropdown.setValidator((newValue) => {
+			if (newValue === 'custom_coordinates') {
+				this.appendDummyInput('COORDINATES')
+					.appendField('X:')
+					.appendField(new Blockly.FieldNumber(0, -100, 100, 1), 'X')
+					.appendField('Y:')
+					.appendField(new Blockly.FieldNumber(0, -100, 100, 1), 'Y')
+					.appendField('Z:')
+					.appendField(new Blockly.FieldNumber(0, -100, 100, 1), 'Z');
+			} else {
+				if (this.getInput('COORDINATES')) this.removeInput('COORDINATES');
+			}
+		})
+		this.appendDummyInput()
+			.appendField('Location:')
+			.appendField(dropdown, 'LOCATION');
+
+		this.setPreviousStatement(true, 'action');
+		this.setNextStatement(true, 'action');
+		this.setTooltip("Set the players compass to a location.");
+
+		this.setColour(250);
+	}
+}
+

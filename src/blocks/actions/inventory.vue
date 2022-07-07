@@ -1,11 +1,12 @@
 <template>
 	<category name="Inventory" categorystyle="inventory_category">
-		<SelectItem ref='selectItem' @itemSelected='itemSelected($event)'/>
-		<block type="give_item"></block>
-		<block type="remove_item"></block>
+		<SelectItem v-if="!isItem" ref='selectItem' @itemSelected='itemSelected($event)'/>
+		<block v-if="!isItem" type="give_item"></block>
+		<block v-if="!isItem" type="remove_item"></block>
 		<block type="reset_inventory"></block>
-		<block type="custom_item" class="custom_item_block" disabled="true"></block>
-		<block type="housing_editor_item" disabled="true"></block>
+		<block v-if="!isItem" type="custom_item" class="custom_item_block" disabled="true"></block>
+		<block v-if="!isItem" type="housing_editor_item" disabled="true"></block>
+		<block v-if="isItem" type="use_remove_held_item"></block>
 	</category>
 </template>
 
@@ -17,6 +18,11 @@ export default {
 	name: "InventoryBlocks",
 	components: {
 		SelectItem,
+	},
+	props: {
+		isItem: {
+			type: Boolean,
+		},
 	},
 	data() {
 		return {
@@ -109,6 +115,16 @@ export default {
 				this.setColour(120);
 			}
 		};
+		Blockly.Blocks["use_remove_held_item"] = {
+			init: function () {
+				this.appendDummyInput()
+					.appendField(new Blockly.FieldLabel("Use/Remove Held Item", "block_header"));
+				this.setPreviousStatement(true, 'action');
+				this.setNextStatement(true, 'action');
+				this.setTooltip("Use or remove the player's held item.");
+				this.setColour(230);
+			}
+		}
 	},
 }
 </script>

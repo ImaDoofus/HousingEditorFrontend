@@ -5,20 +5,23 @@
 		<v-sheet class="action_card">
 			<v-card :color="loading ? 'card lighten-4' : 'card'" tile>
 				<v-card-title v-if="loading" class="grey--text">
-					<div>
-						<v-sheet width="250" height="20" color="grey darken-1"></v-sheet>
-						<v-sheet width="120" height="8"></v-sheet>
-						<v-sheet width="100" height="7" color="grey darken-2"></v-sheet>
+					<div class="d-flex">
+						<div style="line-height: 10px;">
+							<v-sheet width="250" height="20" color="grey darken-1"></v-sheet>
+							<br>
+							<v-sheet width="100" height="7" color="grey darken-2"></v-sheet>
+						</div>
+						<div class="action_avatar">
+							<v-sheet width="64" height="64" color="grey"></v-sheet>
+						</div>
 					</div>
-					<v-spacer></v-spacer>
-					<v-sheet width="64" height="64" color="grey"></v-sheet>
 				</v-card-title>
 				<v-card-title v-else @click="openDialog(action)">
 					<div class="d-flex">
 						<div style="line-height: 10px;">
 							<span>{{ action.post.title }}</span>
 							<br>
-							<router-link :to="`${this.$apiHostname}/dashboard`" class="user-router-link">@{{ action.author.name }}</router-link>
+							<router-link :to="`profile/${ action.author.id }`" class="user-router-link">@{{ action.author.name }}</router-link>
 							<span class="mx-1 overline">• {{ getUploadDate() }}</span>
 						</div>
 						<div class="action_avatar">
@@ -40,6 +43,8 @@
 		
 				<v-card-actions v-if="loading">
 					<v-icon>mdi-heart</v-icon>
+					<v-spacer></v-spacer>
+					<v-btn class="grey" text dark disabled></v-btn>
 				</v-card-actions>
 				<v-card-actions v-else>
 					<LikeButton type='actions' :data="mutableAction" :user-id="userId" @liked='liked'/>
@@ -69,7 +74,7 @@ export default {
 	},
 	props: {
 		action: Object,
-		canDelete: Boolean
+		canDelete: Boolean,
 	},
 	data() {
 		return {
@@ -86,7 +91,6 @@ export default {
 		},
 		copyId(action) {
 			const snackbar = this.$refs.snackbar;
-			console.log('copyId', action._id)
 			navigator.clipboard.writeText(action._id);
 			snackbar.shown = true;
 			snackbar.text = 'Copied action ID';
@@ -110,8 +114,6 @@ export default {
 		},
 		deleteClientSide() {
 			this.loading = true;
-			console.log(this.action)
-			// this.$emit('delete', this.action._id);
 		}
 	},
 	watch: {

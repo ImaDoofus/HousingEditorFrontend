@@ -26,7 +26,7 @@ Blockly.Theme.defineTheme('custom_theme', {
 		"parkour_category": {
 			"colour": "#f8bc44"
 		},
-		"conditionals_category": {
+		"stats_category": {
 			"colour": "#2596be"
 		},
 		"health_category": {

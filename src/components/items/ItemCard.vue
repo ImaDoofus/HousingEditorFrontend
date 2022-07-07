@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<CustomSnackbar ref='snackbar'/>
-		<ItemDetail ref='itemDetail' @delete='deleteClientSide()' :canDelete='canDelete'/>
+		<ItemDetail ref='itemDetail' @delete='deleteClientSide()' />
 		<v-sheet class="item_card">
 			<v-card :color="loading ? 'card lighten-4' : 'card'" tile>
 				<v-card-title v-if="loading" class="grey--text">
@@ -16,9 +16,7 @@
 				<v-card-title v-else @click="openDialog(item)">
 					<div class="d-flex">
 						<div style="line-height: 10px;">
-							<span>{{ item.post.title }}</span>
-							<br>
-							<router-link :to="`${this.$apiHostname}/dashboard`" class="user-router-link">@{{ item.author.name }}</router-link>
+							<router-link :to="`${this.$apiHostname}/profile/${ item.author.id }`" class="user-router-link">@{{ item.author.name }}</router-link>
 							<span class="mx-1 overline">• {{ getUploadDate() }}</span>
 						</div>
 						<div class="item_avatar">
@@ -35,7 +33,9 @@
 				</v-card-text>
 
 				<v-card-text v-else class="card_text">
-					<div v-html="item.post.content" class="item_content" @click="openDialog(item)"></div>
+					<div class="item_content" @click="openDialog(item)">
+						<ItemPreview :name="mutableItem.itemData.customName" :lore="mutableItem.itemData.customLore" :item="mutableItem.itemData.item"></ItemPreview>
+					</div>
 				</v-card-text>
 		
 				<v-card-actions v-if="loading">
@@ -55,7 +55,8 @@
 </template>
 
 <script>
-import ItemDetail from '../items/ItemDetail.vue';
+import ItemDetail from './ItemDetail.vue';
+import ItemPreview from './ItemPreview.vue';
 import LikeButton from '../engagement/LikeButton.vue';
 import CustomSnackbar from '../misc/CustomSnackbar.vue';
 import moment from 'moment';
@@ -66,10 +67,10 @@ export default {
 		ItemDetail,
 		LikeButton,
 		CustomSnackbar,
+		ItemPreview,
 	},
 	props: {
 		item: Object,
-		canDelete: Boolean
 	},
 	data() {
 		return {
@@ -86,7 +87,6 @@ export default {
 		},
 		copyId(item) {
 			const snackbar = this.$refs.snackbar;
-			console.log('copyId', item._id)
 			navigator.clipboard.writeText(item._id);
 			snackbar.shown = true;
 			snackbar.text = 'Copied item ID';
@@ -110,8 +110,6 @@ export default {
 		},
 		deleteClientSide() {
 			this.loading = true;
-			console.log(this.item)
-			// this.$emit('delete', this.item._id);
 		}
 	},
 	watch: {
@@ -119,7 +117,7 @@ export default {
 			handler(item) {
 				this.loading = true
 				this.mutableItem = item;
-				if (item.post) this.loading = false;
+				if (item.itemData) this.loading = false;
 			},
 			deep: true,
 		},
@@ -140,10 +138,10 @@ export default {
 	height: 125%;
 	width: 125%;
 
-	-webkit-transform: scale(0.8);
+	/* -webkit-transform: scale(0.8);
 	transform: scale(0.8);
 	-webkit-transform-origin: 0 0;
-	transform-origin: 0 0;
+	transform-origin: 0 0; */
 }
 
 .item_card:hover {

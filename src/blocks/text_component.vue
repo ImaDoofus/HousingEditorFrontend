@@ -4,8 +4,8 @@
 
 <script>
 import Blockly from 'blockly/core';
-import MCTextParser from '@/assets/utils/MinecraftTextParser'
-import EventUtil from '@/assets/utils/EventUtil';
+import MCTextParser from '@/utils/MinecraftTextParser'
+import EventUtil from '@/utils/EventUtil';
 import MinecraftFormattingMenu from '@/components/formatting/MinecraftFormattingMenu.vue';
 
 export default {
@@ -67,7 +67,6 @@ export default {
 		},
 		fontSelected(map) {
 			const textFieldValue = this.selectedTextField.getValue();
-			console.log(window.getSelection().toString());
 			if (this.selectionStart !== this.selectionEnd) { // if selection has range
 				const highlightedText = textFieldValue.slice(this.selectionStart, this.selectionEnd);
 				const newHighlightedText = MCTextParser.replaceWithFont(highlightedText, map);
@@ -79,13 +78,15 @@ export default {
 		},
 		updateTextField(newText, selectionStart, selectionEnd) {
 			this.selectedTextField.setValue(newText);
-			// this.selectedTextBlock.setFieldValue(newText, 'TEXT')
 			Blockly.WidgetDiv.hide();
 			Blockly.WidgetDiv.show(this.selectedTextField);
-			this.selectedTextField.htmlInput_ = this.selectedTextField.widgetCreate_();
-			this.selectedTextField.htmlInput_.focus()
-			this.selectedTextField.htmlInput_.setSelectionRange(selectionStart, selectionEnd);
-			console.log(this.selectedTextField.getValue())
+			try {
+				this.selectedTextField.htmlInput_ = this.selectedTextField.widgetCreate_();
+				this.selectedTextField.htmlInput_.focus()
+				this.selectedTextField.htmlInput_.setSelectionRange(selectionStart, selectionEnd);
+			} catch (e) {
+				console.log(e);
+			}
 			this.$refs.formatting.setPreview(this.selectedTextField.getValue());
 		},
 		selectionChangeListener(event) {

@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<WorkspaceChange ref="workspaceChange"></WorkspaceChange>
 		<div class="blocklyDiv" ref="blocklyDiv"></div>
 		<xml ref="blocklyToolbox" style="display:none">
 			<slot></slot>
@@ -8,6 +9,7 @@
 </template>
 
 <script>
+import Blockly from 'blockly';
 import '@/blockly/style.css'; // custom style
 import '@/blockly/renderer.js'; // custom renderer
 import '@/blockly/theme.js'; // custom theme
@@ -15,11 +17,27 @@ import '@/blockly/toolbox_style.css' // custom toolbox style
 import '@/blockly/custom_category.js' // custom toolbox style
 
 // plugins
-// import {ContinuousToolbox, ContinuousFlyout, ContinuousMetrics} from '@blockly/continuous-toolbox';
+import {ContinuousToolbox, ContinuousFlyout, ContinuousMetrics} from '@blockly/continuous-toolbox';
 
-import Blockly from 'blockly';
+import WorkspaceChange from '@/blockly/WorkspaceChange.vue'
+
+Blockly.HSV_SATURATION = 0.6;
+Blockly.HSV_VALUE = 1;
+Blockly.Tooltip.setCustomTooltip((div, element) => {
+	const tipElement = document.createElement('p');
+	tipElement.innerHTML = Blockly.Tooltip.getTooltipOfObject(element);
+	tipElement.style.fontSize = '18px';
+	tipElement.style.textAlign = 'left';
+
+	div.style.padding = '15px';
+	div.appendChild(tipElement);
+})
+
 export default {
 	name: 'BlocklyComponent',
+	components: {
+		WorkspaceChange,
+	},
 	props: ['options'],
 	mounted() {
 		var options = this.$props.options || {};
@@ -43,12 +61,13 @@ export default {
 					scaleSpeed: 1.01,
 					pinch: true,
 				};
-		// options.plugins = {
-		// 	'toolbox': ContinuousToolbox,
-		// 	'flyoutsVerticalToolbox': ContinuousFlyout,
-		// 	'metricsManager': ContinuousMetrics,
-		// },
+		options.plugins = {
+			'toolbox': ContinuousToolbox,
+			'flyoutsVerticalToolbox': ContinuousFlyout,
+			'metricsManager': ContinuousMetrics,
+		},
 		this.workspace = Blockly.inject(this.$refs["blocklyDiv"], options);
+		this.$refs.workspaceChange.setWorkspace(this.workspace); // add an event listener for block scope protection, etc.
 	}
 }
 </script>

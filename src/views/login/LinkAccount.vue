@@ -60,7 +60,6 @@ export default {
 		},
 	},
 	async mounted() {
-		console.log('created')
 		const snackbar = this.$refs.snackbar;
 
 		const response = await fetch(`${this.$apiHostname}/api/users/create-link-code`, {
@@ -82,7 +81,6 @@ export default {
 				snackbar.color = 'red';
 				snackbar.buttonText = 'Refresh Code';
 				snackbar.buttonAction = () => {
-					console.log('reload')
 					this.$router.go() // refresh page
 				}
 				this.expired = true;
@@ -102,7 +100,6 @@ export default {
 				snackbar.color = 'red';
 				snackbar.buttonText = 'Reload';
 				snackbar.buttonAction = () => {
-					console.log('reload')
 					this.$router.go() // refresh page
 				}
 				this.expired = true;
@@ -111,7 +108,6 @@ export default {
 			}
 		}
 
-		console.log('Response fully received');
 	}
 }
 </script>

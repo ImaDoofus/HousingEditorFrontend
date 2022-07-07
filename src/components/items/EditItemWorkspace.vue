@@ -1,6 +1,7 @@
 <template>
 	<div id="app">
 		<TextComponent ref="textComponent" />
+		<PlaySound ref="playSound" />
 		<v-card class='item-preview ma-5 pa-1'>
 			<v-card-title class="pa-1">
 				<v-spacer></v-spacer>
@@ -13,7 +14,7 @@
 					<v-icon>mdi-arrow-collapse-all</v-icon>
 				</v-btn>
 			</v-card-title>
-			<ItemPreview v-if="preview" ref='itemPreview'/>
+			<ItemPreview v-if="preview" :name='previewName' :lore='previewLore' :item='previewItem'/>
 		</v-card>
 		<ItemBlock @itemSelected='itemWasSelected'/>
 		<BlocklyComponent id="workspace" :options="options" ref="workspace">
@@ -26,9 +27,6 @@
 				<block type="text_component"></block>
 			</category>
 			<sep></sep>
-			<category name="Stats" categorystyle="conditionals_category">
-				<block type="change_stat"></block>
-			</category>
 			<category name="Messages" categorystyle="messages_category">
 				<block type="send_a_chat_message"></block>
 				<block type="display_action_bar"></block>
@@ -54,9 +52,12 @@
 				<block type="go_to_house_spawn"></block>
 				<block type="send_to_lobby"></block>
 			</category>
-			<InventoryBlocks />
+			<InventoryBlocks :isItem='true'/>
 			<category name="Miscellaneous" categorystyle="miscellaneous_category">
+				<block type="give_experience_levels"></block>
+				<block type="play_sound"></block>
 				<block type="set_gamemode"></block>
+				<block type="set_compass_target"></block>
 			</category>
 
 		</BlocklyComponent>
@@ -64,7 +65,7 @@
 </template>
 
 <script>
-import BlocklyComponent from '../blockly/BlocklyComponent.vue'
+import BlocklyComponent from '@/blockly/BlocklyComponent.vue'
 import Blockly from 'blockly';
 import ItemBlock from '@/blocks/items/item.vue';
 import '@/blocks/items/right_click_action.js'
@@ -73,7 +74,6 @@ import '@/blocks/items/lore.js'
 import ItemPreview from '@/components/items/ItemPreview.vue'
 
 // right click action blocks
-import '@/blocks/actions/conditionals.js';
 import '@/blocks/actions/messages.js';
 import '@/blocks/actions/parkour.js';
 import '@/blocks/actions/potion_effects.js';
@@ -81,10 +81,10 @@ import '@/blocks/actions/health.js';
 import '@/blocks/actions/teleport.js';
 import InventoryBlocks from '@/blocks/actions/inventory.vue';
 import '@/blocks/actions/misc.js';
+import PlaySound from '@/blocks/actions/play_sound.vue';
 
 // text components
 import TextComponent from '@/blocks/text_component.vue';
-import TextBlockParser from '@/assets/utils/TextBlockParser.js';
 
 export default {
 	name: 'EditItemWorkspace',
@@ -94,6 +94,7 @@ export default {
 		ItemPreview,
 		InventoryBlocks,
 		TextComponent,
+		PlaySound,
 	},
 	data() {
 		return {
@@ -103,13 +104,15 @@ export default {
 				},
 			},
 			preview: true,
+			previewItem: { type: 1, meta: 0, name: 'Stone', text_type: 'stone' },
+			previewName: null,
+			previewLore: [],
 			workspace: null,
 		}
 	},
 	methods: {
 		itemWasSelected(item) {
-			console.log('item was selected', item);
-			this.$refs.itemPreview.setFromItem(item);
+			this.previewItem = item;
 		},
 		load(json) {
 			Blockly.mainWorkspace.clear();
@@ -121,26 +124,21 @@ export default {
 		},
 		updatePreview() {
 			const data = this.save();
-			if (!data.blocks?.blocks.length) return;
-			if (!data.blocks?.blocks[0]?.type === 'item') return;
 			const itemBlock = data.blocks.blocks[0];
-			if (!itemBlock.next?.block) return;
-			const preview = this.$refs.itemPreview;
 			let lore = [];
 			const traverse = (block) => {
 				const parsed = this.blockParser(block);
 				if (!parsed) return;
 				if (parsed[0] === 'lore') lore.push(parsed[1])
-				if (parsed[0] === 'name') preview.setName(parsed[1])
+				if (parsed[0] === 'name') this.previewName = parsed[1];
 				if (block.next?.block) traverse(block.next.block);
 			}
-			traverse(itemBlock.next.block);
-			console.log(lore)
-			preview.setLore(lore);
+			traverse(itemBlock?.next?.block);
+			this.previewLore = lore;
 		},
 
 		blockParser(block) {
-			switch(block.type) {
+			switch(block?.type) {
 				case 'add_lore':
 					return ['lore', block?.inputs?.LORE?.block?.fields?.TEXT];
 				case 'set_name':
@@ -165,6 +163,7 @@ export default {
 		this.workspace.addChangeListener(event => {
 			if (event.type === Blockly.Events.BLOCK_MOVE || event.type === Blockly.Events.BLOCK_CHANGE) {
 				this.updatePreview();
+				this.$emit('change');
 			}
 		})
 

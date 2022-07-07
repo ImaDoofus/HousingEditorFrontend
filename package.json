@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@blockly/continuous-toolbox": "^2.0.34",
+    "@blockly/field-slider": "^3.0.17",
     "@mdi/font": "^6.7.96",
     "@tiptap/extension-character-count": "^2.0.0-beta.26",
     "@tiptap/extension-code-block-lowlight": "^2.0.0-beta.68",

@@ -1,5 +1,5 @@
 <template>
-	<v-app>
+	<v-app id="app">
 		<v-main>
 			<router-view/>
 		</v-main>
@@ -13,6 +13,10 @@ import PageFooter from "./components/misc/PageFooter.vue";
 
 export default {
 	name: 'App',
+	metaInfo: {
+      title: 'Housing Editor',
+      titleTemplate: '%s | Housing Editor'
+    },
 	components: {
 		PageFooter,
 	},
@@ -48,9 +52,12 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 @font-face {
 	font-family: 'Minecraft';
 	src: url('@/assets/fonts/minecraftio.ttf');
+}
+#app {
+	background: var(--v-background-base);
 }
 </style>

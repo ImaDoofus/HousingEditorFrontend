@@ -23,25 +23,22 @@
 	{"name":"Hurt Flesh","path":"game.player.hurt"},
 	{"name":"Item Break","path":"random.break"},
 	{"name":"Item Pickup","path":"random.pop"},
-	{"name":"Liquid Pop","path":"liquid.lavapop"},
+	{"name":"Lava Pop","path":"liquid.lavapop"},
 	{"name":"Level Up","path":"random.levelup"},
 	{"name":"Note Bass","path":"note.bass"},
-	{"name":"Note Piano","path":"note.bassattack"},
+	{"name":"Note Piano","path":"note.harp"},
 	{"name":"Note Bass Drum","path":"note.bd"},
-	{"name":"Note Sticks","path":"gui.button.press"},
+	{"name":"Note Sticks","path":"note.hat"},
+	{"name":"Note Bass Guitar","path":"note.bassattack"},
 	{"name":"Note Snare Drum","path":"note.snare"},
-	{"name":"Note Harp","path":"note.harp"},
-	{"name":"Note Hat","path":"note.hat"},
 
 	{"name":"Note Pling","path":"note.pling"},
 
 	{"name":"Orb Pickup","path":"random.orb"},
 	{"name":"Shoot Arrow","path":"random.bow"},
-	{"name":"Splash","path":"random.splash"},
-	{"name":"Swim","path":"game.player.swim.splash"},
+	{"name":"Splash","path":"game.player.swim.splash"},
+	{"name":"Swim","path":"game.player.swim"},
 	{"name":"Wood Click","path":"random.wood_click"},
-
-
 
 
 	{"name":"Bat Death","path":"mob.bat.death"},
@@ -206,35 +203,5 @@
 	{"name":"Villager Hit","path":"mob.villager.hit"},
 	{"name":"Villager Idle","path":"mob.villager.idle"},
 	{"name":"Villager No","path":"mob.villager.no"},
-	{"name":"Villager Yes","path":"mob.villager.yes"},
-
-	{"name":"Item Firecharge Use","path":"item.fireCharge.use"},
-	{"name":"Ladder","path":"step.ladder"},
-	{"name":"Liquid Lava","path":"liquid.lava"},
-	{"name":"Liquid Water","path":"liquid.water"},
-	{"name":"Minecart Base","path":"minecart.base"},
-	{"name":"Minecart Inside","path":"minecart.inside"},
-	{"name":"Piston in","path":"tile.piston.in"},
-	{"name":"Piston out","path":"tile.piston.out"},
-	{"name":"Player Die","path":"game.player.die"},
-	{"name":"Player Hurt","path":"game.player.hurt"},
-	{"name":"Player Swim","path":"game.player.swim"},
-	{"name":"Portal Portal","path":"portal.portal"},
-	{"name":"Portal Travel","path":"portal.travel"},
-	{"name":"Portal Trigger","path":"portal.trigger"},
-
-	{"name":"Stone","path":"dig.stone"},
-	{"name":"Stone","path":"step.stone"},
-
-
-	{"name":"Wood","path":"dig.wood"},
-	{"name":"Wood","path":"step.wood"},
-
-	{"name":"Cloth","path":"dig.cloth"},
-	{"name":"Cloth","path":"step.cloth"},
-	{"name":"Grass","path":"dig.grass"},
-	{"name":"Grass","path":"step.grass"},
-	{"name":"Gravel","path":"dig.gravel"},
-	{"name":"Gravel","path":"step.gravel"}
-
+	{"name":"Villager Yes","path":"mob.villager.yes"}
 ]

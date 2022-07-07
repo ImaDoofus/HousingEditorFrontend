@@ -1,0 +1,144 @@
+Date : 2022-07-06 18:12:23
+Directory : c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend
+Total : 85 files,  38623 codes, 40 comments, 182 blanks, all 38845 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          7 |     35,951 |          0 |         24 |     35,975 |
+| Vue                |         42 |      2,030 |         22 |         92 |      2,144 |
+| JavaScript         |         23 |        451 |          2 |         48 |        501 |
+| XML                |          9 |        101 |          0 |          3 |        104 |
+| CSS                |          1 |         37 |          2 |          8 |         47 |
+| HTML               |          1 |         26 |          2 |          1 |         29 |
+| Markdown           |          1 |         19 |          0 |          6 |         25 |
+| JSON with Comments |          1 |          8 |         12 |          0 |         20 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                  | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                     |         85 |     38,623 |         40 |        182 |     38,845 |
+| public                                                                                                                |         10 |        109 |          2 |          4 |        115 |
+| public\assets                                                                                                         |          8 |         82 |          0 |          3 |         85 |
+| public\favicons                                                                                                       |          1 |          1 |          0 |          0 |          1 |
+| src                                                                                                                   |         68 |      4,912 |         26 |        167 |      5,105 |
+| src\assets                                                                                                            |          5 |      2,426 |          0 |         22 |      2,448 |
+| src\assets\fonts                                                                                                      |          2 |        197 |          0 |          0 |        197 |
+| src\assets\logo                                                                                                       |          1 |         19 |          0 |          0 |         19 |
+| src\assets\sounds                                                                                                     |          2 |      2,210 |          0 |         22 |      2,232 |
+| src\blockly                                                                                                           |          5 |        186 |         31 |         22 |        239 |
+| src\blocks                                                                                                            |         13 |        234 |        -34 |         13 |        213 |
+| src\blocks\actions                                                                                                    |          9 |         49 |        -54 |         -7 |        -12 |
+| src\blocks\items                                                                                                      |          3 |         47 |          0 |          7 |         54 |
+| src\components                                                                                                        |         20 |        874 |          8 |         42 |        924 |
+| src\components\actions                                                                                                |          3 |         74 |         -6 |          1 |         69 |
+| src\components\blockly                                                                                                |          1 |        -49 |          0 |         -3 |        -52 |
+| src\components\engagement                                                                                             |          2 |        103 |          4 |          7 |        114 |
+| src\components\formatting                                                                                             |          4 |        783 |         13 |         85 |        881 |
+| src\components\items                                                                                                  |          6 |        322 |          5 |         17 |        344 |
+| src\components\misc                                                                                                   |          4 |       -359 |         -8 |        -65 |       -432 |
+| src\plugins                                                                                                           |          1 |          4 |          0 |          0 |          4 |
+| src\router                                                                                                            |          1 |         36 |          0 |         -1 |         35 |
+| src\utils                                                                                                             |          6 |        372 |         35 |         48 |        455 |
+| src\views                                                                                                             |         15 |        775 |        -14 |         19 |        780 |
+| src\views\actions                                                                                                     |          3 |         32 |         -1 |         -8 |         23 |
+| src\views\home                                                                                                        |          5 |        299 |         -6 |          8 |        301 |
+| src\views\items                                                                                                       |          3 |        201 |         -7 |          7 |        201 |
+| src\views\login                                                                                                       |          2 |         -7 |         -4 |         -1 |        -12 |
+| src\views\profile                                                                                                     |          2 |        250 |          4 |         13 |        267 |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                              | language           | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\.eslintrc.js                                          | JavaScript         |         18 |          0 |          1 |         19 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\README.md                                             | Markdown           |         19 |          0 |          6 |         25 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\babel.config.js                                       | JavaScript         |          5 |          0 |          1 |          6 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\jsconfig.json                                         | JSON with Comments |          8 |         12 |          0 |         20 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\package-lock.json                                     | JSON               |     33,476 |          0 |          1 |     33,477 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\package.json                                          | JSON               |         67 |          0 |          1 |         68 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\public\assets\action_pad.svg                          | XML                |         66 |          0 |          1 |         67 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\public\assets\checkered-flag-309862.svg               | XML                |          4 |          0 |          1 |          5 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\public\assets\cursor-154478.svg                       | XML                |          7 |          0 |          1 |          8 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\public\assets\flag_black_24dp.svg                     | XML                |          1 |          0 |          0 |          1 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\public\assets\settings_black_24dp.svg                 | XML                |          1 |          0 |          0 |          1 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\public\assets\sports_score_black_24dp.svg             | XML                |          1 |          0 |          0 |          1 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\public\assets\start_flag.svg                          | XML                |          1 |          0 |          0 |          1 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\public\assets\volume-high.svg                         | XML                |          1 |          0 |          0 |          1 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\public\favicons\site.webmanifest                      | JSON               |          1 |          0 |          0 |          1 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\public\index.html                                     | HTML               |         26 |          2 |          1 |         29 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\App.vue                                           | Vue                |          2 |          0 |          1 |          3 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\assets\fonts\fontMaps.json                        | JSON               |          8 |          0 |          0 |          8 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\assets\fonts\fontWidths.json                      | JSON               |        189 |          0 |          0 |        189 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\assets\logo\logo_dark.svg                         | XML                |         19 |          0 |          0 |         19 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\assets\sounds\soundHousingList.json               | JSON               |        185 |          0 |         22 |        207 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\assets\sounds\soundMap.json                       | JSON               |      2,025 |          0 |          0 |      2,025 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blockly\BlocklyComponent.vue                      | Vue                |         73 |          1 |          7 |         81 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blockly\WorkspaceChange.vue                       | Vue                |         42 |          7 |          2 |         51 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blockly\custom_category.js                        | JavaScript         |         25 |         21 |          4 |         50 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blockly\theme.js                                  | JavaScript         |          9 |          0 |          1 |         10 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blockly\toolbox_style.css                         | CSS                |         37 |          2 |          8 |         47 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blocks\actions\conditionals.js                    | JavaScript         |        -12 |          0 |         -1 |        -13 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blocks\actions\inventory.vue                      | Vue                |         18 |          0 |          0 |         18 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blocks\actions\messages.js                        | JavaScript         |       -136 |        -54 |        -22 |       -212 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blocks\actions\misc.js                            | JavaScript         |         93 |          0 |          9 |        102 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blocks\actions\parkour.js                         | JavaScript         |         -2 |          0 |          1 |         -1 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blocks\actions\play_sound.vue                     | Vue                |         89 |          0 |          7 |         96 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blocks\actions\potion_effects.js                  | JavaScript         |         -1 |          0 |         -1 |         -2 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blocks\actions\start_block.js                     | JavaScript         |        -15 |         -1 |         -1 |        -17 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blocks\actions\when_action_triggered.js           | JavaScript         |         15 |          1 |          1 |         17 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blocks\items\item.vue                             | Vue                |         19 |          0 |          1 |         20 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blocks\items\lore.js                              | JavaScript         |         14 |          0 |          3 |         17 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blocks\items\name.js                              | JavaScript         |         14 |          0 |          3 |         17 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\blocks\text_component.vue                         | Vue                |        138 |         20 |         13 |        171 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\actions\ActionCard.vue                 | Vue                |         29 |         -3 |         -3 |         23 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\actions\ActionDetail.vue               | Vue                |         40 |         -3 |          1 |         38 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\actions\EditActionWorkspace.vue        | Vue                |          5 |          0 |          3 |          8 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\blockly\BlocklyComponent.vue           | Vue                |        -49 |          0 |         -3 |        -52 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\engagement\CommentSection.vue          | Vue                |         78 |          2 |          5 |         85 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\engagement\LikeButton.vue              | Vue                |         25 |          2 |          2 |         29 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\formatting\MinecraftFormattingMenu.vue | Vue                |        206 |          3 |         10 |        219 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\formatting\SymbolDialog.vue            | Vue                |         67 |          0 |          3 |         70 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\formatting\TextPreview.vue             | Vue                |         81 |          2 |          4 |         87 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\formatting\TipTap.vue                  | Vue                |        429 |          8 |         68 |        505 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\items\EditItemNav.vue                  | Vue                |         29 |          0 |          2 |         31 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\items\EditItemWorkspace.vue            | Vue                |         93 |          2 |          6 |        101 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\items\ItemCard.vue                     | Vue                |          2 |          1 |         -4 |         -1 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\items\ItemDetail.vue                   | Vue                |        166 |          2 |         13 |        181 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\items\ItemPreview.vue                  | Vue                |         33 |          0 |          0 |         33 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\items\SelectItem.vue                   | Vue                |         -1 |          0 |          0 |         -1 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\misc\CustomSnackbar.vue                | Vue                |         22 |          0 |          2 |         24 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\misc\NavigationBar.vue                 | Vue                |         38 |          0 |          1 |         39 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\misc\PageFooter.vue                    | Vue                |          5 |          0 |          0 |          5 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\components\misc\TipTap.vue                        | Vue                |       -424 |         -8 |        -68 |       -500 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\main.js                                           | JavaScript         |          3 |          0 |          1 |          4 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\plugins\vuetify.js                                | JavaScript         |          4 |          0 |          0 |          4 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\router\index.js                                   | JavaScript         |         36 |          0 |         -1 |         35 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\utils\EventUtil.js                                | JavaScript         |        170 |          0 |         22 |        192 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\utils\MinecraftTextParser.js                      | JavaScript         |         98 |          1 |          9 |        108 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\utils\TextBlockParser.js                          | JavaScript         |          5 |          0 |          0 |          5 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\utils\UploadContent.js                            | JavaScript         |         71 |         34 |         15 |        120 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\utils\requestActionPage.js                        | JavaScript         |         14 |          0 |          1 |         15 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\utils\requestItemPage.js                          | JavaScript         |         14 |          0 |          1 |         15 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\views\actions\ActionCatalog.vue                   | Vue                |          6 |          0 |         -2 |          4 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\views\actions\EditAction.vue                      | Vue                |        -31 |         -1 |         -9 |        -41 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\views\actions\SingleAction.vue                    | Vue                |         57 |          0 |          3 |         60 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\views\home\AboutPage.vue                          | Vue                |       -293 |        -16 |        -23 |       -332 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\views\home\ContactPage.vue                        | Vue                |         43 |          0 |          4 |         47 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\views\home\HomePage.vue                           | Vue                |         71 |          0 |         -1 |         70 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\views\home\HousingLimits.vue                      | Vue                |        183 |          0 |          5 |        188 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\views\home\TrailerPage.vue                        | Vue                |        295 |         10 |         23 |        328 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\views\items\EditItem.vue                          | Vue                |         60 |         -7 |          1 |         54 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\views\items\ItemCatalog.vue                       | Vue                |         83 |          0 |          3 |         86 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\views\items\SingleItem.vue                        | Vue                |         58 |          0 |          3 |         61 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\views\login\LinkAccount.vue                       | Vue                |         -1 |          0 |          0 |         -1 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\views\login\LoginView.vue                         | Vue                |         -6 |         -4 |         -1 |        -11 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\views\profile\DashboardPage.vue                   | Vue                |         48 |          2 |          4 |         54 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\src\views\profile\ProfilePage.vue                     | Vue                |        202 |          2 |          9 |        213 |
+| c:\Users\imado\Documents\Housing-Editor\housing-editor-frontend\vue.config.js                                         | JavaScript         |          9 |          0 |          1 |         10 |
+| Total                                                                                                                 |                    |     38,623 |         40 |        182 |     38,845 |
++-----------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

@@ -12,7 +12,7 @@
 					class="minecraft-text">{{ textLine.text }}</span>
 			</div>
 		</div>
-		<div v-if="text.length < maxTextLength" class="wrapper2 px-1 ml-5 green white--text">
+		<div v-if="text.length <= maxTextLength" class="wrapper2 px-1 ml-5 green white--text">
 			{{ text.length }}/{{ maxTextLength }}
 		</div>
 		<div v-else class="wrapper2 px-1 ml-5 red white--text">
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import MCTextParser from '@/assets/utils/MinecraftTextParser'
+import MCTextParser from '@/utils/MinecraftTextParser'
 
 export default {
 	name: 'ItemPreview',
@@ -52,7 +52,6 @@ export default {
 		},
 		setMaxTextLength(maxTextLength) {
 			this.maxTextLength = maxTextLength;
-			console.log('maxTextLength', maxTextLength);
 		}
 	}
 }

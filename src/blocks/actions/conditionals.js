@@ -144,39 +144,27 @@ Blockly.Blocks['conditional'] = {
 
 Blockly.Blocks['change_stat'] = {
 	init: function() {
-		this.isOpened_ = true;
-		this.options_ = { 'STAT': 'stat', 'VALUE': 0, 'MODE': 'increment' };
 		this.appendDummyInput()
 			.appendField(new Blockly.FieldLabel("Change Stat", "block_header"))
-			.appendField(getOpenIcon())
 		
-		this.setColour(60);
-		this.setPreviousStatement(true, 'action');
-		this.setNextStatement(true, 'action');
-		this.setInputsInline(true);
-	},
-	saveExtraState,
-	loadExtraState,
-	updateShape_,
-	open_: function() {
 		const dropdown = new Blockly.FieldDropdown([
-			['Add', 'INCREMENT'],
-			['Subtract', 'DECREMENT'],
-			['Set', 'SET'],
+			['Add', 'increment'],
+			['Subtract', 'decrement'],
+			['Set', 'set'],
 		]);
-		dropdown.setValue(this.options_['MODE']);
 
 		this.appendDummyInput()
 			.appendField('Stat')
-			.appendField(new Blockly.FieldTextInput(this.options_['STAT']), 'STAT')
-			.appendField(dropdown)
-			.appendField('Value')
-			.appendField(new Blockly.FieldNumber(this.options_['VALUE']), 'VALUE')
+			.appendField(new Blockly.FieldTextInput('name'), 'STAT')
+		this.appendDummyInput()
+			.appendField('Operation')
+			.appendField(dropdown, 'MODE')
+			.appendField(new Blockly.FieldNumber(1, 0, 2147483647, 1), 'VALUE')
 
-		dropdown.setValidator(dataChangeListener) // dataChangeListener requires the getSourceBlock()
+		this.setColour(60);
+		this.setPreviousStatement(true, 'action');
+		this.setNextStatement(true, 'action');
 	},
-	close_,
-
 }
 
 Blockly.Blocks['condition_doing_parkour'] = {
@@ -301,7 +289,6 @@ Blockly.Blocks['condition_has_item'] = {
 		if (this.getInput('REQUIRE_AMOUNT')) this.removeInput('REQUIRE_AMOUNT');
 	},
 	requiredAmountListener_: function(newValue) {
-		console.log(this)
 		this.getSourceBlock().options_['REQUIRE_AMOUNT_CHECKBOX'] = newValue;
 		if (newValue === 'TRUE') {
 			this.getSourceBlock().inputList[4].appendField(new Blockly.FieldTextInput(this.getSourceBlock().options_['REQUIRE_AMOUNT'], dataChangeListener), 'REQUIRE_AMOUNT');
