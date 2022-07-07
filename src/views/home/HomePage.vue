@@ -12,7 +12,7 @@
 				</v-row>
 				<v-row class="justify-end mr-0">
 					<span class="overline grey--text">By
-						<router-link to="/profile/62bfd50b0d3e3b3f455ee8f3">ImaDoofus</router-link>
+						<router-link to="/profile/62c6871f53cc93e40cd459b2">ImaDoofus</router-link>
 					</span>
 					<v-divider vertical class="mx-2"></v-divider>
 					<span class="overline grey--text">Posted • July 4th 2022</span>

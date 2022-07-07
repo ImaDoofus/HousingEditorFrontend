@@ -14,6 +14,7 @@ import SingleItem from '../views/items/SingleItem.vue'
 import ProfilePage from '../views/profile/ProfilePage.vue'
 import ContactPage from '../views/home/ContactPage.vue'
 import HousingLimits from '../views/home/HousingLimits.vue'
+import PrivacyPolicy from '../views/home/PrivacyPolicy.vue'
 
 Vue.use(VueRouter)
 
@@ -91,6 +92,11 @@ const routes = [
 		path: '/housing-limits',
 		name: 'housing-limits',
 		component: HousingLimits
+	},
+	{
+		path: '/privacy-policy',
+		name: 'privacy-policy',
+		component: PrivacyPolicy
 	}
 ]
 

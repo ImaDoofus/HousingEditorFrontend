@@ -16,7 +16,7 @@
 		<v-list>
 			<v-list-item>
 				<v-list-item-avatar tile>
-					<router-link to="/profile/62bfd50b0d3e3b3f455ee8f3" tag="img" src="https://mc-heads.net/avatar/imadoofus" style="image-rendering: pixelated;"></router-link>
+					<router-link to="/profile/62c6871f53cc93e40cd459b2" tag="img" src="https://mc-heads.net/avatar/imadoofus" style="image-rendering: pixelated;"></router-link>
 				</v-list-item-avatar>
 				<v-list-item-content>
 					<v-list-item-title>

@@ -48,6 +48,7 @@ export default {
 			inputRules: [
 				v => !!v || 'Title is required',
 				v => v.length < 100 || 'Title must be less than 100 characters',
+				v => v.length > 2 || 'Title must be at least 3 characters',
 			],
 			title: '',
 			loading: false,

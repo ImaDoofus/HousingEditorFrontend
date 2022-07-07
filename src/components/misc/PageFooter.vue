@@ -40,7 +40,7 @@ export default {
 			links: [
 				['/about', 'About'],
 				['/contact', 'Contact'],
-				['/privacy', 'Privacy'],
+				['/privacy-policy', 'Privacy'],
 			]
 		}
 	},
