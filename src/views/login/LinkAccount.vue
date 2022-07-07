@@ -62,7 +62,7 @@ export default {
 	async mounted() {
 		const snackbar = this.$refs.snackbar;
 
-		const response = await fetch(`${this.$apiHostname}/api/users/create-link-code`, {
+		const response = await fetch(`${this.$apiHostname}/users/create-link-code`, {
 			method: 'POST',
 			headers: {
 				'authorization': `Bearer ${localStorage.getItem('token')}`,

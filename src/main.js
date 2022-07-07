@@ -12,7 +12,7 @@ Vue.prototype.moment = moment
 Vue.config.productionTip = false
 
 const production = true;
-Vue.prototype.$apiHostname = production ? 'https://www.housingeditor.com' : 'http://localhost:3000'
+Vue.prototype.$apiHostname = production ? 'https://api.housingeditor.com' : 'http://localhost:3000'
 Vue.prototype.$hostname = production ? 'https://www.housingeditor.com' : 'http://localhost:8080'
 
 //Add unimported components to ignore list to prevent warnings.

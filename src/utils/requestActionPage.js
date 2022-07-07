@@ -1,5 +1,5 @@
 export default async function requestActionPage(hostname, pageNum, pageSize, sortBy, authorId) {
-	let url = `${hostname}/api/actions?pageNum=${pageNum}&pageSize=${pageSize}&sortBy=${sortBy}`;
+	let url = `${hostname}/actions?pageNum=${pageNum}&pageSize=${pageSize}&sortBy=${sortBy}`;
 	if (authorId) url += `&authorId=${authorId}`;
 	try {
 		const response = await fetch(url, {

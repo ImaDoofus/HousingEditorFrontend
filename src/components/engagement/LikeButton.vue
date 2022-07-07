@@ -59,7 +59,7 @@ export default {
 
 			// send like to server
 			this.fetching = true;
-			fetch(`${this.$apiHostname}/api/${this.type}/like/${this.id}`, {
+			fetch(`${this.$apiHostname}/${this.type}/like/${this.id}`, {
 				method: 'POST',
 				headers: {
 					'Authorization': `Bearer ${localStorage.getItem('token')}`,

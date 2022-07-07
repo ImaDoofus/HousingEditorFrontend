@@ -35,7 +35,7 @@ export default {
 	},
 	methods: {
 		getItem() {
-			fetch(`${this.$apiHostname}/api/items/${this.id}`, {
+			fetch(`${this.$apiHostname}/items/${this.id}`, {
 				headers: {
 					'Authorization': 'Bearer ' + localStorage.getItem('token'),
 				},

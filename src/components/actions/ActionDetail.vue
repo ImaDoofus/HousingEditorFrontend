@@ -136,7 +136,7 @@ export default {
 			this.deleteDialog = true;
 		},
 		confirmDelete() {
-			fetch(`${this.$apiHostname}/api/actions/${this.action._id}`, {
+			fetch(`${this.$apiHostname}/actions/${this.action._id}`, {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',

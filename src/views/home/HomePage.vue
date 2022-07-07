@@ -78,7 +78,7 @@ export default {
 		}
 	},
 	mounted() {
-		fetch(`${this.$apiHostname}/api/users/count`, {
+		fetch(`${this.$apiHostname}/users/count`, {
 			headers: {
 				'Authorization': 'Bearer ' + localStorage.getItem('token'),
 			},

@@ -56,7 +56,7 @@ export default class UploadContent {
 		}
 
 		try {
-			const response = await fetch(`${hostname}/api/actions${id ? '/' + id : ''}`, {
+			const response = await fetch(`${hostname}/actions${id ? '/' + id : ''}`, {
 				method: id ? 'PUT' : 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ export default class UploadContent {
 		}
 
 		try {
-			const response = await fetch(`${hostname}/api/items${id ? '/' + id : ''}`, {
+			const response = await fetch(`${hostname}/items${id ? '/' + id : ''}`, {
 				method: id ? 'PUT' : 'POST',
 				headers: {
 					'Content-Type': 'application/json',

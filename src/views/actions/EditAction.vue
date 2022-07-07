@@ -68,7 +68,7 @@ export default {
 		if (!this.$route.params.id) return this.$refs.workspace.loading = false;
 		this.id = this.$route.params.id;
 
-		const response = fetch(`${this.$apiHostname}/api/actions/${this.id}`, {
+		const response = fetch(`${this.$apiHostname}/actions/${this.id}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',

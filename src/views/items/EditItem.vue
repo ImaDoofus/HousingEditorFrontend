@@ -70,7 +70,7 @@ export default {
 		if (!this.$route.params.id) return this.$refs.workspace.loading = false;
 		this.id = this.$route.params.id;
 
-		const response = fetch(`${this.$apiHostname}/api/items/${this.id}`, {
+		const response = fetch(`${this.$apiHostname}/items/${this.id}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',

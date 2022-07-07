@@ -27,7 +27,7 @@ export default {
 	methods: {
 		async handleCredentialResponse(response) {
 			try {
-				const postResponse = await fetch(`${this.$apiHostname}/api/users/login`, {
+				const postResponse = await fetch(`${this.$apiHostname}/users/login`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',

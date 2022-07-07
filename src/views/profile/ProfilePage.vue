@@ -133,7 +133,7 @@ export default {
 	},
 	methods: {
 		async getProfile() {
-			const response = await fetch(`${this.$apiHostname}/api/users/profile/${this.userId}`, {
+			const response = await fetch(`${this.$apiHostname}/users/profile/${this.userId}`, {
 				headers: {
 					'Authorization': 'Bearer ' + this.token,
 				},
