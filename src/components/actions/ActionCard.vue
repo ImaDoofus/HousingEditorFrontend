@@ -25,8 +25,8 @@
 							<router-link :to="`profile/${ action.author.id }`" class="user-router-link">@{{ action.author.name }}</router-link>
 							<span class="mx-1 overline">• {{ getUploadDate() }}</span>
 						</v-col>
-						<v-col cols="12" class="ma-0 pa-0 pl-2">
-							<v-chip :class='`ml-1 ${getTagTextColor(tag)}--text`' x-small v-for="tag in action.post.tags" :key="tag" :color="getTagColor(tag)"
+						<v-col class="my-0 py-0 d-flex align-start" style="height: 16px;">
+							<v-chip :class='`mr-1 py-0 my-0 ${getTagTextColor(tag)}--text`' x-small v-for="tag in action.post.tags" :key="tag" :color="getTagColor(tag)"
 								style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 								{{ tag }}
 							</v-chip>
