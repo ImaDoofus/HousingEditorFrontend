@@ -44,7 +44,7 @@
 		<v-dialog v-model="threeDotsDialog" max-width="600">
 			<v-card v-if="action">
 				<v-card-title class="justify-center">
-					<span class="headline">Owner Tools</span>
+					<span class="headline">Menu</span>
 				</v-card-title>
 				<v-card-actions class="d-flex justify-space-around pa-5">
 					<v-btn class="primary" dark @click="shareAction">

@@ -376,7 +376,7 @@ Blockly.Blocks['condition_required_permission'] = {
 Blockly.Blocks['condition_stat_requirement'] = {
 	init: function() {
 		this.isOpened_ = true;
-		this.options_ = { 'STAT': 'stat', 'COMPARATOR': 'EQUAL_TO', 'VALUE': 0 };
+		this.options_ = { 'STAT': 'stat', 'COMPARATOR': 'equal_to', 'VALUE': '0' };
 		this.condition_ = 'condition_stat_requirement';
 		this.appendDummyInput()
 			.appendField(new Blockly.FieldLabel("Stat Requirement ", "block_header"))

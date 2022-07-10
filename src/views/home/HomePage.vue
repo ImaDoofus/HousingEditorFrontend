@@ -1,16 +1,19 @@
 <template>
 	<div>
 		<NavigationBar />
+		<p class="text-h1 text-center pt-5">Housing Editor</p>
+		<p class="text-h2 text-center">The best tool for making housings is finally here! &#127881;</p>
+
 		<v-container>
 			<v-card class="mt-5 pa-5">
-				<v-row class="justify-center mt-1">
-					<span class="text-h2">Housing Editor is finally here! &#127881;</span>
-				</v-row>
-				<v-row class="justify-center">
+				<v-card-title>
+					<span class="text-h3">Housing Editor is released</span>
+				</v-card-title>
+				<v-row class="ml-5">
 					<span class="font-weight-bold mr-1">{{ totalUsers }}</span>
 					<span>users worldwide and counting...</span>
 				</v-row>
-				<v-row class="justify-end mr-0">
+				<v-row class="ml-5">
 					<span class="overline grey--text">By
 						<router-link to="/profile/62c6871f53cc93e40cd459b2">ImaDoofus</router-link>
 					</span>
@@ -44,6 +47,12 @@
 									<v-list-item-content>
 										<v-list-item-title>Release Video &#127909;</v-list-item-title>
 										<v-list-item-subtitle>There is a great release <a href="" target="_blank">video</a></v-list-item-subtitle>
+									</v-list-item-content>
+								</v-list-item>
+								<v-list-item>
+									<v-list-item-content>
+										<v-list-item-title>Join the Discord <v-icon>mdi-discord</v-icon></v-list-item-title>
+										<v-list-item-subtitle><a href="https://discord.gg/jX53YqUShu" target="_blank">https://discord.gg/jX53YqUShu</a></v-list-item-subtitle>
 									</v-list-item-content>
 								</v-list-item>
 							</v-list>
@@ -90,3 +99,12 @@ export default {
 	}
 }
 </script>
+
+<style>
+.frosted {
+	background: rgba(255, 255, 255, 0.3);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+	font-family: 'Minecraft';
+}
+</style>
