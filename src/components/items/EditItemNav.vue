@@ -10,6 +10,10 @@
 				</router-link>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
+			<v-btn v-if="id" class="amber mx-5" text dark @click="copyId()">
+				<span>COPY IMPORT COMMAND</span>
+				<v-icon right>mdi-content-copy</v-icon>
+			</v-btn>
 			<v-btn @click="saveItem">
 				<v-icon>mdi-file-outline</v-icon>
 				<span>Save</span>
@@ -33,13 +37,13 @@ export default {
 	data() {
 		return {
 			buttonEnabled: true,
+			id: null,
 		}
 	},
 	methods: {
 		saveItem() {
 			if (!this.buttonEnabled) {
-				this.$refs.snackbar.show('You haven\'t made any changes yet!')
-				this.$refs.snackbar.color = 'blue';
+				this.$refs.snackbar.show('You haven\'t made any changes yet!', 'blue');
 				this.$refs.snackbar.timeout = 1000;
 			} else {
 				this.$emit('submit');
@@ -54,7 +58,15 @@ export default {
 		},
 		setSaveEnabled(enabled) {
 			this.buttonEnabled = enabled;
-		}
+		},
+		setId(id) {
+			this.id = id;
+		},
+		copyId() {
+			navigator.clipboard.writeText('/loaditem ' + this.id);
+			this.$refs.snackbar.show('Copied import command to clipboard!', 'success');
+			this.$refs.snackbar.timeout = 2000;
+		},
 	},
 	mounted: function () {
 		document.addEventListener("keydown", this.ctrlSHandler);

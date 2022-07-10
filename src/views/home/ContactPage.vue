@@ -2,7 +2,7 @@
 	<div>
 		<NavigationBar />
 		<v-container class="d-flex justify-center">
-			<v-card elevation="0" max-width="800">
+			<v-card elevation="0" max-width="800" class="pa-5">
 				<v-card-title class="justify-center">
 					<span class="text-h2">Contact</span>
 				</v-card-title>

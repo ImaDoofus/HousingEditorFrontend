@@ -3,7 +3,7 @@ import Blockly from 'blockly';
 Blockly.Blocks['set_name'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Set Item Name", "block_header"))
+			.appendField(new Blockly.FieldLabel("Set Item Name  ", "block_header"))
 
 		this.appendValueInput('NAME')
 			.setCheck(['TextComponent'])

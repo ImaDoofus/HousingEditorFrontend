@@ -16,10 +16,11 @@
 				<v-spacer></v-spacer>
 				<img :src="this.getItemIcon()" class="ml-5">
 			</div>
-			<div class="white--text">
+			<div>
 				<span v-for="(loreLine, index) in loreArr" :key="`lore-${index}`"
 					:style="`
-					color: ${loreLine.color};
+					color: ${loreLine.color ? loreLine.color : '#AA00AA'};
+					${loreLine.color ? '' : 'font-style: italic;'}
 					text-decoration: ${loreLine.underlined ? 'underline' : ''} ${loreLine.strikethrough ? 'line-through' : ''};
 					${loreLine.bold ? 'text-shadow: 1px 0px;' : ''}
 					${loreLine.italic ? 'font-style: italic;' : ''}

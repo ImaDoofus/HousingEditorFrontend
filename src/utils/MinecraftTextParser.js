@@ -86,7 +86,7 @@ export default class MCTextParser {
 		const formatRegex = /[0-9a-frlonmk]/;
 		let newText = '';
 		for (let i = 0; i < text.length; i++) {
-			const char = text[i];
+			let char = text[i];
 			if (char === '&' && formatRegex.test(text[i + 1])) {
 				newText += char + text[i + 1];
 				i++;
@@ -94,7 +94,7 @@ export default class MCTextParser {
 			} // skip formatting (skip 2 iterations)
 			let newChar = char;
 			for (let j = 0; j < fontMaps.length; j++) { // go through all font maps so users can swap between fonts
-				const font = fontMaps[j];
+				let font = fontMaps[j];
 				if (fontMap[font.indexOf(char)]) {
 					newChar = fontMap[font.indexOf(char)];
 					break;

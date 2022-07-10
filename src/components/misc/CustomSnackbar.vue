@@ -45,10 +45,10 @@ export default {
 			this.buttonColor = color;
 			this.buttonAction = action;
 		},
-		show(message, success) {
+		show(message, color) {
 			this.shown = true;
 			this.text = message;
-			this.color = success ? 'success' : 'error';
+			this.color = color;
 		}
 	},
 	watch: {

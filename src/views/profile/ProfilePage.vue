@@ -155,7 +155,7 @@ export default {
 			this.loading = true;
 			this.actions = new Array(this.actionDisplayNum).fill({})
 			const json = await requestActionPage(this.$apiHostname, pageNum, this.actionDisplayNum, this.sortBy, this.userId);
-			if (!json) return this.$refs.snackbar.show('Error loading actions', false);
+			if (!json) return this.$refs.snackbar.show('Error loading actions', 'error');
 			this.totalActionPages = json.totalPages;
 			this.actions = json.docs;
 			this.loading = false;
@@ -166,7 +166,7 @@ export default {
 			this.loadingItems = true;
 			this.items = new Array(this.itemsDisplayNum).fill({})
 			const json = await requestItemPage(this.$apiHostname, this.itemPage, this.itemsDisplayNum, this.sortBy, this.userId);
-			if (!json) return this.$refs.snackbar.show('Error loading items', false);
+			if (!json) return this.$refs.snackbar.show('Error loading items', 'error');
 			this.totalItemPages = json.totalPages;
 			this.items = json.docs;
 			this.loadingItems = false;

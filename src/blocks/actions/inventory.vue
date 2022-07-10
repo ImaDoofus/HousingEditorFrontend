@@ -57,7 +57,7 @@ export default {
 		Blockly.Blocks["remove_item"] = {
 			init: function () {
 				this.appendDummyInput()
-					.appendField(new Blockly.FieldLabel("Remove Item", "block_header"));
+					.appendField(new Blockly.FieldLabel("Remove Item  ", "block_header"));
 				this.appendValueInput("ITEM")
 					.setCheck(["CustomItem", "HousingEditorItem"])
 					.appendField("Item:");
@@ -74,7 +74,7 @@ export default {
 		Blockly.Blocks["reset_inventory"] = {
 			init: function () {
 				this.appendDummyInput()
-					.appendField(new Blockly.FieldLabel("Reset Inventory", "block_header"));
+					.appendField(new Blockly.FieldLabel("Reset Inventory  ", "block_header"));
 				this.setPreviousStatement(true, 'action');
 				this.setNextStatement(true, 'action');
 				this.setTooltip("Reset the player's inventory.");
@@ -84,7 +84,7 @@ export default {
 		Blockly.Blocks["housing_editor_item"] = {
 			init: function () {
 				this.appendDummyInput()
-					.appendField(new Blockly.FieldLabel("Housing Editor Item", "block_header"));
+					.appendField(new Blockly.FieldLabel("Housing Editor Item  ", "block_header"));
 				this.appendDummyInput()
 					.appendField(new Blockly.FieldTextInput("Item ID"), "ID");
 				this.setOutput(true, "HousingEditorItem");
@@ -118,7 +118,7 @@ export default {
 		Blockly.Blocks["use_remove_held_item"] = {
 			init: function () {
 				this.appendDummyInput()
-					.appendField(new Blockly.FieldLabel("Use/Remove Held Item", "block_header"));
+					.appendField(new Blockly.FieldLabel("Use/Remove Held Item  ", "block_header"));
 				this.setPreviousStatement(true, 'action');
 				this.setNextStatement(true, 'action');
 				this.setTooltip("Use or remove the player's held item.");

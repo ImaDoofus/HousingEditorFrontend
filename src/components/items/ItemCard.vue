@@ -16,7 +16,7 @@
 				<v-card-title v-else @click="openDialog(item)">
 					<div class="d-flex">
 						<div style="line-height: 10px;">
-							<router-link :to="`${this.$apiHostname}/profile/${ item.author.id }`" class="user-router-link">@{{ item.author.name }}</router-link>
+							<router-link :to="`profile/${ item.author.id }`" class="user-router-link">@{{ item.author.name }}</router-link>
 							<span class="mx-1 overline">• {{ getUploadDate() }}</span>
 						</div>
 						<div class="item_avatar">

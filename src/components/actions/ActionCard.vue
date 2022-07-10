@@ -3,7 +3,7 @@
 		<CustomSnackbar ref='snackbar'/>
 		<ActionDetail ref='actionDetail' @delete='deleteClientSide()' :canDelete='canDelete'/>
 		<v-sheet class="action_card">
-			<v-card :color="loading ? 'card lighten-4' : 'card'" tile>
+			<v-card :color="loading ? 'card lighten-4' : 'card'" tile class="flex-grow-1">
 				<v-card-title v-if="loading" class="grey--text">
 					<div class="d-flex">
 						<div style="line-height: 10px;">
@@ -17,18 +17,25 @@
 					</div>
 				</v-card-title>
 				<v-card-title v-else @click="openDialog(action)">
-					<div class="d-flex">
-						<div style="line-height: 10px;">
+					<v-row class="d-flex" style="white-space: nowrap; overflow: hidden; display: block; text-overflow: ellipsis;">
+						<v-col cols="10" class="my-0 py-0">
 							<span>{{ action.post.title }}</span>
-							<br>
+						</v-col>
+						<v-col cols="12" class="my-0 py-0">
 							<router-link :to="`profile/${ action.author.id }`" class="user-router-link">@{{ action.author.name }}</router-link>
 							<span class="mx-1 overline">• {{ getUploadDate() }}</span>
-						</div>
+						</v-col>
+						<v-col cols="12" class="ma-0 pa-0 pl-2">
+							<v-chip :class='`ml-1 ${getTagTextColor(tag)}--text`' x-small v-for="tag in action.post.tags" :key="tag" :color="getTagColor(tag)"
+								style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+								{{ tag }}
+							</v-chip>
+						</v-col>
 						<div class="action_avatar">
 							<img v-if='action.author.avatar' :src="action.author.avatar" width="64" height="64">
 							<img v-if='action.author.uuid' :src="`https://mc-heads.net/avatar/${action.author.uuid}`" width="64" height="64" style="image-rendering: pixelated;">
 						</div>
-					</div>
+					</v-row>
 				</v-card-title>
 		
 				<v-card-text v-if="loading" class="card_text">
@@ -81,6 +88,26 @@ export default {
 			mutableAction: this.action,
 			loading: true,
 			userId: localStorage.getItem('userId'),
+			actionTags: [
+				{ name: 'Action Pad', color: 'red', textColor: 'black' },
+				{ name: 'Action Button', color: 'pink', textColor: 'black' },
+				{ name: 'NPC', color: 'purple', textColor: 'white' },
+				{ name: 'Region', color: 'deep-purple', textColor: 'white' },
+				{ name: 'Command', color: 'indigo', textColor: 'white' },
+				{ name: 'Event', color: 'blue', textColor: 'black' },
+				{ name: 'Utility', color: 'light-blue', textColor: 'black' },
+				{ name: 'Shop', color: 'cyan', textColor: 'black' },
+				{ name: 'Crafting', color: 'teal', textColor: 'black' },
+				{ name: 'Parkour', color: 'green', textColor: 'black' },
+				{ name: 'Template', color: 'light-green', textColor: 'black' },
+				{ name: 'PVP', color: 'lime', textColor: 'black' },
+				{ name: 'Conditionals', color: 'yellow', textColor: 'black' },
+				{ name: 'Random Action', color: 'amber', textColor: 'black' },
+				{ name: 'Complex', color: 'orange', textColor: 'black' },
+				{ name: 'Simple', color: 'deep-orange', textColor: 'black' },
+				{ name: 'Quest', color: 'brown', textColor: 'white' },
+				{ name: 'Fishing', color: 'blue-grey', textColor: 'white' },
+			],
 		}
 	},
 	methods: {
@@ -114,7 +141,13 @@ export default {
 		},
 		deleteClientSide() {
 			this.loading = true;
-		}
+		},
+		getTagColor(tag) {
+			return this.actionTags.find(t => t.name === tag)?.color || 'grey';
+		},
+		getTagTextColor(tag) {
+			return this.actionTags.find(t => t.name === tag)?.textColor || 'black';
+		},
 	},
 	watch: {
 		action: {

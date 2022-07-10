@@ -53,11 +53,6 @@
 				<block type="set_compass_target"></block>
 			</category>
 		</BlocklyComponent>
-		<v-overlay :opacity="0.2" :value="loading">
-			<v-progress-circular indeterminate size="100">
-				Loading...
-			</v-progress-circular>
-		</v-overlay>
 	</div>
 </template>
 
@@ -89,7 +84,6 @@ export default {
 		return {
 			// code: '',
 			options: {},
-			loading: false,
 		}
 	},
 	methods: {
@@ -97,9 +91,9 @@ export default {
 		// 	this.code = Blockly.workspaceToCode(this.$refs["workspace"].workspace);
 		// },
 		load(json) {
+			console.log(json)
 			Blockly.mainWorkspace.clear();
-			Blockly.serialization.workspaces.load(json,this.workspace)
-			this.loading = false;
+			Blockly.serialization.workspaces.load(json, this.workspace)
 		},
 		save() {
 			return Blockly.serialization.workspaces.save(this.workspace);

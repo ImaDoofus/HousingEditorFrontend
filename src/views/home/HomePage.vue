@@ -37,7 +37,7 @@
 								<v-list-item>
 									<v-list-item-content>
 										<v-list-item-title>Attributions</v-list-item-title>
-										<v-list-item-subtitle>Thanks to everyone who helped&#10084;&#65039;<a href="">See here</a></v-list-item-subtitle>
+										<v-list-item-subtitle>Thanks to everyone who helped&#10084;&#65039;<router-link to="attribution">See here</router-link></v-list-item-subtitle>
 									</v-list-item-content>
 								</v-list-item>
 								<v-list-item>

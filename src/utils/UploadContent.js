@@ -28,7 +28,6 @@ export default class UploadContent {
 		let amassedSize = 0;
 		amassedSize += JSON.stringify(workspace).length;
 		if (contentType === 'action') amassedSize += JSON.stringify(content).length;
-		console.log(amassedSize, maxSizeBytes);
 		if (amassedSize > maxSizeBytes) {
 			return { isValid: false, error: `Content exceeds size limit of ${maxSize}kb` };
 		}
@@ -53,6 +52,7 @@ export default class UploadContent {
 			workspace,
 			content: content.content,
 			title: content.title,
+			tags: content.tags,
 		}
 
 		try {

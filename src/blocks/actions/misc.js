@@ -5,7 +5,7 @@ import soundMap from '@/assets/sounds/soundMap.json';
 Blockly.Blocks['set_gamemode'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Set Gamemode", "block_header"))
+			.appendField(new Blockly.FieldLabel("Set Gamemode ", "block_header"))
 		this.appendDummyInput()
 			.appendField(new Blockly.FieldDropdown([["Adventure", "adventure"], ["Survival", "survival"], ["Creative", "creative"]]), "GAMEMODE");
 		this.setPreviousStatement(true, 'action');
@@ -19,7 +19,7 @@ Blockly.Blocks['set_gamemode'] = {
 Blockly.Blocks['give_experience_levels'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Give Experience Levels", "block_header"))
+			.appendField(new Blockly.FieldLabel("Give Experience Levels  ", "block_header"))
 		this.appendDummyInput()
 			.appendField(new Blockly.FieldNumber(1, 1, 2147483647, 1), "LEVELS");
 		this.setPreviousStatement(true, 'action');
@@ -34,7 +34,7 @@ Blockly.Blocks['give_experience_levels'] = {
 Blockly.Blocks['change_player_group'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Change Player Group", "block_header"))
+			.appendField(new Blockly.FieldLabel("Change Player Group ", "block_header"))
 		this.appendDummyInput()
 			.appendField('Group Name')
 			.appendField(new Blockly.FieldTextInput('name', (newValue) => {
@@ -54,7 +54,7 @@ Blockly.Blocks['change_player_group'] = {
 Blockly.Blocks['random_action'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Random Action", "block_header"))
+			.appendField(new Blockly.FieldLabel("Random Action   ", "block_header"))
 		this.appendStatementInput('ACTIONS')
 			.setCheck('action')
 		this.setPreviousStatement(true, 'action');
@@ -72,20 +72,19 @@ Blockly.Blocks['set_compass_target'] = {
 
 		const dropdown = new Blockly.FieldDropdown([
 			['Custom Coordinates', 'custom_coordinates'],
-			['Housing Spawn', 'housing_spawn'],
+			['Housing Spawn', 'house_spawn'],
 			['Current Location', 'current_location'],
 		]);
 		dropdown.setValidator((newValue) => {
+			if (this.getInput('COORDINATES')) this.removeInput('COORDINATES');
 			if (newValue === 'custom_coordinates') {
 				this.appendDummyInput('COORDINATES')
 					.appendField('X:')
-					.appendField(new Blockly.FieldNumber(0, -100, 100, 1), 'X')
+					.appendField(new Blockly.FieldNumber(0, -80, 80, 0.1), 'X')
 					.appendField('Y:')
-					.appendField(new Blockly.FieldNumber(0, -100, 100, 1), 'Y')
+					.appendField(new Blockly.FieldNumber(0, 0, 255, 0.1), 'Y')
 					.appendField('Z:')
-					.appendField(new Blockly.FieldNumber(0, -100, 100, 1), 'Z');
-			} else {
-				if (this.getInput('COORDINATES')) this.removeInput('COORDINATES');
+					.appendField(new Blockly.FieldNumber(0, -80, 80, 0.1), 'Z');
 			}
 		})
 		this.appendDummyInput()

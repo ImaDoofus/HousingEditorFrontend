@@ -2,7 +2,7 @@
 	<div>
 		<NavigationBar />
 		<v-container class="d-flex justify-center">
-			<v-card elevation="0" max-width="800">
+			<v-card elevation="0" max-width="800" class="pa-5">
 				<v-card-title class="justify-center">
 					<span class="text-h2">Housing Limitations Guide</span>
 				</v-card-title>
@@ -11,12 +11,12 @@
 				<span>Here is a guide to the max amount of everything in housing, really helpful! &#128064;</span>
 				<br>
 				<br>
-				<span>Thank you, <router-link to="/profile/">@wuxule</router-link> for finding these limits!</span>
+				<span>Thank you, <router-link to="/profile/62c74640d7c32facae4047bf">@Wuxule</router-link> for finding these limits!</span>
 				<br>
 				<span>If you spot any mistakes please <router-link to="/contact">Contact me</router-link></span>
 				<br>
 				<br>
-				<div v-for="i in [0,1,2]" :key="i">
+				<div v-for="i in [0,1,2,3]" :key="i">
 					<p class="text-h3 text-center">{{ headers[i][0].text }}</p>
 					<v-data-table 
 						:headers="headers[i]"
@@ -85,6 +85,14 @@ export default {
 						value: 'name',
 					},
 					{ text: 'Constant', value: 'constant' },
+				],
+				[
+					{
+						text: 'Action Pad Limits',
+						align: 'start',
+						value: 'name',
+					},
+					{ text: 'Max Amount', value: 'max' },
 				],
 			],
 			categories: [
@@ -175,6 +183,138 @@ export default {
 						name: 'Teleport Pads',
 						color: 'pink',
 						constant: '12',
+					},
+				],
+				[
+					{
+						name: 'Teleport Player',
+						color: 'red',
+						max: '1',
+					},
+					{
+						name: 'Fail Parkour',
+						color: 'pink',
+						max: '1',
+					},
+					{
+						name: 'Play Sound',
+						color: 'purple',
+						max: '1',
+					},
+					{
+						name: 'Set Compass Target',
+						color: 'deep-purple',
+						max: '1',
+					},
+					{
+						name: 'Set Gamemode',
+						color: 'indigo',
+						max: '1',
+					},
+					{
+						name: 'Set Health',
+						color: 'blue',
+						max: '1',
+					},
+					{
+						name: 'Set Hunger Level',
+						color: 'light-blue',
+						max: '1',
+					},
+					{
+						name: 'Clear All Potion Effects',
+						color: 'cyan',
+						max: '1',
+					},
+					{
+						name: 'Give Experience Levels',
+						color: 'teal',
+						max: '1',
+					},
+					{
+						name: 'Send to Lobby',
+						color: 'green',
+						max: '1',
+					},
+					{
+						name: 'Change Player Group',
+						color: 'light-green  darken-1',
+						max: '1',
+					},
+					{
+						name: 'Kill Player',
+						color: 'lime darken-2',
+						max: '1',
+					},
+					{
+						name: 'Full Heal',
+						color: 'yellow darken-2',
+						max: '1',
+					},
+					{
+						name: 'Go to House Spawn',
+						color: 'amber darken-2',
+						max: '1',
+					},
+					{
+						name: 'Display Title',
+						color: 'orange  darken-1',
+						max: '1',
+					},
+					{
+						name: 'Display Action Bar',
+						color: 'deep-orange',
+						max: '1',
+					},
+					{
+						name: 'Reset Inventory',
+						color: 'red',
+						max: '1',
+					},
+					{
+						name: 'Set Max Health',
+						color: 'pink',
+						max: '1',
+					},
+					{
+						name: 'Parkour Checkpoint',
+						color: 'purple',
+						max: '1',
+					},
+					{
+						name: 'Change Stat',
+						color: 'deep-purple',
+						max: '5',
+					},
+					{
+						name: 'Random Action',
+						color: 'indigo',
+						max: '5',
+					},
+					{
+						name: 'Send a Chat Message',
+						color: 'blue',
+						max: '5',
+					},
+					{
+						name: 'Conditional',
+						color: 'light-blue',
+						max: '15',
+					},
+					{
+						name: 'Give Item',
+						color: 'cyan',
+						max: '20',
+					},
+					{
+						name: 'Remove Item',
+						color: 'teal',
+						max: '20',
+					},
+					{
+						name: 'Apply Potion Effect',
+						color: 'green',
+						max: '22 (one per effect)',
 					},
 				]
 			]

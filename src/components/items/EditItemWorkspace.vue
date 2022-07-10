@@ -59,7 +59,6 @@
 				<block type="set_gamemode"></block>
 				<block type="set_compass_target"></block>
 			</category>
-
 		</BlocklyComponent>
 	</div>
 </template>
@@ -116,8 +115,8 @@ export default {
 		},
 		load(json) {
 			Blockly.mainWorkspace.clear();
-			Blockly.serialization.workspaces.load(json,this.workspace)
-			this.loading = false;
+			Blockly.serialization.workspaces.load(json, this.workspace)
+			this.updatePreview();
 		},
 		save() {
 			return Blockly.serialization.workspaces.save(this.workspace);

@@ -3,7 +3,7 @@ import Blockly from 'blockly/core';
 Blockly.Blocks['full_heal'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Fully Heal Player", "block_header"))
+			.appendField(new Blockly.FieldLabel("Fully Heal Player  ", "block_header"))
 
 		this.setPreviousStatement(true, 'action');
 		this.setNextStatement(true, 'action');
@@ -16,7 +16,7 @@ Blockly.Blocks['full_heal'] = {
 Blockly.Blocks['kill_player'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Kill Player", "block_header"))
+			.appendField(new Blockly.FieldLabel("Kill Player  ", "block_header"))
 
 		this.setPreviousStatement(true, 'action');
 		this.setNextStatement(true, 'action');
@@ -29,11 +29,11 @@ Blockly.Blocks['kill_player'] = {
 Blockly.Blocks['set_health'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Set Health", "block_header"))
+			.appendField(new Blockly.FieldLabel("Set Health ", "block_header"))
 
 		this.appendDummyInput()
 			.appendField('Health:')
-			.appendField(new Blockly.FieldNumber(0, 0, 100, 1), 'HEALTH');
+			.appendField(new Blockly.FieldNumber(20, 1, 100, 1), 'HEALTH');
 
 		this.setPreviousStatement(true, 'action');
 		this.setNextStatement(true, 'action');
@@ -46,11 +46,11 @@ Blockly.Blocks['set_health'] = {
 Blockly.Blocks['set_max_health'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Set Max Health", "block_header"))
+			.appendField(new Blockly.FieldLabel("Set Max Health  ", "block_header"))
 
 		this.appendDummyInput()
 			.appendField('Health:')
-			.appendField(new Blockly.FieldNumber(0, 0, 100, 1), 'HEALTH');
+			.appendField(new Blockly.FieldNumber(20, 1, 100, 1), 'HEALTH');
 
 		this.setPreviousStatement(true, 'action');
 		this.setNextStatement(true, 'action');
@@ -63,11 +63,11 @@ Blockly.Blocks['set_max_health'] = {
 Blockly.Blocks['set_hunger_level'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Set Hunger Level", "block_header"))
+			.appendField(new Blockly.FieldLabel("Set Hunger Level  ", "block_header"))
 
 		this.appendDummyInput()
 			.appendField('Hunger:')
-			.appendField(new Blockly.FieldNumber(0, 0, 100, 1), 'LEVEL');
+			.appendField(new Blockly.FieldNumber(20, 0, 20, 1), 'LEVEL');
 
 		this.setPreviousStatement(true, 'action');
 		this.setNextStatement(true, 'action');

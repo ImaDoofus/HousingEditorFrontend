@@ -32,10 +32,10 @@ Blockly.Blocks['apply_potion_effect'] = {
 			]), 'POTION_EFFECT')
 		this.appendDummyInput('DURATION')
 			.appendField('Duration')
-			.appendField(new Blockly.FieldNumber(10, 0, 3600, 1), 'DURATION')
+			.appendField(new Blockly.FieldNumber(60, 1, 3600, 1), 'DURATION')
 		this.appendDummyInput('AMPLIFIER')
 			.appendField('Amplifier')
-			.appendField(new Blockly.FieldNumber(1, 0, 10, 1), 'AMPLIFIER')
+			.appendField(new Blockly.FieldNumber(1, 1, 10, 1), 'AMPLIFIER')
 		this.appendDummyInput('OVERRIDE_EXISTING_EFFECTS')
 			.appendField('Override Existing Effects')
 			.appendField(new Blockly.FieldCheckbox('FALSE'), 'OVERRIDE_EXISTING_EFFECTS')
@@ -57,7 +57,7 @@ Blockly.Blocks['clear_all_potion_effects'] = {
 	init: function() {
 		this.setColour(80);
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Clear potion effects", "block_header"))
+			.appendField(new Blockly.FieldLabel("Clear potion effects  ", "block_header"))
 		
 		this.setPreviousStatement(true, 'action');
 		this.setNextStatement(true, 'action');

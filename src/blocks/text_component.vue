@@ -144,7 +144,7 @@ export default {
 					return newValue;
 				})
 				this.appendDummyInput()
-					.appendField(new Blockly.FieldLabel('Text', 'block_header'))
+					.appendField(new Blockly.FieldLabel('Text ', 'block_header'))
 					.appendField(input, 'TEXT')
 				this.setOutput(true, 'TextComponent');
 				this.setColour(210);

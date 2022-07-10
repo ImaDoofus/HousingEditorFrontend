@@ -36,6 +36,7 @@ export default {
 			icons: [
 				["mdi-youtube", 'https://www.youtube.com/channel/UC8y_L97-1oCLhJPt9vGW_xw'],
 				["mdi-github", 'https://github.com/ImaDoofus/HousingEditor'],
+				["mdi-discord", 'https://discord.gg/jX53YqUShu']
 			],
 			links: [
 				['/about', 'About'],

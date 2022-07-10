@@ -45,13 +45,13 @@ export default {
 			options.toolbox = this.$refs["blocklyToolbox"];
 		}
 		options.grid = {
-					spacing: 25,
-					length: 25,
-					colour: '#ccc',
-					snap: true,
+					spacing: 30,
+					length: 30,
+					colour: this.getTheme() === 'light_theme' ? '#ccc' : '#333',
+					snap: false,
 				},
 		options.renderer = 'custom_renderer';
-		options.theme = 'custom_theme';
+		options.theme = this.getTheme();
 		options.zoom = {
 					controls: true,
 					wheel: true,
@@ -68,6 +68,11 @@ export default {
 		},
 		this.workspace = Blockly.inject(this.$refs["blocklyDiv"], options);
 		this.$refs.workspaceChange.setWorkspace(this.workspace); // add an event listener for block scope protection, etc.
+	},
+	methods: {
+		getTheme() {
+			return this.$vuetify.theme.dark ? 'dark_theme' : 'light_theme';
+		}
 	}
 }
 </script>

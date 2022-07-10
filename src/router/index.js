@@ -15,6 +15,7 @@ import ProfilePage from '../views/profile/ProfilePage.vue'
 import ContactPage from '../views/home/ContactPage.vue'
 import HousingLimits from '../views/home/HousingLimits.vue'
 import PrivacyPolicy from '../views/home/PrivacyPolicy.vue'
+import AttributionPage from '../views/home/AttributionPage.vue'
 
 Vue.use(VueRouter)
 
@@ -97,6 +98,11 @@ const routes = [
 		path: '/privacy-policy',
 		name: 'privacy-policy',
 		component: PrivacyPolicy
+	},
+	{
+		path: '/attribution',
+		name: 'attribution',
+		component: AttributionPage
 	}
 ]
 

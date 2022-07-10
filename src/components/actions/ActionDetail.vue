@@ -5,6 +5,10 @@
 			<v-card-title class="primary white--text">
 				<span class="headline">{{ action.post.title }}</span>
 				<v-spacer></v-spacer>
+				<span v-if="!isPublic">
+					Private Action
+					<v-icon>mdi-eye</v-icon>
+				</span>
 				<v-btn dark icon @click="threeDotsDialog = true">
 					<v-icon>mdi-dots-vertical</v-icon>
 				</v-btn>
@@ -37,25 +41,30 @@
 
 			<CommentSection />
 		</v-card>
-		<v-dialog v-model="threeDotsDialog" max-width="400">
+		<v-dialog v-model="threeDotsDialog" max-width="600">
 			<v-card v-if="action">
-				<v-card-actions class="d-flex justify-space-around">
+				<v-card-title class="justify-center">
+					<span class="headline">Owner Tools</span>
+				</v-card-title>
+				<v-card-actions class="d-flex justify-space-around pa-5">
 					<v-btn class="primary" dark @click="shareAction">
-						<v-icon>mdi-share</v-icon>
 						Share
+						<v-icon right>mdi-share</v-icon>
 					</v-btn>
 					<router-link :to="`/action/${action._id}`" v-slot="{ href, navigate }" custom>
 						<v-btn class="green" dark :href="href" @click="navigate">
-							<v-icon>mdi-open-in-new</v-icon>
 							View Page
+							<v-icon right>mdi-open-in-new</v-icon>
 						</v-btn>
 					</router-link>
-					<div v-if="userIsOwner">
-						<v-btn class="red" dark @click="deleteAction">
-							<v-icon>mdi-delete</v-icon>
-							Delete
-						</v-btn>
-					</div>
+					<v-btn class="red" dark @click="deleteAction" v-if="userIsOwner">
+						Delete
+						<v-icon right>mdi-delete</v-icon>
+					</v-btn>
+					<v-btn class="amber darken-1" dark @click="setVisibility" v-if="userIsOwner">
+						Set Visibility
+						<v-icon right>mdi-eye</v-icon>
+					</v-btn>
 				</v-card-actions>
 			</v-card>
 		</v-dialog>
@@ -67,9 +76,33 @@
 				<span>Type "<span class="font-weight-bold">{{ action.post.title }}</span>" to delete. <span class="font-weight-bold red--text">(Warning: Cannot undo this action!)</span></span>
 				<v-text-field v-model="deleteInput"></v-text-field>
 				<v-card-actions class="justify-center">
+					<v-btn plain @click="deleteDialog = false">
+						<v-icon>mdi-close</v-icon>
+						Cancel
+					</v-btn>
+					<v-spacer></v-spacer>
 					<v-btn class="red white--text" @click="confirmDelete" :disabled="deleteInputValid">
 						<v-icon>mdi-delete</v-icon>
 						Confirm Delete
+					</v-btn>
+				</v-card-actions>
+			</v-card>
+		</v-dialog>
+		<v-dialog v-model="visibilityDialog" max-width="500">
+			<v-card v-if="action" class="pa-5">
+				<v-card-title class="justify-center">
+					<span class="headline">Set Visibility</span>
+				</v-card-title>
+				<v-select v-model="visibilitySelection" :items="['Public', 'Private']"></v-select>
+				<v-card-actions class="justify-center">
+					<v-btn plain @click="visibilityDialog = false">
+						<v-icon>mdi-close</v-icon>
+						Cancel
+					</v-btn>
+					<v-spacer></v-spacer>
+					<v-btn class="green white--text" @click="confirmSetVisiblity">
+						<v-icon>mdi-delete</v-icon>
+						Confirm
 					</v-btn>
 				</v-card-actions>
 			</v-card>
@@ -103,6 +136,11 @@ export default {
 			deleteDialog: false,
 			deleteInput: '',
 
+			// visibility stuff
+			visibilityDialog: false,
+			visibilitySelection: 'Public',
+			isPublic: false,
+
 			// permission stuff
 			userIsOwner: false,
 
@@ -112,6 +150,9 @@ export default {
 	computed: {
 		deleteInputValid() {
 			return this.action.post.title !== this.deleteInput;
+		},
+		isVisible() {
+			return this.action.isVisible;
 		}
 	},
 	methods: {
@@ -127,6 +168,8 @@ export default {
 		setAction(action) {
 			this.action = action;
 			this.userIsOwner = action.author.id === this.userId;
+			this.visibilitySelection = this.action.isPublic ? 'Public' : 'Private';
+			this.isPublic = this.action.isPublic;
 		},
 		likeComment() {
 			console.log('likeComment');
@@ -134,6 +177,32 @@ export default {
 		deleteAction() {
 			this.threeDotsDialog = false;
 			this.deleteDialog = true;
+		},
+		setVisibility() {
+			this.threeDotsDialog = false;
+			this.visibilityDialog = true;
+		},
+		confirmSetVisiblity() {
+			this.visibilityDialog = false;
+			fetch(`${this.$apiHostname}/actions/set-visibility/${this.action._id}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': 'Bearer ' + localStorage.getItem('token'),
+				},
+				body: JSON.stringify({ visibility: this.visibilitySelection }),
+			}).then(response => {
+				if (response.ok) {
+					this.$refs.snackbar.show('Action visibility updated', 'success');
+					this.$refs.snackbar.timeout = 2000;
+					this.isPublic = this.visibilitySelection === 'Public';
+					this.action.isPublic = this.isPublic;
+				} else {
+					this.$refs.snackbar.show('Error setting visibility', 'error');
+				}
+			}).catch(error => {
+				this.$refs.snackbar.show('Error setting visibility', 'error');
+			});
 		},
 		confirmDelete() {
 			fetch(`${this.$apiHostname}/actions/${this.action._id}`, {
@@ -146,20 +215,17 @@ export default {
 			.then(res => {
 				if (res.status === 200) {
 					this.$refs.snackbar.shown = true;
-					this.$refs.snackbar.text = 'Action deleted';
-					this.$refs.snackbar.color = 'success';
+					this.$refs.snackbar.show('Action deleted', 'success');
 					this.action = null;
 					this.$emit('delete');
 				} else {
 					this.$refs.snackbar.shown = true;
-					this.$refs.snackbar.text = 'Error Deleting' + res.message;
-					this.$refs.snackbar.color = 'error';
+					this.$refs.snackbar.show('Error deleting action ' + res.message, 'error');
 				}
 			})
 			.catch(err => {
 				this.$refs.snackbar.shown = true;
-				this.$refs.snackbar.text = 'Error Deleting' + err;
-				this.$refs.snackbar.color = 'error';
+				this.$refs.snackbar.show('Error deleting action ' + err, 'error');
 			});
 		},
 

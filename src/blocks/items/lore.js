@@ -3,7 +3,7 @@ import Blockly from 'blockly';
 Blockly.Blocks['add_lore'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Add Lore", "block_header"))
+			.appendField(new Blockly.FieldLabel("Add Lore  ", "block_header"))
 
 		this.appendValueInput('LORE')
 			.setCheck(['TextComponent', 'TextJoin'])

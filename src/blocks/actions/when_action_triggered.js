@@ -4,9 +4,9 @@ Blockly.Blocks['when_action_triggered'] = {
 	init: function() {
 		this.setColour(50);
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel(" When Action", "on_activation_block_text"))
+			.appendField(new Blockly.FieldLabel(" When Action ", "block_header"))
 			.appendField(new Blockly.FieldImage("/assets/start_flag.svg", 32, 32, "*"))
-			.appendField(new Blockly.FieldLabel("is Triggered    ", "on_activation_block_text"))
+			.appendField(new Blockly.FieldLabel("is Triggered    ", "block_header"))
 			.setAlign(Blockly.ALIGN_CENTRE);
 		this.setNextStatement(true, 'action');
 		this.setDeletable(false);

@@ -70,7 +70,7 @@ export default {
 			this.loading = true;
 			this.items = new Array(this.displayNum).fill({})
 			const json = await requestItemPage(this.$apiHostname, pageNum, this.displayNum, this.sortBy);
-			if (!json) return this.$refs.snackbar.show('Error loading items', false);
+			if (!json) return this.$refs.snackbar.show('Error loading items', 'error');
 			this.totalPages = json.totalPages;
 			this.items = json.docs;
 			this.loading = false;

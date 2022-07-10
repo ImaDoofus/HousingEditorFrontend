@@ -58,7 +58,7 @@ Blockly.Blocks['conditional'] = {
 		this.inputCount_ = 1;
 
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Conditional", "block_header"))
+			.appendField(new Blockly.FieldLabel("Conditional  ", "block_header"))
 
 		this.appendValueInput("CONDITIONINPUT1")
 			.setCheck("Condition")
@@ -170,7 +170,7 @@ Blockly.Blocks['change_stat'] = {
 Blockly.Blocks['condition_doing_parkour'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Doing Parkour", "block_header"))
+			.appendField(new Blockly.FieldLabel("Doing Parkour  ", "block_header"))
 
 		this.setColour(80)
 		this.setOutput(true, 'Condition');
@@ -183,7 +183,7 @@ Blockly.Blocks['condition_has_potion_effect'] = {
 		this.options_ = { 'POTION_EFFECT': 'Speed' };
 		this.condition_ = 'condition_has_potion_effect';
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Has Potion Effect", "block_header"))
+			.appendField(new Blockly.FieldLabel("Has Potion Effect  ", "block_header"))
 			.appendField(getOpenIcon())
 
 		this.setColour(120)
@@ -304,7 +304,7 @@ Blockly.Blocks['condition_within_region'] = {
 		this.options_ = { 'REGION_NAME': 'Region Name' };
 		this.condition_ = 'condition_within_region';
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Within Region", "block_header"))
+			.appendField(new Blockly.FieldLabel("Within Region ", "block_header"))
 			.appendField(getOpenIcon())
 
 		this.setColour(200)
@@ -327,7 +327,7 @@ Blockly.Blocks['condition_required_permission'] = {
 		this.options_ = { 'PERMISSION': 'FLY' };
 		this.condition_ = 'condition_required_permission';
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Required Permission", "block_header"))
+			.appendField(new Blockly.FieldLabel("Required Permission  ", "block_header"))
 			.appendField(getOpenIcon())
 
 		this.setColour(240)
@@ -379,7 +379,7 @@ Blockly.Blocks['condition_stat_requirement'] = {
 		this.options_ = { 'STAT': 'stat', 'COMPARATOR': 'EQUAL_TO', 'VALUE': 0 };
 		this.condition_ = 'condition_stat_requirement';
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Stat Requirement", "block_header"))
+			.appendField(new Blockly.FieldLabel("Stat Requirement ", "block_header"))
 			.appendField(getOpenIcon())
 
 		this.setColour(280);
@@ -420,7 +420,7 @@ Blockly.Blocks['condition_required_group'] = {
 		this.options_ = { 'GROUP': 'group name', 'INCLUDE_HIGHER_GROUPS': 'TRUE' };
 		this.condition_ = 'condition_required_group';
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel("Required Group", "block_header"))
+			.appendField(new Blockly.FieldLabel("Required Group ", "block_header"))
 			.appendField(getOpenIcon())
 
 		this.setColour(320)

@@ -31,6 +31,11 @@
 						<v-icon right color="black">mdi-puzzle</v-icon>
 					</v-btn>
 
+					<v-btn v-if='!getIsLinked()' class="mx-1 green lighten-2 font-weight-bold" @click="linkAccount">
+						<span class="black--text">link account</span>
+						<v-icon right color="black">mdi-link-variant</v-icon>
+					</v-btn>
+
 					<v-btn class="mx-1 primary font-weight-bold" @click="viewPublicProfile">
 						<span class="black--text">View public profile</span>
 						<v-icon right color="black">mdi-account-group</v-icon>
@@ -186,7 +191,7 @@ export default {
 			this.loadingActions = true;
 			this.actions = new Array(this.actionDisplayNum).fill({})
 			const json = await requestActionPage(this.$apiHostname, this.actionPage, this.actionDisplayNum, this.sortBy, this.userId);
-			if (!json) return this.$refs.snackbar.show('Error loading actions', false);
+			if (!json) return this.$refs.snackbar.show('Error loading actions', 'error');
 			this.totalActionPages = json.totalPages;
 			this.actions = json.docs;
 			this.loadingActions = false;
@@ -197,7 +202,7 @@ export default {
 			this.loadingItems = true;
 			this.items = new Array(this.itemsDisplayNum).fill({})
 			const json = await requestItemPage(this.$apiHostname, this.itemPage, this.itemsDisplayNum, this.sortBy, this.userId);
-			if (!json) return this.$refs.snackbar.show('Error loading items', false);
+			if (!json) return this.$refs.snackbar.show('Error loading items', 'error');
 			this.totalItemPages = json.totalPages;
 			this.items = json.docs;
 			this.loadingItems = false;
@@ -217,10 +222,16 @@ export default {
 		viewPublicProfile() {
 			this.$router.push({ name: 'profile', params: { userId: this.userId } });
 		},
+		linkAccount() {
+			this.$router.push('/link-account');
+		},
+		getIsLinked() {
+			if (!this.user) return true; // while loading
+			return this.user?.minecraft?.uuid;
+		},
 
 		updateSettings() {
 			localStorage.setItem('darkMode', this.darkMode);
-			console.log(this.darkMode, localStorage.getItem('darkMode'));
 			this.$vuetify.theme.dark = this.darkMode;
 		},
 	},

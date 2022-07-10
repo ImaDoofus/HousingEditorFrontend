@@ -39,15 +39,16 @@ export default {
 			}
 			const uploadResult = await UploadContent.uploadAction(this.$refs.workspace.save(), content, user, this.id, this.$apiHostname)
 			if (uploadResult.success) {
-				this.$refs.snackbar.show(uploadResult.message, true);
+				this.$refs.snackbar.show(uploadResult.message, 'success');
 				this.$refs.snackbar.setButton('View', 'white', () => {
 					let routeData = this.$router.resolve({ name: 'action', params: { id: uploadResult.id } });
 					window.open(routeData.href, '_blank');
 				});
 				this.$refs.snackbar.timeout = 3000;
 				this.id = uploadResult.id;
+				this.$refs.nav.setId(this.id);
 			}
-			else this.$refs.snackbar.show(uploadResult.message, false);
+			else this.$refs.snackbar.show(uploadResult.message, 'error');
 		},
 		isCopy() {
 			return this.$route.params.copy;
@@ -65,8 +66,9 @@ export default {
 		if (answer) next();
 	},
 	mounted() {
-		if (!this.$route.params.id) return this.$refs.workspace.loading = false;
+		if (!this.$route.params.id) return;
 		this.id = this.$route.params.id;
+		if (!this.isCopy()) this.$refs.nav.setId(this.id);
 
 		const response = fetch(`${this.$apiHostname}/actions/${this.id}`, {
 			method: 'GET',

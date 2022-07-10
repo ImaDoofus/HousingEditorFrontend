@@ -3,7 +3,7 @@ import Blockly from 'blockly/core';
 Blockly.Blocks['send_a_chat_message'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel('Send A Chat Message', 'block_header'))
+			.appendField(new Blockly.FieldLabel('Send A Chat Message  ', 'block_header'))
 		this.appendValueInput('MESSAGE')
 			.setCheck(['TextComponent']);
 
@@ -19,7 +19,7 @@ Blockly.Blocks['send_a_chat_message'] = {
 Blockly.Blocks['display_action_bar'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel('Display Action Bar', 'block_header'))
+			.appendField(new Blockly.FieldLabel('Display Action Bar   ', 'block_header'))
 		this.appendValueInput('TEXT')
 			.setCheck(['TextComponent']);
 
@@ -35,7 +35,7 @@ Blockly.Blocks['display_action_bar'] = {
 Blockly.Blocks['display_title'] = {
 	init: function() {
 		this.appendDummyInput()
-			.appendField(new Blockly.FieldLabel('Display Title', 'block_header'))
+			.appendField(new Blockly.FieldLabel('Display Title  ', 'block_header'))
 		this.appendValueInput('TITLE')
 			.appendField('Title:')
 			.setCheck(['TextComponent']);
@@ -44,13 +44,13 @@ Blockly.Blocks['display_title'] = {
 			.setCheck(['TextComponent']);
 		this.appendDummyInput('STAY')
 			.appendField('Stay:')
-			.appendField(new Blockly.FieldNumber(1))
+			.appendField(new Blockly.FieldNumber(5, 0, 10, 1), 'STAY')
 		this.appendDummyInput('FADEIN')
 			.appendField('Fadein:')
-			.appendField(new Blockly.FieldNumber(1))
+			.appendField(new Blockly.FieldNumber(1, 0, 3, 1), 'FADEIN')
 		this.appendDummyInput('FADEOUT')
 			.appendField('Fadeout:')
-			.appendField(new Blockly.FieldNumber(1))
+			.appendField(new Blockly.FieldNumber(1, 0, 3, 1), 'FADEOUT')
 
 		this.setColour(300)
 		this.setPreviousStatement(true, 'action');
