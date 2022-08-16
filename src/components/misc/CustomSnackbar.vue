@@ -26,7 +26,7 @@ export default {
 		}
 	},
 	methods: {
-		resetSnackbar() {
+		reset() {
 			this.shown = false;
 			setTimeout(() => {
 				this.text = 'Snackbar';
@@ -53,7 +53,7 @@ export default {
 	},
 	watch: {
 		shown(val) {
-			if (!val) this.resetSnackbar();
+			if (!val) this.reset();
 		}
 	},
 }

@@ -37,10 +37,10 @@ export default {
 				this.$refs.snackbar.text = 'You cant nest conditionals!';
 				// this.$refs.snackbar.buttonText = 'Vote for a new feature!';
 				// this.$refs.snackbar.buttonAction = () => {
-				// 	window.open('https://hypixel.net/threads/conditionals-could-have-been-implemented-differently-from-a-programmers-standpoint.4951381/', '_blank');
+					// window.open('https://hypixel.net/threads/conditionals-could-have-been-implemented-differently-from-a-programmers-standpoint.4951381/', '_blank');
 				// 	this.$refs.snackbar.shown = false;
 				// }
-				// window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+				window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
 			}
 		}
 	},

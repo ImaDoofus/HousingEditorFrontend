@@ -1,5 +1,6 @@
 <template>
 	<div id="app">
+		<CustomSnackbar ref="snackbar" />
 		<TextComponent ref="textComponent" />
 		<PlaySound ref="playSound" />
 		<BlocklyComponent id="workspace" :options="options" ref="workspace">
@@ -72,6 +73,10 @@ import TextComponent from '@/blocks/text_component.vue'
 
 import Blockly from 'blockly';
 
+import LoadFromGame from '@/utils/LoadFromGame.js';
+
+import CustomSnackbar from '@/components/misc/CustomSnackbar.vue';
+
 export default {
 	name: 'EditActionWorkspace',
 	components: {
@@ -79,24 +84,25 @@ export default {
 		InventoryBlocks,
 		TextComponent,
 		PlaySound,
+		CustomSnackbar,
 	},
 	data(){
 		return {
-			// code: '',
 			options: {},
 		}
 	},
 	methods: {
-		// showCode() {
-		// 	this.code = Blockly.workspaceToCode(this.$refs["workspace"].workspace);
-		// },
 		load(json) {
-			console.log(json)
 			Blockly.mainWorkspace.clear();
-			Blockly.serialization.workspaces.load(json, this.workspace)
+			Blockly.serialization.workspaces.load(json, this.workspace);
 		},
 		save() {
 			return Blockly.serialization.workspaces.save(this.workspace);
+		},
+		async loadFromGame(actionData) {
+			this.$refs.snackbar.show('Loading Actions...', 'green');
+			await LoadFromGame.loadToWorkspace(actionData, this.workspace);
+			this.$refs.snackbar.reset();
 		},
 		openSelectItemDialog() {
 			this.$refs.selectItem.dialog = true;
@@ -105,8 +111,7 @@ export default {
 	mounted() {
 		const workspace = this.$refs["workspace"].workspace;
 		this.workspace = workspace;
-		// // set unconnected blocks to be disabled
-		// workspace.addChangeListener(Blockly.Events.disableOrphans);
+
 		var parentBlock = workspace.newBlock('when_action_triggered');
 		parentBlock.initSvg();
 		parentBlock.render();
@@ -121,6 +126,38 @@ export default {
 			this.$emit('change');
 		})
 
+		const testData = [
+			[
+				'conditional',
+				{
+					conditions: [
+						['stat_requirement', { stat: 'tsetaaaaa!', comparator: 'greater_than_or_equal_to', value: '15' }],
+						['required_permission', {
+							permission: ''
+						}],
+						['within_region', {
+							region: 'myRegion'
+						}],
+						['has_item', {
+
+						}],
+						['doing_parkour', {
+
+						}],
+						['has_potion_effect', {
+							effect: 'poison'
+						}],
+						['required_group', {
+							group: 'among su',
+							includeHigherGroups: true,
+						}]
+					]
+				}
+			],
+
+		]
+
+		// this.loadFromGame(testData);
 	}
 }
 </script>

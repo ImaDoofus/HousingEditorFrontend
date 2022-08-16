@@ -26,6 +26,7 @@ export default {
 	},
 	methods: {
 		async handleCredentialResponse(response) {
+			console.log(response)
 			try {
 				const postResponse = await fetch(`${this.$apiHostname}/users/login`, {
 					method: 'POST',

@@ -324,7 +324,7 @@ Blockly.Blocks['condition_within_region'] = {
 Blockly.Blocks['condition_required_permission'] = {
 	init: function() {
 		this.isOpened_ = true;
-		this.options_ = { 'PERMISSION': 'FLY' };
+		this.options_ = { 'PERMISSION': 'Fly' };
 		this.condition_ = 'condition_required_permission';
 		this.appendDummyInput()
 			.appendField(new Blockly.FieldLabel("Required Permission  ", "block_header"))
