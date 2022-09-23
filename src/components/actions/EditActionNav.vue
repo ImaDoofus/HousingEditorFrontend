@@ -4,13 +4,11 @@
 		<v-app-bar flat app class="primary">
 			<v-toolbar-title class="text-uppercase gray-text" style="cursor: pointer">
 				<router-link to="/" style="text-decoration: none; color: inherit;">
-					<!-- <span class="font-weight-light">Housing</span>
-					<span>Editor</span> -->
 					<v-img src="@/assets/logo/logo.svg" width="150" height="40"></v-img>
 				</router-link>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
-			<v-btn v-if="id" class="amber mx-5" text dark @click="copyId()">
+			<v-btn v-if="id" class="amber mr-4" text dark @click="copyId()">
 				<span>COPY ID</span>
 				<v-icon right>mdi-content-copy</v-icon>
 			</v-btn>
@@ -142,7 +140,7 @@ export default {
 			return this.actionTagsValue.map(tag => tag.name);
 		},
 	},
-	mounted: function () {
+	mounted() {
 		document.addEventListener("keydown", this.ctrlSHandler);
 	},
 	beforeDestroy() {

@@ -124,7 +124,7 @@ export default {
 			showMenu: false,
 			placeholderDialog: false,
 			placeholder: '%%stat_**%%',
-			placeholderOptions: ['%%stat_**%%', '%%player%%', '%%group%%', '%%cookies%%', '%%guests%%'],
+			placeholderOptions: ['%%stat_**%%', '%%globalstat_**%%', '%%player%%', '%%group%%', '%%cookies%%', '%%guests%%', '%%ping%%'],
 			statName: '',
 			statNameDialog: false,
 			obfuscatedChars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
@@ -162,7 +162,7 @@ export default {
 	methods: {
 		insertPlaceholder() {
 			this.placeholderDialog = false;
-			if (this.placeholder === '%%stat_**%%') {
+			if (this.placeholder === '%%stat_**%%' || this.placeholder === '%%globalstat_**%%') {
 				this.statNameDialog = true;
 			} else this.emitInsert(this.placeholder);
 		},

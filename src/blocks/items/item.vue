@@ -1,15 +1,15 @@
 <template>
-	<SelectItem ref='selectItem' @itemSelected='itemSelected($event)'/>
+	<ItemEditor ref='itemEditor' @finishedEditing='itemFinishedEditing($event)'/>
 </template>
 
 <script>
 import Blockly from 'blockly/core';
-import SelectItem from '@/components/items/SelectItem.vue';
+import ItemEditor from '@/components/items/ItemEditor.vue';
 
 export default {
 	name: "InventoryBlocks",
 	components: {
-		SelectItem,
+		ItemEditor,
 	},
 	data() {
 		return {

@@ -116,7 +116,6 @@ export default class LoadFromGame {
 
 	static async setConditionalData(block, conditionalData) {
 		const workspace = this.globalWorkspace;
-		console.log(block, block.type)
 		if (Object.keys(conditionalData).length === 0) return; // return if no data to set
 		switch (block.type) {
 			case 'condition_stat_requirement': {

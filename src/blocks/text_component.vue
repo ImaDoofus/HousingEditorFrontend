@@ -1,5 +1,8 @@
 <template>
-	<MinecraftFormattingMenu ref='formatting' class='minecraft_formatting' @insert="formattingInsert" @fontSelected='fontSelected'/>
+	<category name="Text Components" categorystyle="text_components_category">
+		<MinecraftFormattingMenu ref='formatting' class='minecraft_formatting' @insert="formattingInsert" @fontSelected='fontSelected'/>
+		<block type="text_component"></block>
+	</category>
 </template>
 
 <script>
@@ -20,6 +23,10 @@ export default {
 		};
 	},
 	methods: {
+		getImagePath(type, meta, extra = false) {
+			if (extra) return require(`@/assets/minecraft-items/extra/${type}.png`);
+			return require("@/assets/minecraft-items/items/" + type + "-" + meta + ".png");
+		},
 		formattingInsert(insertion) {
 			const selectionStart = this.selectionStart || 0;
 			const selectionEnd = this.selectionEnd || 0;
@@ -98,14 +105,13 @@ export default {
 			workspace.addChangeListener(this.workspaceChangeListener)
 		},
 		workspaceChangeListener(event) {
-		
 			const selectedTextBlock = EventUtil.selectedTextBlock(event);
 			if (selectedTextBlock) {
 				this.selectedTextBlock = selectedTextBlock;
 				this.$refs.formatting.open();
-				this.selectedTextField = selectedTextBlock.inputList[0].fieldRow[1];
+				this.selectedTextField = selectedTextBlock.inputList[0].fieldRow[2];
 				this.$nextTick(() => {
-					const maxTextLength = selectedTextBlock.parentBlock_?.type === 'add_lore' ? 1000 : 50;
+					const maxTextLength = selectedTextBlock.parentBlock_?.type === 'add_lore' ? 1000 : 100;
 					this.$refs.formatting.setMaxTextLength(maxTextLength);
 					this.$refs.formatting.setPreview(this.selectedTextField.getValue());
 				})
@@ -128,7 +134,7 @@ export default {
 			if (event.type === Blockly.Events.BLOCK_MOVE) {
 				if (this.selectedTextBlock && this.selectedTextBlock.id === event.blockId) {
 					if (event.newInputName === 'LORE' || event.newInputName === 'NAME') this.$refs.formatting.setMaxTextLength(1000);
-					else this.$refs.formatting.setMaxTextLength(50);
+					else this.$refs.formatting.setMaxTextLength(100);
 				}
 			}
 
@@ -144,6 +150,7 @@ export default {
 					return newValue;
 				})
 				this.appendDummyInput()
+					.appendField(new Blockly.FieldImage(component.getImagePath(340, 0), 20, 20))
 					.appendField(new Blockly.FieldLabel('Text ', 'block_header'))
 					.appendField(input, 'TEXT')
 				this.setOutput(true, 'TextComponent');

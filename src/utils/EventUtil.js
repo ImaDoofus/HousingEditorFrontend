@@ -1,34 +1,71 @@
 import Blockly from 'blockly';
 
 export default class EventUtil {
-	static maxOfType = {
-		'teleport_player': 1,
-		'fail_parkour': 1,
-		'play_sound': 1,
-		'set_compass_target': 1,
-		'set_gamemode': 1,
-		'set_health': 1,
-		'set_hunger_level': 1,
-		'clear_all_potion_effects': 1,
-		'give_experience_levels': 1,
-		'send_to_lobby': 1,
-		'change_player_group': 1,
-		'kill_player': 1,
-		'full_heal': 1,
-		'go_to_house_spawn': 1,
-		'display_title': 1,
-		'display_action_bar': 1,
-		'reset_inventory': 1,
-		'set_max_health': 1,
-		'parkour_checkpoint': 1,
-		'change_stat': 5,
-		'random_action': 5,
-		'send_a_chat_message': 5,
-		'conditional': 15,
-		'give_item': 20,
-		'remove_item': 20,
-		'apply_potion_effect': 22,
-	}
+	static maxOfType = [
+		['teleport_player', 1],
+		['fail_parkour', 1],
+		['play_sound', 1],
+		['set_compass_target', 1],
+		['set_gamemode', 1],
+		['set_health', 1],
+		['set_hunger_level', 1],
+		['clear_all_potion_effects', 1],
+		['give_experience_levels', 1],
+		['send_to_lobby', 1],
+		['change_player_group', 1],
+		['kill_player', 1],
+		['full_heal', 1],
+		['go_to_house_spawn', 1],
+		['display_title', 1],
+		['display_action_bar', 1],
+		['reset_inventory', 1],
+		['set_max_health', 1],
+		['parkour_checkpoint', 1],
+		['apply_inventory_layout', 1],
+		['exit', 1],
+		['change_player_stat', 5],
+		['change_global_stat', 5],
+		['random_action', 5],
+		['send_a_chat_message', 5],
+		['trigger_function', 10],
+		['conditional', 15],
+		['give_item', 20],
+		['remove_item', 20],
+		['apply_potion_effect', 22],
+	]
+
+	static maxOfTypeInRandomAction = [
+		['teleport_player', 10],
+		['fail_parkour', 10],
+		['play_sound', 10],
+		['set_compass_target', 10],
+		['set_gamemode', 10],
+		['set_health', 10],
+		['set_hunger_level', 10],
+		['clear_all_potion_effects', 10],
+		['give_experience_levels', 10],
+		['send_to_lobby', 10],
+		['change_player_group', 10],
+		['kill_player', 10],
+		['full_heal', 10],
+		['go_to_house_spawn', 10],
+		['display_title', 10],
+		['display_action_bar', 10],
+		['reset_inventory', 10],
+		['set_max_health', 10],
+		['parkour_checkpoint', 10],
+		['apply_inventory_layout', 10],
+		['exit', 10],
+		['change_player_stat', 10],
+		['change_global_stat', 10],
+		['random_action', 10],
+		['send_a_chat_message', 10],
+		['trigger_function', 10],
+		['conditional', 10],
+		['give_item', 20],
+		['remove_item', 20],
+		['apply_potion_effect', 20],
+	]
 
 	static unnestable = [
 		'conditional',
@@ -43,13 +80,12 @@ export default class EventUtil {
 	]
 
 	static findBlockScope(currentBlock, originalBlockID) {
-		if (!currentBlock.getParent()) return { parent: currentBlock, isNested: false };
+		if (!currentBlock.getParent()) return { scope: currentBlock, isNested: false };
 		const parent = currentBlock.getParent();
 		if (EventUtil.scoped_blocks.indexOf(parent.type) > -1) { // if parent is block of type that scopes
-			let scopeBlockChildrenIds = EventUtil.getScopeBlockChildren(parent).ALL.map(block => block.id);
-			if (scopeBlockChildrenIds.indexOf(originalBlockID) > -1) {
-				return { parent, isNested: true };
-			} else return EventUtil.findBlockScope(parent, originalBlockID); // otherwise, keep looking up the tree
+			let scopeBlockChildrenIds = EventUtil.getScopeSiblings(parent).map(block => block.id);
+			if (scopeBlockChildrenIds.indexOf(originalBlockID) > -1) return { scope: parent, isNested: true };
+			else return EventUtil.findBlockScope(parent, originalBlockID); // otherwise, keep looking up the tree
 		}
 		return EventUtil.findBlockScope(parent, originalBlockID);
 	}
@@ -61,74 +97,47 @@ export default class EventUtil {
 		const workspace = Blockly.mainWorkspace;
 		const block = workspace.getBlockById(event.blockId);
 		if (!block.getParent()) return { isValid: true };
-		const { parent, isNested } = EventUtil.findBlockScope(block, block.id); // gets the parent block that scopes it eg conditional, random_action, start_block, etc
-		if (!parent) return { isValid: true };
-		const blockName = block.type.replaceAll('_', ' ').replace(/\b\w/g, s => s.toUpperCase());
-		const parentName = parent.type.replaceAll('_', ' ').replace(/\b\w/g, s => s.toUpperCase());
-		
+		const { scope, isNested } = EventUtil.findBlockScope(block, block.id); // gets the parent block that scopes it eg conditional, random_action, start_block, etc
+		if (!scope) return { isValid: true };
+		const scopeName = scope.type.replaceAll('_', ' ').replace(/\b\w/g, s => s.toUpperCase());
+		if (block.type === 'exit' && scope.type !== 'conditional') return { isValid: false, message: 'Exit blocks can only be placed inside conditional blocks' };
 		if (isNested) { // if the move event is nested in another block, includes action triggered, random action, conditional, etc
-			if (parent.type === 'conditional') {
+			if (scope.type === 'conditional') {
 				if (block.type === 'conditional') return { message: 'easter_egg', isValid: false };
 				if (block.type === 'random_action') return { message: 'Sorry, you can\'t nest a random action inside a conditional', isValid: false };
 			}
-			if (parent.type === 'random_action') {
+			if (scope.type === 'random_action') {
 				if (block.type === 'conditional') return { message: 'Sorry, you can\'t nest a conditional in a random action', isValid: false };
 				if (block.type === 'random_action') return { message: 'Sorry, you can\'t nest a random action within itself', isValid: false };
 			}
 		}
 
-		let children;
-		let conditionalType = '';
-		const childrenObject = EventUtil.getScopeBlockChildren(parent);
-		if (parent.type === 'conditional') {
-			if (childrenObject.IF.map(block => block.id).indexOf(block.id) > -1) {
-				conditionalType = 'IF';
-				children = childrenObject.IF;
-			} else { 
-				conditionalType = 'ELSE';
-				children = childrenObject.ELSE;
-			}
-		} else {
-			children = childrenObject.ALL;
+		let scopeChildren = EventUtil.getScopeSiblings(scope);
+
+		let counts = Object.assign({}, ...EventUtil.maxOfType.map(([type, max]) => ({ [type]: 0 })));
+
+		scopeChildren.forEach(child => counts[child.type]++);
+
+		let maxOfType = scope.type === 'random_action' ? EventUtil.maxOfTypeInRandomAction : EventUtil.maxOfType;
+		for (let [type, max] of maxOfType) {
+			if (counts[type] > max) return { isValid: false, message: `Sorry, you can only have <strong>${max} ${type.replaceAll('_', ' ').replace(/\b\w/g, s => s.toUpperCase())}</strong> blocks in a <strong>${scopeName}</strong>` };
 		}
-
-		let counts = Object.assign(...Object.keys(EventUtil.maxOfType).map(key => ({ [key]: 0 })));
-
-		children.forEach(child => {
-			counts[child.type]++;
-		});
-		
-		const countsOver = Object.entries(counts).filter(entry => entry[1] > EventUtil.maxOfType[entry[0]]);
-		if (countsOver.length > 0) {
-			const over = countsOver[0];
-			const overName = over[0].replaceAll('_', ' ').replace(/\b\w/g, s => s.toUpperCase());
-			const maxCount = EventUtil.maxOfType[over[0]];
-			const plural = maxCount > 1 ? 's' : '';
-			if (EventUtil.scoped_blocks.indexOf(parent.type) > -1) { // if is a block that nests other blocks
-				if (parent.type === 'conditional') {
-					return { message: `Sorry, you can only have <strong>${maxCount} ${overName}</strong> block${plural} in a <strong>${parentName} ${conditionalType}</strong> statement`, isValid: false };
-				} else {
-					return { message: `Sorry, you can only have <strong>${maxCount} ${overName}</strong> block${plural} in a <strong>${parentName}</strong> block`, isValid: false };
-				}
-			} else {
-				return { message: `Sorry, you can only have <strong>${maxCount} ${overName}</strong> block${plural} in this chain of blocks.`, isValid: false };
-			}
-		}
-
 		return { isValid: true };
 	}
 
-	static getScopeBlockChildren(block) {
+	static getScopeSiblings(block, blockId) {
 		switch (block.type) {
 			case 'conditional': {
 				const IF = EventUtil.getInputChildren(block, 'IF');
-				const ELSE = EventUtil.getInputChildren(block, 'ELSE');
-				return { IF, ELSE, ALL: [...IF, ...ELSE] };
+				for (let i = 0; i < IF.length; i++) {
+					if (IF[i].type === 'conditional') return IF;
+				}
+				return EventUtil.getInputChildren(block, 'ELSE');
 			}
-			case 'random_action': return { ALL: EventUtil.getInputChildren(block, 'ACTIONS') };
-			case 'when_action_triggered': return { ALL: EventUtil.getShallowChildren(block) };
-			case 'right_click_action': return { ALL: EventUtil.getShallowChildren(block) };
-			default: return { ALL: EventUtil.getShallowChildren(block) };
+			case 'random_action': return EventUtil.getInputChildren(block, 'ACTIONS');
+			case 'when_action_triggered': return EventUtil.getShallowChildren(block);
+			case 'right_click_action': return EventUtil.getShallowChildren(block);
+			default: return EventUtil.getShallowChildren(block);
 		}
 	}
 

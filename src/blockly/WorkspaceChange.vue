@@ -32,14 +32,9 @@ export default {
 			}
 			if (eventIsValid.message === 'easter_egg') {
 				this.$refs.snackbar.shown = true;
-				this.$refs.snackbar.color = 'warning';
-				// this.$refs.snackbar.text = 'You cant nest conditionals, yet...';
-				this.$refs.snackbar.text = 'You cant nest conditionals!';
-				// this.$refs.snackbar.buttonText = 'Vote for a new feature!';
-				// this.$refs.snackbar.buttonAction = () => {
-					// window.open('https://hypixel.net/threads/conditionals-could-have-been-implemented-differently-from-a-programmers-standpoint.4951381/', '_blank');
-				// 	this.$refs.snackbar.shown = false;
-				// }
+				this.$refs.snackbar.timeout = 10000;
+				this.$refs.snackbar.color = 'success';
+				this.$refs.snackbar.text = 'You cant nest conditionals! So get rick rolled instead!';
 				window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
 			}
 		}

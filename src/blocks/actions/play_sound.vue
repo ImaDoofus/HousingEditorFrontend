@@ -12,51 +12,25 @@ export default {
 	name: 'PlaySound',
 	data() {
 		return {
-			soundPath: '',
-			soundPitch: 1,
-			workspace: null,
-			sounds: {},
 		}
 	},
 	methods: {
-		playPreviewSound() {
-			const soundData = soundMap[this.soundPath]
-			const random = soundData.sounds[Math.floor(Math.random() * soundData.sounds.length)];
-			let sound;
-			if (this.sounds[random]) {	
-				sound = this.sounds[random];
-			} else {
-				sound = new Audio(require(`@/assets/sounds/audio/${random}.ogg`));
-				this.sounds[random] = sound;
-			}
+		playPreviewSound(mcName, pitch) {
+			let soundMapPath = housingSounds.find(sound => sound.name === mcName).path;
+			let soundData = soundMap[soundMapPath];
+			let random = soundData.sounds[Math.floor(Math.random() * soundData.sounds.length)];
+			let soundPath = typeof random === 'string' ? random : random.name; // The sound array can contain either a string or an object with a name property
+			let sound = new Audio(require(`@/assets/sounds/audio/${soundPath}.ogg`));
 			sound.currentTime = 0;
-			sound.playbackRate = Math.max(0.5, this.soundPitch); // normalize to sound like minecraft pitch
+			sound.playbackRate = pitch;
 			sound.preservesPitch = false;
 			sound.mozPreservesPitch = false;
 			sound.play();
 		},
-		setSound(sound) {
-			this.soundPath = sound.path;
+		getImagePath(type, meta, extra = false) {
+			if (extra) return require(`@/assets/minecraft-items/extra/${type}.png`);
+			return require("@/assets/minecraft-items/items/" + type + "-" + meta + ".png");
 		},
-		setPitch(pitch) {
-			this.soundPitch = pitch;
-		},
-		setWorkspace(workspace) {
-			this.workspace = workspace;
-			this.workspace.addChangeListener(this.workspaceChangeListener)
-		},
-		workspaceChangeListener(event) {
-			if (event.type !== Blockly.Events.BLOCK_CHANGE) return;
-
-			const block = this.workspace.getBlockById(event.blockId);
-
-			if (block.type === 'play_sound') {
-				const sound = housingSounds.find(sound => sound.name === block.getFieldValue('SOUND'));
-				this.setSound(sound);
-				this.setPitch(block.getFieldValue('PITCH'));
-				if (event.name === 'SOUND') this.playPreviewSound();
-			}
-		}
 	},
 	mounted() {
 		const component = this;
@@ -64,22 +38,18 @@ export default {
 		Blockly.Blocks['play_sound'] = {
 			init: function() {
 				this.appendDummyInput()
+					.appendField(new Blockly.FieldImage(component.getImagePath(25, 0), 20, 20))
 					.appendField(new Blockly.FieldLabel("Play Sound", "block_header"))
 					.appendField(new Blockly.FieldImage('/assets/volume-high.svg', 24, 24, '*', () => {
-						component.playPreviewSound();
+						component.playPreviewSound(this.getFieldValue('SOUND'), this.getFieldValue('PITCH'));
 					}))
 				this.appendDummyInput()
 					.appendField('Pitch')
-					.appendField(new FieldSlider(1, 0.5, 2, 0.1, (newValue) => {
-						component.setPitch(newValue);
-					}), "PITCH");
+					.appendField(new FieldSlider(1, 0.5, 2, 0.1), "PITCH");
 
 				const dropdown = new Blockly.FieldDropdown(() => {
 					return housingSounds.map(sound => { return [sound.name, sound.name] });
 				});
-				dropdown.setValidator((newValue) => {
-					component.setSound(housingSounds.find(sound => sound.name === newValue));
-				})
 
 				this.appendDummyInput()
 					.appendField('Sound')

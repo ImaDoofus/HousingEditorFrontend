@@ -26,11 +26,6 @@
 						<v-icon right color="black">mdi-sword</v-icon>
 					</v-btn>
 
-					<v-btn class="mx-1 red lighten-2 font-weight-bold" @click="createPlugin">
-						<span class="black--text">new plugin (coming soon)</span>
-						<v-icon right color="black">mdi-puzzle</v-icon>
-					</v-btn>
-
 					<v-btn v-if='!getIsLinked()' class="mx-1 green lighten-2 font-weight-bold" @click="linkAccount">
 						<span class="black--text">link account</span>
 						<v-icon right color="black">mdi-link-variant</v-icon>
@@ -52,9 +47,6 @@
 			</v-tab>
 			<v-tab>Items
 				<v-icon small right>mdi-sword</v-icon>
-			</v-tab>
-			<v-tab>Plugins
-				<v-icon small right>mdi-puzzle</v-icon>
 			</v-tab>
 			<v-tab>Account Settings
 				<v-icon small right>mdi-wrench</v-icon>
@@ -213,11 +205,6 @@ export default {
 		},
 		createItem() {
 			this.$router.push('/edit-item');
-		},
-		createPlugin() {
-			this.$refs.snackbar.shown = true;
-			this.$refs.snackbar.text = 'Housing plugins coming soon...';
-			this.$refs.snackbar.color = 'success';
 		},
 		viewPublicProfile() {
 			this.$router.push({ name: 'profile', params: { userId: this.userId } });

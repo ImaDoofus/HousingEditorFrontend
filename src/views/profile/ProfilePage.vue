@@ -29,9 +29,6 @@
 			<v-tab>Items
 				<v-icon small right>mdi-sword</v-icon>
 			</v-tab>
-			<v-tab>Plugins
-				<v-icon small right>mdi-puzzle</v-icon>
-			</v-tab>
 		</v-tabs>
 		<v-tabs-items v-model="tab" class="pa-5">
 			<v-tab-item>

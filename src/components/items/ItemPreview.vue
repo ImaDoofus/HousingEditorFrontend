@@ -12,9 +12,10 @@
 						`"
 						class="minecraft-text">{{ nameLine.text }}</span>
 				</div>
-				<span v-else class="white--text">{{ this.item.name }}</span>
+				<span v-else class="white--text">{{ item.name }}</span>
 				<v-spacer></v-spacer>
 				<img :src="this.getItemIcon()" class="ml-5">
+				<span v-if="item.count" :style="item.count > 0 && item.count < 65 ? `color: #FFF` : 'color: #F55'" id="item-count">{{ item.count }}</span>
 			</div>
 			<div>
 				<span v-for="(loreLine, index) in loreArr" :key="`lore-${index}`"
@@ -27,6 +28,10 @@
 					`"
 					class="minecraft-text">{{ loreLine.text }}<br v-if="loreLine.break"></span>
 			</div>
+			<div v-if="showEnchantments">
+				<span v-for="enchantment in enchantments.filter(enchantment => enchantment.level !== 0)" :key="enchantment.name" style="color: #AAA">{{ enchantment.name }} {{ convertToRoman(enchantment.level) }}<br></span>
+			</div>
+			<span v-if="showUnbreakable" style="color: #55F">Unbreakable</span>
 			<span class="grey--text text--darken-2">minecraft:{{ this.item.text_type }}</span>
 		</div>
 	</div>
@@ -34,7 +39,7 @@
 
 <script>
 import fontWidths from '@/assets/fonts/fontWidths.json'
-import MCTextParser from '@/utils/MinecraftTextParser'
+import MCTextParser from '@/utils/MinecraftTextParser.js'
 
 export default {
 	name: 'ItemPreview',
@@ -54,10 +59,23 @@ export default {
 			},
 		}
 	},
-	props: ['item', 'name', 'lore'],
+	props: ['item', 'name', 'lore', 'enchantments', 'flags'],
 	methods: {
 		getItemIcon() {
 			return require('@/assets/minecraft-items/items/' + this.item.type + '-' + this.item.meta + '.png');
+		},
+		convertToRoman(num) {
+			let lookup = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1},
+				roman = '',
+				i;
+			for (i in lookup) {
+				while (num >= lookup[i]) {
+					if (roman.length > 25) return 'ERROR';
+					roman += i;
+					num -= lookup[i];
+				}
+			}
+			return roman;
 		},
 	},
 	mounted() {
@@ -85,6 +103,14 @@ export default {
 			deep: true,
 		},
 	},
+	computed: {
+		showUnbreakable() {
+			return this.flags.filter(flag => flag.name === 'Show Unbreakable')[0].shown && this.item.unbreakable;
+		},
+		showEnchantments() {
+			return this.flags.filter(flag => flag.name === 'Show Enchantments')[0].shown;
+		}
+	}
 }
 </script>
 
@@ -104,5 +130,11 @@ export default {
 }
 .minecraft-text {
 	text-decoration-thickness: 2px !important;
+}
+
+#item-count {
+	position: absolute;
+	top: 12px;
+	right: 0;
 }
 </style>

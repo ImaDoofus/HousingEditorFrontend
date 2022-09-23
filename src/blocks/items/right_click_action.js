@@ -11,6 +11,6 @@ Blockly.Blocks['right_click_action'] = {
 		this.setDeletable(false);
 		// this.setMovable(false);
 		this.setEditable(false);
-		this.setTooltip("Any code connected to this will be run when an action is triggered." + "<br>" + "When a player steps on an action pad, clicks an action button, etc.");
+		this.setTooltip("The code connected to this block will run when the item is right clicked.");
 	}
 }

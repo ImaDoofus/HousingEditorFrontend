@@ -73,13 +73,7 @@ import '@/blocks/items/lore.js'
 import ItemPreview from '@/components/items/ItemPreview.vue'
 
 // right click action blocks
-import '@/blocks/actions/messages.js';
-import '@/blocks/actions/parkour.js';
-import '@/blocks/actions/potion_effects.js';
-import '@/blocks/actions/health.js';
-import '@/blocks/actions/teleport.js';
 import InventoryBlocks from '@/blocks/actions/inventory.vue';
-import '@/blocks/actions/misc.js';
 import PlaySound from '@/blocks/actions/play_sound.vue';
 
 // text components

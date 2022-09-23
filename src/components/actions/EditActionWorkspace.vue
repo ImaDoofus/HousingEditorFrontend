@@ -4,70 +4,31 @@
 		<TextComponent ref="textComponent" />
 		<PlaySound ref="playSound" />
 		<BlocklyComponent id="workspace" :options="options" ref="workspace">
-			<category name="Text Components" categorystyle="text_components_category">
-				<block type="text_component"></block>
-			</category>
+			<TextComponent />
 			<sep></sep>
-			<category name="Stats" categorystyle="stats_category">
-				<block type="conditional"></block>
-				<block type="change_stat"></block>
-				<block type="condition_doing_parkour"></block>
-				<block type="condition_has_potion_effect"></block>
-				<block type="condition_has_item"></block>
-				<block type="condition_within_region"></block>
-				<block type="condition_required_permission"></block>
-				<block type="condition_stat_requirement"></block>
-				<block type="condition_required_group"></block>
-			</category>
-			<category name="Messages" categorystyle="messages_category">
-				<block type="send_a_chat_message"></block>
-				<block type="display_action_bar"></block>
-				<block type="display_title"></block>
-			</category>
-			<category name="Potion Effects" categorystyle="potion_effects_category">
-				<block type="apply_potion_effect"></block>
-				<block type="clear_all_potion_effects"></block>
-			</category>
-			<category name="Health & Hunger" categorystyle="health_category">
-				<block type="full_heal"></block>
-				<block type="kill_player"></block>
-				<block type="set_health"></block>
-				<block type="set_max_health"></block>
-				<block type="set_hunger_level"></block>
-			</category>
-			<category name="Teleportation" categorystyle="teleportation_category">
-				<block type="teleport_player"></block>
-				<block type="go_to_house_spawn"></block>
-				<block type="send_to_lobby"></block>
-			</category>
+			<LogicBlocks />
+			<MessagesBlocks />
+			<PotionEffectsBlocks />
+			<HealthBlocks />
+			<TeleportationBlocks />
 			<InventoryBlocks :isItem='false'/>
-			<category name="Parkour" categorystyle="parkour_category">
-				<block type="parkour_checkpoint"></block>
-				<block type="fail_parkour"></block>
-			</category>
-			<category name="Miscellaneous" categorystyle="miscellaneous_category">
-				<block type="random_action"></block>
-				<block type="give_experience_levels"></block>
-				<block type="change_player_group"></block>
-				<block type="play_sound"></block>
-				<block type="set_gamemode"></block>
-				<block type="set_compass_target"></block>
-			</category>
+			<ParkourBlocks />
+			<MiscBlocks />
 		</BlocklyComponent>
 	</div>
 </template>
 
 <script>
 import BlocklyComponent from '@/blockly/BlocklyComponent.vue';
-import '@/blocks/actions/conditionals.js';
-import '@/blocks/actions/messages.js';
-import '@/blocks/actions/parkour.js';
-import '@/blocks/actions/potion_effects.js';
-import '@/blocks/actions/health.js';
 import '@/blocks/actions/when_action_triggered.js';
-import '@/blocks/actions/teleport.js';
+import MessagesBlocks from '@/blocks/actions/messages.vue';
+import TeleportationBlocks from '@/blocks/actions/teleportation.vue';
+import PotionEffectsBlocks from '@/blocks/actions/potion_effects.vue';
+import MiscBlocks from '@/blocks/actions/misc.vue';
 import InventoryBlocks from '@/blocks/actions/inventory.vue';
-import '@/blocks/actions/misc.js';
+import LogicBlocks from '@/blocks/actions/logic.vue';
+import HealthBlocks from '@/blocks/actions/health.vue';
+import ParkourBlocks from '@/blocks/actions/parkour.vue';
 import PlaySound from '@/blocks/actions/play_sound.vue';
 import TextComponent from '@/blocks/text_component.vue'
 
@@ -82,6 +43,13 @@ export default {
 	components: {
 		BlocklyComponent,
 		InventoryBlocks,
+		LogicBlocks,
+		HealthBlocks,
+		ParkourBlocks,
+		MiscBlocks,
+		PotionEffectsBlocks,
+		MessagesBlocks,
+		TeleportationBlocks,
 		TextComponent,
 		PlaySound,
 		CustomSnackbar,
@@ -120,7 +88,6 @@ export default {
 		workspace.clearUndo(); // clear undo stack so user can't undo the block initialization
 
 		this.$refs.textComponent.setWorkspace(workspace)
-		this.$refs.playSound.setWorkspace(workspace)
 
 		this.workspace.addChangeListener(event => {
 			this.$emit('change');
@@ -131,7 +98,7 @@ export default {
 				'conditional',
 				{
 					conditions: [
-						['stat_requirement', { stat: 'tsetaaaaa!', comparator: 'greater_than_or_equal_to', value: '15' }],
+						['player_stat_requirement', { stat: 'tsetaaaaa!', comparator: 'greater_than_or_equal_to', value: '15' }],
 						['required_permission', {
 							permission: ''
 						}],
