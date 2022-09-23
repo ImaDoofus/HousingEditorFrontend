@@ -173,7 +173,15 @@ export default {
 				this.appendDummyInput()
 					.appendField('Operation')
 					.appendField(dropdown, 'MODE')
-					.appendField(new Blockly.FieldNumber(1, 0, 2147483647, 1), 'VALUE')
+					.appendField(new Blockly.FieldTextInput('1', function (newValue) {
+						console.log(newValue);
+						if (!isNaN(newValue)) {
+							if (newValue < 0) return null;
+							if (newValue > 2147483647) return null;
+							return newValue;
+						}
+						return newValue;
+					}), 'VALUE')
 
 				this.setColour(60);
 				this.setPreviousStatement(true, 'action');
@@ -198,7 +206,15 @@ export default {
 				this.appendDummyInput()
 					.appendField('Operation')
 					.appendField(dropdown, 'MODE')
-					.appendField(new Blockly.FieldNumber(1, 0, 2147483647, 1), 'VALUE')
+					.appendField(new Blockly.FieldTextInput('1', function (newValue) {
+						console.log(newValue);
+						if (!isNaN(newValue)) {
+							if (newValue < 0) return null;
+							if (newValue > 2147483647) return null;
+							return newValue;
+						}
+						return newValue;
+					}), 'VALUE')
 
 				this.setColour(150);
 				this.setPreviousStatement(true, 'action');

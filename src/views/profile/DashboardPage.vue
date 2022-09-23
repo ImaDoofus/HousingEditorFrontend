@@ -87,9 +87,6 @@
 					</v-col>
 			</v-tab-item>
 			<v-tab-item>
-				<span class="text-h3 grey--text text--lighten-2">Coming soon...</span>
-			</v-tab-item>
-			<v-tab-item>
 				<v-form>
 					<span>Manage your Account</span>
 					<v-checkbox label="Dark Theme" v-model="darkMode"></v-checkbox>

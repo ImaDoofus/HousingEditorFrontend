@@ -66,9 +66,6 @@
 					</v-col>
 				</v-row>
 			</v-tab-item>
-			<v-tab-item>
-				<span class="text-h3 grey--text text--lighten-2">Coming soon...</span>
-			</v-tab-item>
 		</v-tabs-items>
 	</div>
 </template>
