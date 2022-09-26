@@ -83,7 +83,7 @@ export default class EventUtil {
 		if (!currentBlock.getParent()) return { scope: currentBlock, isNested: false };
 		const parent = currentBlock.getParent();
 		if (EventUtil.scoped_blocks.indexOf(parent.type) > -1) { // if parent is block of type that scopes
-			let scopeBlockChildrenIds = EventUtil.getScopeSiblings(parent).map(block => block.id);
+			let scopeBlockChildrenIds = EventUtil.getScopeSiblings(parent, originalBlockID).map(block => block.id);
 			if (scopeBlockChildrenIds.indexOf(originalBlockID) > -1) return { scope: parent, isNested: true };
 			else return EventUtil.findBlockScope(parent, originalBlockID); // otherwise, keep looking up the tree
 		}
@@ -129,8 +129,9 @@ export default class EventUtil {
 		switch (block.type) {
 			case 'conditional': {
 				const IF = EventUtil.getInputChildren(block, 'IF');
+				console.log(IF)
 				for (let i = 0; i < IF.length; i++) {
-					if (IF[i].type === 'conditional') return IF;
+					if (IF[i].id === blockId) return IF;
 				}
 				return EventUtil.getInputChildren(block, 'ELSE');
 			}
