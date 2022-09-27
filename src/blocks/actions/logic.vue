@@ -176,7 +176,7 @@ export default {
 					.appendField(new Blockly.FieldTextInput('1', function (newValue) {
 						console.log(newValue);
 						if (!isNaN(newValue)) {
-							if (newValue < 0) return null;
+							if (newValue < -2147483647) return null;
 							if (newValue > 2147483647) return null;
 							return newValue;
 						}
@@ -209,7 +209,7 @@ export default {
 					.appendField(new Blockly.FieldTextInput('1', function (newValue) {
 						console.log(newValue);
 						if (!isNaN(newValue)) {
-							if (newValue < 0) return null;
+							if (newValue < -2147483647) return null;
 							if (newValue > 2147483647) return null;
 							return newValue;
 						}
