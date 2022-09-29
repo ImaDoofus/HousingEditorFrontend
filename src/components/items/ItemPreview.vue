@@ -105,10 +105,10 @@ export default {
 	},
 	computed: {
 		showUnbreakable() {
-			return this.flags.filter(flag => flag.name === 'Show Unbreakable')[0].shown && this.item.unbreakable;
+			return this.flags.filter(flag => flag.name === 'Show Unbreakable')[0]?.shown && this.item.unbreakable;
 		},
 		showEnchantments() {
-			return this.flags.filter(flag => flag.name === 'Show Enchantments')[0].shown;
+			return this.flags.filter(flag => flag.name === 'Show Enchantments')[0]?.shown;
 		}
 	}
 }

@@ -6,14 +6,14 @@
 		<BlocklyComponent id="workspace" :options="options" ref="workspace">
 			<TextComponent />
 			<sep></sep>
-			<LogicBlocks />
+			<LogicBlocks :isItem='false' />
 			<MessagesBlocks />
 			<PotionEffectsBlocks />
 			<HealthBlocks />
 			<TeleportationBlocks />
 			<InventoryBlocks :isItem='false'/>
 			<ParkourBlocks />
-			<MiscBlocks />
+			<MiscBlocks :isItem='false' />
 		</BlocklyComponent>
 	</div>
 </template>

@@ -1,21 +1,21 @@
 <template>
 	<category name="Logic" categorystyle="logic_category">
-		<block type="conditional"></block>
+		<block v-if="!isItem" type="conditional"></block>
 		<block type="trigger_function"></block>
-		<block type="exit"></block>
-		<block type="change_player_stat"></block>
-		<block type="change_global_stat"></block>
-		<block type="condition_doing_parkour"></block>
-		<block type="condition_has_potion_effect"></block>
-		<block type="condition_has_item"></block>
-		<block type="condition_within_region"></block>
-		<block type="condition_required_permission"></block>
-		<block type="condition_player_stat_requirement"></block>
-		<block type="condition_global_stat_requirement"></block>
-		<block type="condition_required_group"></block>
-		<block type="condition_damage_cause"></block>
-		<block type="condition_block_type"></block>
-		<block type="cancel_event"></block>
+		<block v-if="!isItem" type="exit"></block>
+		<block v-if="!isItem" type="change_player_stat"></block>
+		<block v-if="!isItem" type="change_global_stat"></block>
+		<block v-if="!isItem" type="condition_doing_parkour"></block>
+		<block v-if="!isItem" type="condition_has_potion_effect"></block>
+		<block v-if="!isItem" type="condition_has_item"></block>
+		<block v-if="!isItem" type="condition_within_region"></block>
+		<block v-if="!isItem" type="condition_required_permission"></block>
+		<block v-if="!isItem" type="condition_player_stat_requirement"></block>
+		<block v-if="!isItem" type="condition_global_stat_requirement"></block>
+		<block v-if="!isItem" type="condition_required_group"></block>
+		<block v-if="!isItem" type="condition_damage_cause"></block>
+		<block v-if="!isItem" type="condition_block_type"></block>
+		<block v-if="!isItem" type="cancel_event"></block>
 	</category>
 </template>
 
@@ -30,6 +30,11 @@ export default {
 	data() {
 		return {
 		};
+	},
+	props: {
+		isItem: {
+			type: Boolean,
+		},
 	},
 	methods: {
 		getImagePath(type, meta, extra = false) {

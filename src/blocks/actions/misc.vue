@@ -1,8 +1,8 @@
 <template>
 	<category name="Miscellaneous" categorystyle="miscellaneous_category">
-		<block type="random_action"></block>
+		<block v-if="!isItem" type="random_action"></block>
 		<block type="give_experience_levels"></block>
-		<block type="change_player_group"></block>
+		<block v-if="!isItem" type="change_player_group"></block>
 		<block type="play_sound"></block>
 		<block type="set_gamemode"></block>
 		<block type="set_compass_target"></block>
@@ -19,6 +19,11 @@ export default {
 	data() {
 		return {
 		};
+	},
+	props: {
+		isItem: {
+			type: Boolean,
+		},
 	},
 	methods: {
 		getImagePath(type, meta, extra = false) {

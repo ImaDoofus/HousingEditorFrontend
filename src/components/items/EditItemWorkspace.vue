@@ -14,7 +14,7 @@
 					<v-icon>mdi-arrow-collapse-all</v-icon>
 				</v-btn>
 			</v-card-title>
-			<ItemPreview v-if="preview" :name='previewName' :lore='previewLore' :item='previewItem'/>
+			<ItemPreview v-if="preview" :name='previewName' :lore='previewLore' :item='previewItem' :enchantments="[]" :flags="[]"/>
 		</v-card>
 		<ItemBlock @itemSelected='itemWasSelected'/>
 		<BlocklyComponent id="workspace" :options="options" ref="workspace">
@@ -23,42 +23,15 @@
 				<block type="add_lore"></block>
 			</category>
 			<sep></sep>
-			<category name="Text Components" categorystyle="text_components_category">
-				<block type="text_component"></block>
-			</category>
-			<sep></sep>
-			<category name="Messages" categorystyle="messages_category">
-				<block type="send_a_chat_message"></block>
-				<block type="display_action_bar"></block>
-				<block type="display_title"></block>
-			</category>
-			<category name="Parkour" categorystyle="parkour_category">
-				<block type="parkour_checkpoint"></block>
-				<block type="fail_parkour"></block>
-			</category>
-			<category name="Potion Effects" categorystyle="potion_effects_category">
-				<block type="apply_potion_effect"></block>
-				<block type="clear_all_potion_effects"></block>
-			</category>
-			<category name="Health & Hunger" categorystyle="health_category">
-				<block type="full_heal"></block>
-				<block type="kill_player"></block>
-				<block type="set_health"></block>
-				<block type="set_max_health"></block>
-				<block type="set_hunger_level"></block>
-			</category>
-			<category name="Teleportation" categorystyle="teleportation_category">
-				<block type="teleport_player"></block>
-				<block type="go_to_house_spawn"></block>
-				<block type="send_to_lobby"></block>
-			</category>
+			<LogicBlocks :isItem="true" />
+			<MessagesBlocks />
+			<PotionEffectsBlocks />
+			<HealthBlocks />
+			<TeleportationBlocks />
+			<ParkourBlocks />
+			<MiscBlocks :isItem="true" />
 			<InventoryBlocks :isItem='true'/>
-			<category name="Miscellaneous" categorystyle="miscellaneous_category">
-				<block type="give_experience_levels"></block>
-				<block type="play_sound"></block>
-				<block type="set_gamemode"></block>
-				<block type="set_compass_target"></block>
-			</category>
+
 		</BlocklyComponent>
 	</div>
 </template>
@@ -67,13 +40,20 @@
 import BlocklyComponent from '@/blockly/BlocklyComponent.vue'
 import Blockly from 'blockly';
 import ItemBlock from '@/blocks/items/item.vue';
-import '@/blocks/items/right_click_action.js'
-import '@/blocks/items/name.js'
-import '@/blocks/items/lore.js'
+import '@/blocks/items/right_click_action.js';
+import '@/blocks/items/name.js';
+import '@/blocks/items/lore.js';
+import MessagesBlocks from '@/blocks/actions/messages.vue';
+import TeleportationBlocks from '@/blocks/actions/teleportation.vue';
+import PotionEffectsBlocks from '@/blocks/actions/potion_effects.vue';
+import MiscBlocks from '@/blocks/actions/misc.vue';
+import InventoryBlocks from '@/blocks/actions/inventory.vue';
+import LogicBlocks from '@/blocks/actions/logic.vue';
+import HealthBlocks from '@/blocks/actions/health.vue';
+import ParkourBlocks from '@/blocks/actions/parkour.vue';
 import ItemPreview from '@/components/items/ItemPreview.vue'
 
 // right click action blocks
-import InventoryBlocks from '@/blocks/actions/inventory.vue';
 import PlaySound from '@/blocks/actions/play_sound.vue';
 
 // text components
@@ -88,6 +68,13 @@ export default {
 		InventoryBlocks,
 		TextComponent,
 		PlaySound,
+		LogicBlocks,
+		HealthBlocks,
+		ParkourBlocks,
+		MiscBlocks,
+		PotionEffectsBlocks,
+		MessagesBlocks,
+		TeleportationBlocks,
 	},
 	data() {
 		return {
