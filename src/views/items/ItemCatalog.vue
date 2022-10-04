@@ -60,7 +60,7 @@ export default {
 			loading: false,
 			page: 1,
 			totalPages: 1,
-			sortBy: 'Likes (Most to Least)',
+			sortBy: 'Date (Newest to Oldest)',
 			sortOptions: ['Likes (Most to Least)', 'Likes (Least to Most)', 'Name (A-Z)', 'Name (Z-A)', 'Item (A-Z)', 'Item (Z-A)', 'Date (Newest to Oldest)', 'Date (Oldest to Newest)']
 		}
 	},

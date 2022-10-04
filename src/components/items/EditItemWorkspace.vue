@@ -22,6 +22,7 @@
 				<block type="set_name"></block>
 				<block type="add_lore"></block>
 			</category>
+			<TextComponent />
 			<sep></sep>
 			<LogicBlocks :isItem="true" />
 			<MessagesBlocks />
