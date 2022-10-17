@@ -46,6 +46,15 @@
 								</template>
 							</v-select>
 						</v-col>
+						<v-col cols="2">
+							<v-select
+								v-model="visibility"
+								:items="[ 'Public', 'Private' ]"
+								label="Visibility"
+								hint="Select action visibility"
+								persistent-hint >
+							</v-select>
+						</v-col>
 					</v-row>
 					<TipTap v-model='content'/>
 					<v-row justify="space-between" class="ma-1">
@@ -99,8 +108,10 @@ export default {
 				{ name: 'Simple', color: 'deep-orange', textColor: 'black' },
 				{ name: 'Quest', color: 'brown', textColor: 'white' },
 				{ name: 'Fishing', color: 'blue-grey', textColor: 'white' },
+				{ name: 'Function', color: 'red', textColor: 'black' },
 			],
 			actionTagsValue: [],
+			visibility: 'Public',
 		}
 	},
 	methods: {
@@ -113,6 +124,7 @@ export default {
 					title: this.title,
 					content: this.content,
 					tags: this.getTags(),
+					isPublic: this.visibility === 'Public',
 				});
 				this.dialog = false;
 			}
@@ -123,13 +135,16 @@ export default {
 				this.dialog = true;
 			}
 		},
-		set(post) {
+		setPost(post) {
 			this.title = post.title;
 			this.content = post.content;
 			this.actionTagsValue = this.actionTags.filter(tag => post.tags.includes(tag.name));
 		},
 		setId(id) {
 			this.id = id;
+		},
+		setVisibility(isPublic) {
+			this.visibility = isPublic ? 'Public' : 'Private';
 		},
 		copyId() {
 			navigator.clipboard.writeText(this.id);

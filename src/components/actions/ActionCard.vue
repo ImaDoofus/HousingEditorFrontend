@@ -32,7 +32,7 @@
 							<span class="mx-1 overline" style="line-height: 14px;">• {{ getUploadDate() }}</span>
 						</v-col>
 						<v-col cols="12" class="my-1 py-0 d-flex align-start" style="height: 16px;">
-							<v-chip :class='`mr-1 my-0 py-1 ${getTagTextColor(tag)}--text`' x-small v-for="tag in action.post.tags" :key="tag" :color="getTagColor(tag)"
+							<v-chip :class='`mr-1 my-0 py-1 ${getTagTextColor(tag)}--text`' x-small v-for="tag in action.post.	tags" :key="tag" :color="getTagColor(tag)"
 								style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 								{{ tag }}
 							</v-chip>
@@ -113,6 +113,7 @@ export default {
 				{ name: 'Simple', color: 'deep-orange', textColor: 'black' },
 				{ name: 'Quest', color: 'brown', textColor: 'white' },
 				{ name: 'Fishing', color: 'blue-grey', textColor: 'white' },
+				{ name: 'Function', color: 'red', textColor: 'black' },
 			],
 		}
 	},

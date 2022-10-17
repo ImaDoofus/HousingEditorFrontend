@@ -33,12 +33,14 @@ Blockly.Theme.defineTheme('light_theme', {
 			"colour": "#e04454"
 		},
 		"inventory_category": {
-			"colour": "#e87c24"
+			"colour": "#5353f5"
 		},
 		"miscellaneous_category": {
 			"colour": "#d874ac"
 		},
-
+		"conditions_category": {
+			"colour": "#e87c24"
+		},
 		"customize_item_category": {
 			"colour": "#6d72de"
 		}

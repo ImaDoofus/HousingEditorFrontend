@@ -79,7 +79,8 @@ export default {
 		}).then(res => {
 			res.json().then(json => {
 				if (this.isCopy()) json.post.title += ' (Remix)';
-				this.$refs.nav.set(json.post);
+				this.$refs.nav.setPost(json.post);
+				this.$refs.nav.setVisibility(json.isPublic);
 				this.$refs.workspace.load(json.workspace);
 			});
 		});

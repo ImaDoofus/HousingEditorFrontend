@@ -7,6 +7,61 @@
 		<v-container>
 			<v-card class="mt-5 pa-5">
 				<v-card-title>
+					<span class="text-h3">Housing Music Maker</span>
+				</v-card-title>
+				<v-row class="ml-5 py-0">
+					<div>
+						<span>Create, Share, and Remix songs that you can play in your housing! &#128513;</span>
+						<br>
+						<span>Releasing October 28-31.</span>
+					</div>
+				</v-row>
+				<v-row class="ml-5">
+					<span class="overline grey--text">By
+						<router-link to="/profile/62c6871f53cc93e40cd459b2">ImaDoofus</router-link>
+					</span>
+					<v-divider vertical class="mx-2"></v-divider>
+					<span class="overline grey--text">Posted • October 17th 2022</span>
+				</v-row>
+				<br>
+				<v-divider></v-divider>
+				<v-card-text>
+					<v-list dense>
+						<v-list-item-group>
+							<v-list-item>
+								<span>I am working on a music editor that will allow you to import songs into your housing. There will be support for loading in <code>.nbs</code> files!</span>
+							</v-list-item>
+							<v-list-item>
+								<span>It will be available both online and through an app.</span>
+							</v-list-item>
+							<v-list-item>
+								<span>You will be able to choose a tick speed of 5, 10, 15, or 20 for your song and use any sound supported in housing.</span>
+							</v-list-item>
+							<v-list-item>
+								<span>Most importantly you will be able to share your song with other people and view a catalog of songs.</span>
+							</v-list-item>
+							<v-list-item>
+								<span>The planned release will be within the next few weeks.</span>
+							</v-list-item>
+						</v-list-item-group>
+					</v-list>
+					<span>Here are some leaked images:</span>
+					<v-col class="d-flex align-center justify-center">
+						<v-carousel>
+							<v-carousel-item>
+								<v-img src="/assets/post2/screenshot1.jpeg" max-width="1000"></v-img>
+							</v-carousel-item>
+							<v-carousel-item>
+								<v-img src="/assets/post2/screenshot2.jpeg" max-width="400"></v-img>
+							</v-carousel-item>
+						</v-carousel>
+					</v-col>
+				</v-card-text>
+			</v-card>
+		</v-container>
+		<v-container>
+			<v-card class="mt-5 pa-5">
+				<v-card-title>
 					<span class="text-h3">Housing Editor is released</span>
 				</v-card-title>
 				<v-row class="ml-5">

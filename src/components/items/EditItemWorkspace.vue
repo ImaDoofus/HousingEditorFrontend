@@ -25,6 +25,7 @@
 			<TextComponent />
 			<sep></sep>
 			<LogicBlocks :isItem="true" />
+			<ConditionBlocks :isItem='false' />
 			<MessagesBlocks />
 			<PotionEffectsBlocks />
 			<HealthBlocks />
@@ -46,6 +47,7 @@ import '@/blocks/items/name.js';
 import '@/blocks/items/lore.js';
 import MessagesBlocks from '@/blocks/actions/messages.vue';
 import TeleportationBlocks from '@/blocks/actions/teleportation.vue';
+import ConditionBlocks from '@/blocks/actions/conditions.vue';
 import PotionEffectsBlocks from '@/blocks/actions/potion_effects.vue';
 import MiscBlocks from '@/blocks/actions/misc.vue';
 import InventoryBlocks from '@/blocks/actions/inventory.vue';
@@ -76,6 +78,7 @@ export default {
 		PotionEffectsBlocks,
 		MessagesBlocks,
 		TeleportationBlocks,
+		ConditionBlocks,
 	},
 	data() {
 		return {

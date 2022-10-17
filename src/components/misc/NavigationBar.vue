@@ -6,7 +6,12 @@
 				<router-link to="/" style="text-decoration: none; color: inherit">
 					<!-- <span class="font-weight-light">Housing</span>
 					<span>Editor</span> -->
-					<v-img src="@/assets/logo/logo.svg" width="150" height="40"></v-img>
+					<!-- <v-img src="@/assets/logo/logo.svg" width="150" height="40"></v-img> -->
+					<!-- halloween -->
+					<div class="d-flex align-center">
+						<img :src="require(`@/assets/halloween/pumpkin_face_${Math.random() < 0.5 ? 'on' : 'off'}.png`)" width="50" height="50" style="image-rendering: pixelated;" class="mr-1">
+						<v-img src="@/assets/halloween/logo.svg" width="116" height="40"></v-img>
+					</div>
 				</router-link>
 			</v-toolbar-title>
 

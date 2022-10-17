@@ -53,6 +53,7 @@ export default class UploadContent {
 			content: content.content,
 			title: content.title,
 			tags: content.tags,
+			isPublic: content.isPublic,
 		}
 
 		try {
