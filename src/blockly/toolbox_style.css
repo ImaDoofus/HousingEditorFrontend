@@ -1,47 +1,47 @@
 /* this is probably bad practice */
 
 .blocklyTreeLabel {
-	font-weight: 500 !important;
-	font-family: 'Roboto', sans-serif !important;
-	color: white !important;
-	z-index: 10000 !important;
-	line-height: 40px;
+  font-weight: 500 !important;
+  font-family: "Roboto", sans-serif !important;
+  color: white !important;
+  z-index: 10000 !important;
+  line-height: 40px;
 }
 
 .blocklyToolboxContents {
-	padding: .5em !important;
+  padding: 0.5em !important;
 }
 
 .blocklyTreeRow {
-	cursor: pointer !important;
+  cursor: pointer !important;
 }
 
 .blocklyTreeRowContentContainer {
-	position: relative !important;
-	width: 100% !important;
+  position: relative !important;
+  width: 100% !important;
 }
 
 .categoryBubble {
-	position: absolute !important;
-	border-radius: 4px !important;
-	border: none !important;
-	border-radius: 0 !important;
-	width: 100% !important;
-	height: 100% !important;
+  position: absolute !important;
+  border-radius: 4px !important;
+  border: none !important;
+  border-radius: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .blocklyTreeSeparator {
-	border-bottom: solid 2px #000 !important;
-	margin-top: 10px !important;
-	margin-bottom: 10px !important;
+  border-bottom: solid 2px #000 !important;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
 }
 
 /* toolbox flyout categories with continuous toolbox */
 .blocklyFlyoutLabelText {
-	font-size: 24px !important;
-	font-weight: bold !important;
+  font-size: 24px !important;
+  font-weight: bold !important;
 }
 
 .blocklyTreeSelected {
-	background-color: transparent !important;
+  background-color: transparent !important;
 }
