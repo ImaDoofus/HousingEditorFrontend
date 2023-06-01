@@ -18,6 +18,10 @@ import "@/blockly/custom_category.js"; // custom toolbox style
 
 // plugins
 import { ContinuousToolbox, ContinuousFlyout, ContinuousMetrics } from "@blockly/continuous-toolbox";
+import { Multiselect, MultiselectBlockDragger } from "@mit-app-inventor/blockly-plugin-workspace-multiselect";
+
+// TODO: Add ScrollOptions when blockly v10 is released
+// import { ScrollOptions, ScrollBlockDragger, ScrollMetricsManager } from "@blockly/plugin-scroll-options";
 
 import WorkspaceChange from "@/blockly/WorkspaceChange.vue";
 
@@ -38,19 +42,19 @@ export default {
   components: {
     WorkspaceChange,
   },
-  props: ["options"],
+  props: ["extraOptions"],
   mounted() {
-    var options = this.$props.options || {};
+    let options = this.$props.extraOptions || {};
     if (!options.toolbox) {
       options.toolbox = this.$refs["blocklyToolbox"];
     }
-    (options.grid = {
+    options.grid = {
       spacing: 30,
       length: 30,
       colour: this.getTheme() === "light_theme" ? "#ccc" : "#333",
       snap: false,
-    }),
-      (options.renderer = "custom_renderer");
+    };
+    options.renderer = "custom_renderer";
     options.theme = this.getTheme();
     options.zoom = {
       controls: true,
@@ -58,15 +62,32 @@ export default {
       startScale: 1.0,
       maxScale: 2.0,
       minScale: 0.5,
-      scaleSpeed: 1.01,
+      scaleSpeed: 1.02,
       pinch: true,
     };
-    (options.plugins = {
+    options.plugins = {
       toolbox: ContinuousToolbox,
       flyoutsVerticalToolbox: ContinuousFlyout,
       metricsManager: ContinuousMetrics,
-    }),
-      (this.workspace = Blockly.inject(this.$refs["blocklyDiv"], options));
+      blockDragger: MultiselectBlockDragger,
+    };
+
+    options.useDoubleClick = true;
+    options.multiselectIcon = {
+      hideIcon: true,
+    };
+    options.multiselectCopyPaste = {
+      crossTab: true,
+      menu: true,
+    };
+
+    this.workspace = Blockly.inject(this.$refs["blocklyDiv"], options);
+
+    const multiselectPlugin = new Multiselect(this.workspace);
+    multiselectPlugin.init(options);
+
+    this.workspace.getInjectionDiv().focus();
+
     this.$refs.workspaceChange.setWorkspace(this.workspace); // add an event listener for block scope protection, etc.
   },
   methods: {
