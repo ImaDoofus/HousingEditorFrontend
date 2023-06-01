@@ -9,6 +9,7 @@
     <block v-if="!isItem" type="custom_item" class="custom_item_block"></block>
     <block v-if="isItem" type="use_remove_held_item"></block>
     <block type="apply_inventory_layout"></block>
+    <block type="enchant_held_item"></block>
   </category>
 </template>
 
@@ -177,6 +178,50 @@ export default {
         this.setColour(320);
         this.setTooltip("Applies an inventory layout to the player");
         this.setHelpUrl("");
+      },
+    };
+
+    Blockly.Blocks["enchant_held_item"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(403, 0), 20, 20))
+          .appendField(new Blockly.FieldLabel("Enchant Held Item  ", "block_header"));
+
+        const dropdown = new Blockly.FieldDropdown([
+          ["Protection", "protection"],
+          ["Fire Protection", "fire_protection"],
+          ["Feather Falling", "feather_falling"],
+          ["Blast Protection", "blast_protection"],
+          ["Projectile Protection", "projectile_protection"],
+          ["Respiration", "respiration"],
+          ["Aqua Affinity", "aqua_affinity"],
+          ["Thorns", "thorns"],
+          ["Depth Strider", "depth_strider"],
+          ["Sharpness", "sharpness"],
+          ["Smite", "smite"],
+          ["Bane of Arthropods", "bane_of_arthropods"],
+          ["Knockback", "knockback"],
+          ["Fire Aspect", "fire_aspect"],
+          ["Looting", "looting"],
+          ["Efficiency", "efficiency"],
+          ["Silk Touch", "silk_touch"],
+          ["Unbreaking", "unbreaking"],
+          ["Fortune", "fortune"],
+          ["Power", "power"],
+          ["Punch", "punch"],
+          ["Flame", "flame"],
+          ["Infinity", "infinity"],
+          ["Luck of the Sea", "luck_of_the_sea"],
+          ["Lure", "lure"],
+        ]);
+
+        this.appendDummyInput("ENCHANTMENT").appendField("Enchantment:").appendField(dropdown, "ENCHANTMENT");
+        this.appendDummyInput("LEVEL").appendField("Level").appendField(new Blockly.FieldNumber(1, 1, 10), "LEVEL");
+        this.setPreviousStatement(true, "action");
+        this.setNextStatement(true, "action");
+        this.setTooltip("Enchant the player's held item.");
+        this.setColour(230);
+        this.setInputsInline(false);
       },
     };
   },
