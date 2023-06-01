@@ -12,6 +12,7 @@
     <block v-if="!isItem" type="condition_portal_type"></block>
     <block v-if="!isItem" type="condition_block_type"></block>
     <block v-if="!isItem" type="condition_fishing_environment"></block>
+    <block v-if="!isItem" type="condition_player_sneaking"></block>
   </category>
 </template>
 
@@ -415,36 +416,13 @@ export default {
       },
     };
 
-    // Blockly.Blocks["condition_fishing_environment"] = {
-    //   init: () => {
-    //     this.appendDummyInput()
-    //       .appendField(new Blockly.FieldImage(component.getImagePath(346, 0), 20, 20))
-    //       .appendField(new Blockly.FieldLabel("Fishing Environment  ", "block_header"));
-
-    //     this.appendDummyInput("ENVIRONMENT")
-    //       .appendField("Environment:")
-    //       .appendField(
-    //         new Blockly.FieldDropdown([
-    //           ["Water", "WATER"],
-    //           ["Lava", "LAVA"],
-    //         ]),
-    //         "ENVIRONMENT"
-    //       );
-
-    //     this.setColour(180);
-    //     this.setOutput(true, "Condition");
-
-    //     this.setTooltip("Returns true if the fishing environment is the specified environment");
-    //   },
-    // };
-
     Blockly.Blocks["condition_fishing_environment"] = {
       init: function () {
         this.isOpened_ = true;
         this.options_ = { ENVIRONMENT: "WATER" };
 
         this.appendDummyInput()
-          .appendField(new Blockly.FieldImage(component.getImagePath(346, 0), 20, 20))
+          .appendField(new Blockly.FieldImage(component.getImagePath(326, 0), 20, 20))
           .appendField(new Blockly.FieldLabel("Fishing Environment  ", "block_header"))
           .appendField(getOpenIcon());
 
@@ -468,6 +446,19 @@ export default {
         dropdown.setValidator(dataChangeListener); // dataChangeListener requires the getSourceBlock()
       },
       close_,
+    };
+
+    Blockly.Blocks["condition_player_sneaking"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(170, 0), 20, 20))
+          .appendField(new Blockly.FieldLabel("Player Sneaking  ", "block_header"));
+
+        this.setColour(60);
+        this.setOutput(true, "Condition");
+
+        this.setTooltip("Returns true if the player is sneaking");
+      },
     };
   },
 };
