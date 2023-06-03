@@ -70,7 +70,7 @@ export default {
             ]),
             "MODE"
           );
-        this.appendDummyInput().appendField("Health:").appendField(new Blockly.FieldNumber(20, 1, 100, 1), "HEALTH"); // TODO: Change HEALTH to AMOUNT
+        this.appendDummyInput().appendField("Health:").appendField(new Blockly.FieldTextInput("1"), "HEALTH"); // TODO: Change HEALTH to AMOUNT
 
         this.setPreviousStatement(true, "action");
         this.setNextStatement(true, "action");
@@ -99,7 +99,7 @@ export default {
             ]),
             "MODE"
           );
-        this.appendDummyInput().appendField("Health:").appendField(new Blockly.FieldNumber(20, 1, 200, 1), "HEALTH"); // TODO: Change HEALTH to AMOUNT
+        this.appendDummyInput().appendField("Health:").appendField(new Blockly.FieldTextInput("1"), "HEALTH"); // TODO: Change HEALTH to AMOUNT
 
         this.appendDummyInput().appendField("Heal on Change:").appendField(new Blockly.FieldCheckbox("TRUE"), "HEAL_ON_CHANGE");
 
@@ -130,7 +130,7 @@ export default {
             ]),
             "MODE"
           );
-        this.appendDummyInput().appendField("Hunger:").appendField(new Blockly.FieldNumber(20, 0, 20, 1), "LEVEL"); // TODO: Change LEVEL to AMOUNT
+        this.appendDummyInput().appendField("Hunger:").appendField(new Blockly.FieldTextInput("1"), "LEVEL"); // TODO: Change LEVEL to AMOUNT
 
         this.setPreviousStatement(true, "action");
         this.setNextStatement(true, "action");

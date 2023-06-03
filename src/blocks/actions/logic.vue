@@ -76,7 +76,6 @@ export default {
         this.setNextStatement(true, "action");
       },
       onchange: function (event) {
-        if (!Blockly.Events.BLOCK_MOVE === event.type) return; // make sure we are moving a block
         if (!((event.newInputName && event.newInputName.includes("CONDITIONINPUT")) || (event.oldInputName && event.oldInputName.includes("CONDITIONINPUT"))))
           return; // make sure we are dealing with input blocks, not blocks in IF or ELSE
         if (event.newParentId === this.id) this.addInput_(); // if we are adding a condition block, add another input
@@ -89,18 +88,20 @@ export default {
       },
 
       loadExtraState: function (state) {
-        this.updateShape_(state["inputCount"]);
+        this.inputCount_ = state["inputCount"];
+        this.updateShape_();
       },
 
-      updateShape_: function (targetCount) {
-        while (this.inputCount_ < targetCount) {
-          this.appendValueInput("CONDITIONINPUT" + this.inputCount_).setCheck("Condition");
-          this.inputCount_++;
+      updateShape_: function () {
+        // start at 2 because we already have a CONDITIONINPUT1
+        for (let i = 2; i < this.inputCount_ + 1; i++) {
+          this.appendValueInput("CONDITIONINPUT" + i).setCheck("Condition");
           let last = this.inputList.length - 1;
           let element = this.inputList[last]; // get last input in list
           this.inputList.splice(last, 1); // remove last input from list
           this.inputList.splice(last - 2, 0, element); // -2 will move the appended input before the if and else inputs
         }
+        console.log(this);
       },
 
       addInput_: function () {
@@ -158,10 +159,9 @@ export default {
           .appendField(dropdown, "MODE")
           .appendField(
             new Blockly.FieldTextInput("1", function (newValue) {
-              console.log(newValue);
               if (!isNaN(newValue)) {
-                if (newValue < -2147483647) return null;
-                if (newValue > 2147483647) return null;
+                if (newValue < -9223372036854775807) return null;
+                if (newValue > 9223372036854775807) return null;
                 return newValue;
               }
               return newValue;
@@ -194,10 +194,9 @@ export default {
           .appendField(dropdown, "MODE")
           .appendField(
             new Blockly.FieldTextInput("1", function (newValue) {
-              console.log(newValue);
               if (!isNaN(newValue)) {
-                if (newValue < -2147483647) return null;
-                if (newValue > 2147483647) return null;
+                if (newValue < -9223372036854775808) return null;
+                if (newValue > 9223372036854775807) return null;
                 return newValue;
               }
               return newValue;

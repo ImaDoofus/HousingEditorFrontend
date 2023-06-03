@@ -211,8 +211,6 @@ export default {
           ["Punch", "punch"],
           ["Flame", "flame"],
           ["Infinity", "infinity"],
-          ["Luck of the Sea", "luck_of_the_sea"],
-          ["Lure", "lure"],
         ]);
 
         this.appendDummyInput("ENCHANTMENT").appendField("Enchantment:").appendField(dropdown, "ENCHANTMENT");

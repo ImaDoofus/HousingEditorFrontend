@@ -18,7 +18,8 @@ import "@/blockly/custom_category.js"; // custom toolbox style
 
 // plugins
 import { ContinuousToolbox, ContinuousFlyout, ContinuousMetrics } from "@blockly/continuous-toolbox";
-import { Multiselect, MultiselectBlockDragger } from "@mit-app-inventor/blockly-plugin-workspace-multiselect";
+// import { Multiselect, MultiselectBlockDragger } from "@mit-app-inventor/blockly-plugin-workspace-multiselect";
+// TODO: fix multiselect
 
 // TODO: Add ScrollOptions when blockly v10 is released
 // import { ScrollOptions, ScrollBlockDragger, ScrollMetricsManager } from "@blockly/plugin-scroll-options";
@@ -69,26 +70,30 @@ export default {
       toolbox: ContinuousToolbox,
       flyoutsVerticalToolbox: ContinuousFlyout,
       metricsManager: ContinuousMetrics,
-      blockDragger: MultiselectBlockDragger,
+      // blockDragger: MultiselectBlockDragger,
     };
 
-    options.useDoubleClick = true;
-    options.multiselectIcon = {
-      hideIcon: true,
-    };
-    options.multiselectCopyPaste = {
-      crossTab: true,
-      menu: true,
-    };
+    // options.useDoubleClick = true;
+    // options.multiselectIcon = {
+    //   hideIcon: true,
+    // };
+    // options.multiselectCopyPaste = {
+    //   crossTab: false,
+    //   menu: false,
+    // };
 
     this.workspace = Blockly.inject(this.$refs["blocklyDiv"], options);
 
-    const multiselectPlugin = new Multiselect(this.workspace);
-    multiselectPlugin.init(options);
+    // this.multiselectPlugin = new Multiselect(this.workspace);
+    // this.multiselectPlugin.init(options);
 
-    this.workspace.getInjectionDiv().focus();
+    // this.workspace.getInjectionDiv().focus();
 
     this.$refs.workspaceChange.setWorkspace(this.workspace); // add an event listener for block scope protection, etc.
+  },
+  destroyed() {
+    // this.multiselectPlugin.dispose();
+    this.workspace.dispose();
   },
   methods: {
     getTheme() {

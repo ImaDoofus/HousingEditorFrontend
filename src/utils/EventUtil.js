@@ -32,8 +32,10 @@ export default class EventUtil {
     ["give_item", 20],
     ["remove_item", 20],
     ["apply_potion_effect", 22],
+    ["enchant_held_item", 23],
   ];
 
+  // TODO: Validate these numbers
   static maxOfTypeInRandomAction = [
     ["teleport_player", 10],
     ["fail_parkour", 10],
@@ -65,6 +67,7 @@ export default class EventUtil {
     ["give_item", 20],
     ["remove_item", 20],
     ["apply_potion_effect", 20],
+    ["enchant_held_item", 23],
   ];
 
   static unnestable = ["conditional", "random_action"];
@@ -129,7 +132,6 @@ export default class EventUtil {
     switch (block.type) {
       case "conditional": {
         const IF = EventUtil.getInputChildren(block, "IF");
-        console.log(IF);
         for (let i = 0; i < IF.length; i++) {
           if (IF[i].id === blockId) return IF;
         }

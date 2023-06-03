@@ -28,35 +28,6 @@
 import Blockly from "blockly/core";
 import { saveExtraState, loadExtraState, updateShape_, close_, getOpenIcon, dataChangeListener } from "../utils/open_and_close.js";
 
-// list of all conditions
-[
-  "condition_required_group",
-  "condition_doing_parkour",
-  "condition_has_potion_effect",
-  "condition_has_item",
-  "condition_within_region",
-  "condition_required_permission",
-  "condition_player_stat_requirement",
-  "condition_global_stat_requirement",
-  "condition_damage_cause",
-  "condition_damage_amount",
-  "condition_portal_type",
-  "condition_block_type",
-  "condition_fishing_environment",
-  "condition_player_sneaking",
-  "condition_pvp_enabled",
-  "condition_player_health",
-  "condition_player_hunger",
-  "condition_player_max_health",
-  "condition_required_gamemode",
-  "condition_placeholder_number_requirement",
-]
-
-  // sort alphabetically
-  .sort()
-  // log
-  .forEach((condition) => console.log(condition));
-
 export default {
   name: "LogicBlocks",
   components: {},
@@ -196,12 +167,14 @@ export default {
 
     Blockly.Blocks["condition_block_type"] = {
       init: function () {
+        this.isOpened_ = true;
+        this.options_ = { MATCH_TYPE_ONLY: false };
         this.appendDummyInput()
           .appendField(new Blockly.FieldImage(component.getImagePath(2, 0), 20, 20))
-          .appendField(new Blockly.FieldLabel("Block Type  ", "block_header"));
+          .appendField(new Blockly.FieldLabel("Block Type  ", "block_header"))
+          .appendField(getOpenIcon());
 
-        this.appendValueInput("ITEM").setCheck(["CustomItem", "UseInventorySlot"]).appendField("Block:");
-        this.appendDummyInput("MATCH_TYPE_ONLY").appendField("Match Type Only:").appendField(new Blockly.FieldCheckbox("FALSE"), "MATCH_TYPE_ONLY");
+        this.appendValueInput("BLOCK").setCheck(["CustomItem", "UseInventorySlot"]).appendField("Block:");
 
         this.setInputsInline(false);
         this.setColour(colorLookup[this.type]);
@@ -209,6 +182,15 @@ export default {
 
         this.setTooltip("Returns true if the block mined was the block specified");
       },
+      saveExtraState,
+      loadExtraState,
+      updateShape_,
+      open_: function () {
+        this.appendDummyInput("DATA")
+          .appendField("Match Type Only:")
+          .appendField(new Blockly.FieldCheckbox(this.options_["MATCH_TYPE_ONLY"], dataChangeListener), "MATCH_TYPE_ONLY");
+      },
+      close_,
     };
     Blockly.Blocks["condition_damage_amount"] = {
       init: function () {
@@ -237,7 +219,7 @@ export default {
 
         const value = new Blockly.FieldTextInput(this.options_["VALUE"]);
 
-        this.appendDummyInput("DATA").appendField("Damage Taken was").appendField(dropdown, "COMPARATOR").appendField("value").appendField(value, "VALUE");
+        this.appendDummyInput("DATA").appendField("Damage taken was").appendField(dropdown, "COMPARATOR").appendField("value").appendField(value, "VALUE");
 
         dropdown.setValidator(dataChangeListener); // dataChangeListener requires the getSourceBlock()
         value.setValidator(dataChangeListener); // dataChangeListener requires the getSourceBlock()
@@ -295,7 +277,7 @@ export default {
     Blockly.Blocks["condition_fishing_environment"] = {
       init: function () {
         this.isOpened_ = true;
-        this.options_ = { ENVIRONMENT: "WATER" };
+        this.options_ = { ENVIRONMENT: "water" };
 
         this.appendDummyInput()
           .appendField(new Blockly.FieldImage(component.getImagePath(326, 0), 20, 20))
@@ -312,8 +294,8 @@ export default {
       updateShape_,
       open_: function () {
         const dropdown = new Blockly.FieldDropdown([
-          ["Water", "WATER"],
-          ["Lava", "LAVA"],
+          ["Water", "water"],
+          ["Lava", "lava"],
         ]);
         dropdown.setValue(this.options_["ENVIRONMENT"]);
 
@@ -326,7 +308,7 @@ export default {
     Blockly.Blocks["condition_has_item"] = {
       init: function () {
         this.isOpened_ = true;
-        this.options_ = { CHECK_METADATA: "FALSE", WHERE_TO_CHECK: "ANYWHERE", REQUIRE_AMOUNT: "FALSE" };
+        this.options_ = { CHECK_METADATA: "TRUE", WHERE_TO_CHECK: "ANYWHERE", REQUIRE_AMOUNT: "FALSE" };
         this.appendDummyInput()
           .appendField(new Blockly.FieldImage(component.getImagePath(54, 0), 20, 20))
           .appendField(new Blockly.FieldLabel("Has Item  ", "block_header"))
@@ -360,11 +342,11 @@ export default {
           .appendField(new Blockly.FieldCheckbox(this.options_["CHECK_METADATA"], dataChangeListener), "CHECK_METADATA");
 
         const dropdown = new Blockly.FieldDropdown([
-          ["Anywhere", "Anywhere"], // default
-          ["Hand", "Hand"],
-          ["Armor", "Armor"],
-          ["Hotbar", "Hotbar"],
-          ["Inventory", "Inventory"],
+          ["Anywhere", "anywhere"], // default
+          ["Hand", "hand"],
+          ["Armor", "armor"],
+          ["Hotbar", "hotbar"],
+          ["Inventory", "inventory"],
         ]);
         dropdown.setValue(this.options_["WHERE_TO_CHECK"]);
 
@@ -385,7 +367,7 @@ export default {
     Blockly.Blocks["condition_has_potion_effect"] = {
       init: function () {
         this.isOpened_ = true;
-        this.options_ = { POTION_EFFECT: "Speed" };
+        this.options_ = { POTION_EFFECT: "speed" };
         this.appendDummyInput()
           .appendField(new Blockly.FieldImage(component.getImagePath(373, 0), 20, 20))
           .appendField(new Blockly.FieldLabel("Has Potion Effect  ", "block_header"))
@@ -474,7 +456,7 @@ export default {
     Blockly.Blocks["condition_player_health"] = {
       init: function () {
         this.isOpened_ = true;
-        this.options_ = { HEALTH: "10", COMPARISON: "EQUALS" };
+        this.options_ = { VALUE: "10", COMPARATOR: "equal_to" };
         this.appendDummyInput()
           .appendField(new Blockly.FieldImage(component.getImagePath(260, 0), 20, 20))
           .appendField(new Blockly.FieldLabel("Player Health  ", "block_header"))
@@ -494,13 +476,13 @@ export default {
           ["Greater Than or Equal To >=", "greater_than_or_equal_to"],
           ["Greater Than >", "greater_than"],
         ]);
-        dropdown.setValue(this.options_["COMPARISON"]);
+        dropdown.setValue(this.options_["COMPARATOR"]);
 
         this.appendDummyInput("DATA")
           .appendField("Health is")
-          .appendField(dropdown, "COMPARISON")
+          .appendField(dropdown, "COMPARATOR")
           .appendField("value")
-          .appendField(new Blockly.FieldTextInput(this.options_["HEALTH"], dataChangeListener), "HEALTH");
+          .appendField(new Blockly.FieldTextInput(this.options_["VALUE"], dataChangeListener), "VALUE");
 
         dropdown.setValidator(dataChangeListener); // dataChangeListener requires the getSourceBlock()
       },
@@ -509,7 +491,7 @@ export default {
     Blockly.Blocks["condition_player_hunger"] = {
       init: function () {
         this.isOpened_ = true;
-        this.options_ = { HUNGER: "10", COMPARISON: "EQUALS" };
+        this.options_ = { VALUE: "10", COMPARATOR: "equal_to" };
         this.appendDummyInput()
           .appendField(new Blockly.FieldImage(component.getImagePath(297, 0), 20, 20))
           .appendField(new Blockly.FieldLabel("Player Hunger  ", "block_header"))
@@ -529,13 +511,13 @@ export default {
           ["Greater Than or Equal To >=", "greater_than_or_equal_to"],
           ["Greater Than >", "greater_than"],
         ]);
-        dropdown.setValue(this.options_["COMPARISON"]);
+        dropdown.setValue(this.options_["COMPARATOR"]);
 
         this.appendDummyInput("DATA")
           .appendField("Hunger is")
-          .appendField(dropdown, "COMPARISON")
+          .appendField(dropdown, "COMPARATOR")
           .appendField("value")
-          .appendField(new Blockly.FieldTextInput(this.options_["HUNGER"], dataChangeListener), "HUNGER");
+          .appendField(new Blockly.FieldTextInput(this.options_["VALUE"], dataChangeListener), "VALUE");
 
         dropdown.setValidator(dataChangeListener); // dataChangeListener requires the getSourceBlock()
       },
@@ -544,7 +526,7 @@ export default {
     Blockly.Blocks["condition_player_max_health"] = {
       init: function () {
         this.isOpened_ = true;
-        this.options_ = { MAX_HEALTH: "20", COMPARISON: "equal_to" };
+        this.options_ = { VALUE: "20", COMPARATOR: "equal_to" };
         this.appendDummyInput()
           .appendField(new Blockly.FieldImage(component.getImagePath(322, 0), 20, 20))
           .appendField(new Blockly.FieldLabel("Maximum Player Health  ", "block_header"))
@@ -564,13 +546,13 @@ export default {
           ["Greater Than or Equal To >=", "greater_than_or_equal_to"],
           ["Greater Than >", "greater_than"],
         ]);
-        dropdown.setValue(this.options_["COMPARISON"]);
+        dropdown.setValue(this.options_["COMPARATOR"]);
 
         this.appendDummyInput("DATA")
           .appendField("Maximum Health is")
-          .appendField(dropdown, "COMPARISON")
+          .appendField(dropdown, "COMPARATOR")
           .appendField("value")
-          .appendField(new Blockly.FieldTextInput(this.options_["MAX_HEALTH"], dataChangeListener), "MAX_HEALTH");
+          .appendField(new Blockly.FieldTextInput(this.options_["VALUE"], dataChangeListener), "VALUE");
 
         dropdown.setValidator(dataChangeListener); // dataChangeListener requires the getSourceBlock()
       },
@@ -591,7 +573,7 @@ export default {
     Blockly.Blocks["condition_portal_type"] = {
       init: function () {
         this.isOpened_ = true;
-        this.options_ = { PORTAL_TYPE: "Nether Portal" };
+        this.options_ = { PORTAL_TYPE: "nether_portal" };
         this.appendDummyInput()
           .appendField(new Blockly.FieldImage(component.getImagePath(120, 0), 20, 20))
           .appendField(new Blockly.FieldLabel("Portal Type  ", "block_header"))
@@ -606,8 +588,8 @@ export default {
       updateShape_,
       open_: function () {
         const dropdown = new Blockly.FieldDropdown([
-          ["Nether Portal", "Nether Portal"],
-          ["End Portal", "End Portal"],
+          ["Nether Portal", "nether_portal"],
+          ["End Portal", "end_portal"],
         ]);
         dropdown.setValue(this.options_["PORTAL_TYPE"]);
 
@@ -633,7 +615,7 @@ export default {
     Blockly.Blocks["condition_required_gamemode"] = {
       init: function () {
         this.isOpened_ = true;
-        this.options_ = { GAMEMODE: "Survival" };
+        this.options_ = { GAMEMODE: "survival" };
         this.appendDummyInput()
           .appendField(new Blockly.FieldImage(component.getImagePath(151, 0), 20, 20))
           .appendField(new Blockly.FieldLabel("Required Gamemode  ", "block_header"))
@@ -647,9 +629,9 @@ export default {
       updateShape_,
       open_: function () {
         const dropdown = new Blockly.FieldDropdown([
-          ["Survival", "Survival"],
-          ["Creative", "Creative"],
-          ["Adventure", "Adventure"],
+          ["Survival", "survival"],
+          ["Creative", "creative"],
+          ["Adventure", "adventure"],
         ]);
         dropdown.setValue(this.options_["GAMEMODE"]);
 
@@ -662,7 +644,7 @@ export default {
     Blockly.Blocks["condition_required_group"] = {
       init: function () {
         this.isOpened_ = true;
-        this.options_ = { GROUP: "group name", INCLUDE_HIGHER_GROUPS: "TRUE" };
+        this.options_ = { GROUP: "group name", INCLUDE_HIGHER_GROUPS: "FALSE" };
         this.appendDummyInput()
           .appendField(new Blockly.FieldImage(component.getImagePath(397, 3), 25, 25))
           .appendField(new Blockly.FieldLabel("Required Group  ", "block_header"))

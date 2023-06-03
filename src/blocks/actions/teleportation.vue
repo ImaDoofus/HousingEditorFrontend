@@ -36,13 +36,15 @@ export default {
           .appendField(new Blockly.FieldLabel("Teleport Player", "block_header"));
 
         const dropdown = new Blockly.FieldDropdown([
+          ["Current Location", "current_location"],
           ["Custom Coordinates", "custom_coordinates"],
           ["Housing Spawn", "house_spawn"],
-          ["Current Location", "current_location"],
         ]);
         dropdown.setValidator((newValue) => {
           if (this.getInput("COORDINATES")) this.removeInput("COORDINATES");
           if (this.getInput("ROTATION")) this.removeInput("ROTATION");
+          if (this.getInput("YAW")) this.removeInput("YAW");
+          if (this.getInput("PITCH")) this.removeInput("PITCH");
           if (newValue === "custom_coordinates") {
             this.appendDummyInput("COORDINATES")
               .appendField("X:")
@@ -51,20 +53,16 @@ export default {
               .appendField(new Blockly.FieldTextInput("0", coordinateInputValidator), "Y")
               .appendField("Z:")
               .appendField(new Blockly.FieldTextInput("0", coordinateInputValidator), "Z");
-            this.appendDummyInput()
+            this.appendDummyInput("ROTATION")
               .appendField("Include Rotation:")
               .appendField(
                 new Blockly.FieldCheckbox("FALSE", (newValue) => {
                   if (newValue === "TRUE") {
-                    this.appendDummyInput("ROTATION_INFO")
-                      .appendField(new Blockly.FieldLabel("/loc", "block_header"))
-                      .appendField("to get your current rotation");
                     this.appendDummyInput("YAW").appendField("Yaw:").appendField(new Blockly.FieldNumber(0, -180, 180, 0.01), "YAW");
                     this.appendDummyInput("PITCH").appendField("Pitch:").appendField(new Blockly.FieldNumber(0, -90, 90, 0.01), "PITCH");
                   } else {
                     if (this.getInput("YAW")) this.removeInput("YAW");
                     if (this.getInput("PITCH")) this.removeInput("PITCH");
-                    if (this.getInput("ROTATION_INFO")) this.removeInput("ROTATION_INFO");
                   }
                 }),
                 "INCLUDE_ROTATION"
