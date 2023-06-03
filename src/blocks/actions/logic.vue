@@ -101,7 +101,6 @@ export default {
           this.inputList.splice(last, 1); // remove last input from list
           this.inputList.splice(last - 2, 0, element); // -2 will move the appended input before the if and else inputs
         }
-        console.log(this);
       },
 
       addInput_: function () {
