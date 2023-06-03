@@ -11,7 +11,7 @@ import moment from "moment";
 Vue.prototype.moment = moment;
 Vue.config.productionTip = false;
 
-const production = false;
+const production = true;
 Vue.prototype.$apiHostname = production ? "https://api.housingeditor.com" : "http://localhost:3000";
 Vue.prototype.$hostname = production ? "https://www.housingeditor.com" : "http://localhost:8080";
 
