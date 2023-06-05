@@ -74,7 +74,7 @@ export default {
             "The potion effect to apply" +
             "<br>" +
             "<b>Duration: </b>" +
-            "The duration of the potion effect in seconds, 3600 = Infinite" +
+            "The duration of the potion effect in seconds, Max = 2592000" +
             "<br>" +
             "<b>Amplifier: </b>" +
             "The amplifier of the potion effect, max level of 10" +
