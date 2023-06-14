@@ -104,8 +104,21 @@ export default {
       },
     };
 
-    function coordinateInputValidator(newValue) {
-      const coordinateRegex = /^~?-?(?:1[0-8]\d|19[0-0]|[0-9]{1,2})(?:\.\d{1,2})?$/;
+    function coordinateInputValidatorXZ(newValue) {
+      if (newValue.startsWith("~")) newValue = newValue.substring(1);
+      const number = parseFloat(newValue);
+      if (isNaN(number) || number < -190 || number > 190) return null;
+
+      const coordinateRegex = /^-?\d+(?:\.\d{1,2})?$/;
+      if (!coordinateRegex.test(newValue)) return null;
+    }
+
+    function coordinateInputValidatorY(newValue) {
+      if (newValue.startsWith("~")) newValue = newValue.substring(1);
+      const number = parseFloat(newValue);
+      if (isNaN(number) || number < -50 || number > 300) return null;
+
+      const coordinateRegex = /^-?\d+(?:\.\d{1,2})?$/;
       if (!coordinateRegex.test(newValue)) return null;
     }
 
@@ -125,11 +138,11 @@ export default {
           if (newValue === "custom_coordinates") {
             this.appendDummyInput("COORDINATES")
               .appendField("X:")
-              .appendField(new Blockly.FieldTextInput("0", coordinateInputValidator), "X")
+              .appendField(new Blockly.FieldTextInput("0", coordinateInputValidatorXZ), "X")
               .appendField("Y:")
-              .appendField(new Blockly.FieldTextInput("0", coordinateInputValidator), "Y")
+              .appendField(new Blockly.FieldTextInput("0", coordinateInputValidatorY), "Y")
               .appendField("Z:")
-              .appendField(new Blockly.FieldTextInput("0", coordinateInputValidator), "Z");
+              .appendField(new Blockly.FieldTextInput("0", coordinateInputValidatorXZ), "Z");
           }
         });
         this.appendDummyInput().appendField("Location:").appendField(dropdown, "LOCATION");
