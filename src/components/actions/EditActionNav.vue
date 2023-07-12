@@ -4,7 +4,7 @@
     <v-app-bar flat app class="primary">
       <v-toolbar-title class="text-uppercase gray-text" style="cursor: pointer">
         <router-link to="/" style="text-decoration: none; color: inherit">
-          <v-img src="@/assets/logo/logo_pride.svg" width="150" height="40"></v-img>
+          <v-img src="@/assets/logo/logo.svg" width="150" height="40"></v-img>
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -17,7 +17,12 @@
         <span>Save</span>
       </v-btn>
     </v-app-bar>
-    <v-dialog v-model="dialog" max-width="1200px" transition="dialog-bottom-transition" light>
+    <v-dialog
+      v-model="dialog"
+      max-width="1200px"
+      transition="dialog-bottom-transition"
+      light
+    >
       <v-card class="base lighten-2">
         <v-card-title>
           <h2>Save your Action</h2>
@@ -26,7 +31,12 @@
           <v-row>
             <v-col>
               <v-form ref="form">
-                <v-text-field label="Title" v-model="title" prepend-icon="mdi-subtitles" :rules="inputRules"></v-text-field>
+                <v-text-field
+                  label="Title"
+                  v-model="title"
+                  prepend-icon="mdi-subtitles"
+                  :rules="inputRules"
+                ></v-text-field>
               </v-form>
             </v-col>
             <v-col>
@@ -43,18 +53,31 @@
                 persistent-hint
               >
                 <template #selection="{ item }">
-                  <v-chip :color="item.color" :class="`${item.textColor}--text`">{{ item.name }}</v-chip>
+                  <v-chip
+                    :color="item.color"
+                    :class="`${item.textColor}--text`"
+                    >{{ item.name }}</v-chip
+                  >
                 </template>
               </v-select>
             </v-col>
             <v-col cols="2">
-              <v-select v-model="visibility" :items="['Public', 'Private']" label="Visibility" hint="Select action visibility" persistent-hint> </v-select>
+              <v-select
+                v-model="visibility"
+                :items="['Public', 'Private']"
+                label="Visibility"
+                hint="Select action visibility"
+                persistent-hint
+              >
+              </v-select>
             </v-col>
           </v-row>
           <TipTap v-model="content" />
           <v-row justify="space-between" class="ma-1">
             <v-btn text class="error mt-3" @click="cancel">Close</v-btn>
-            <v-btn text class="success mt-3" @click="save" :loading="loading">Save Action</v-btn>
+            <v-btn text class="success mt-3" @click="save" :loading="loading"
+              >Save Action</v-btn
+            >
           </v-row>
         </v-card-text>
       </v-card>
@@ -133,7 +156,9 @@ export default {
     setPost(post) {
       this.title = post.title;
       this.content = post.content;
-      this.actionTagsValue = this.actionTags.filter((tag) => post.tags.includes(tag.name));
+      this.actionTagsValue = this.actionTags.filter((tag) =>
+        post.tags.includes(tag.name)
+      );
     },
     setId(id) {
       this.id = id;

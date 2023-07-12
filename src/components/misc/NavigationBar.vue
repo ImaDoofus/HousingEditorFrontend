@@ -1,8 +1,14 @@
 <template>
   <nav>
     <v-app-bar color="primary">
-      <v-app-bar-nav-icon color="white" @click.native="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title class="text-uppercase white--text" style="cursor: pointer">
+      <v-app-bar-nav-icon
+        color="white"
+        @click.native="drawer = !drawer"
+      ></v-app-bar-nav-icon>
+      <v-toolbar-title
+        class="text-uppercase white--text"
+        style="cursor: pointer"
+      >
         <router-link to="/" style="text-decoration: none; color: inherit">
           <!-- <span class="font-weight-light">Housing</span>
 					<span>Editor</span> -->
@@ -17,25 +23,37 @@
           </div> -->
           <!-- pride -->
           <div class="d-flex align-center">
-            <v-img src="@/assets/logo/logo_pride.svg" width="150" height="40"></v-img>
+            <v-img src="@/assets/logo/logo.svg" width="150" height="40"></v-img>
           </div>
         </router-link>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <v-btn v-if="showCreateAction" @click="$router.push('edit-action')" class="pr-5 mr-5">
+      <v-btn
+        v-if="showCreateAction"
+        @click="$router.push('edit-action')"
+        class="pr-5 mr-5"
+      >
         <span>New Action</span>
         <v-icon right>mdi-castle</v-icon>
       </v-btn>
 
-      <v-btn v-if="showCreateItem" @click="$router.push('edit-item')" class="pr-5 mr-5">
+      <v-btn
+        v-if="showCreateItem"
+        @click="$router.push('edit-item')"
+        class="pr-5 mr-5"
+      >
         <span>New Item</span>
         <v-icon right>mdi-sword</v-icon>
       </v-btn>
 
-      <v-btn text class="white--text pr-5 mr-5" v-if="loggedIn" @click="logout">Logout</v-btn>
-      <v-btn text class="white--text pr-5 mr-5" v-else @click="login">Login</v-btn>
+      <v-btn text class="white--text pr-5 mr-5" v-if="loggedIn" @click="logout"
+        >Logout</v-btn
+      >
+      <v-btn text class="white--text pr-5 mr-5" v-else @click="login"
+        >Login</v-btn
+      >
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" app temporary color="primary">
@@ -49,19 +67,34 @@
             </v-list-item>
             <v-list-item class="text-center">
               <v-list-item-title>
-                <router-link to="/dashboard" class="white--text text-h5" style="text-decoration: none">{{ name }}</router-link>
+                <router-link
+                  to="/dashboard"
+                  class="white--text text-h5"
+                  style="text-decoration: none"
+                  >{{ name }}</router-link
+                >
               </v-list-item-title>
             </v-list-item>
             <v-divider color="white"></v-divider>
           </div>
         </div>
         <v-list-item v-else class="justify-center">
-          <router-link to="/login" class="text-h5" v-slot="{ href, navigate }" custom>
+          <router-link
+            to="/login"
+            class="text-h5"
+            v-slot="{ href, navigate }"
+            custom
+          >
             <v-btn text @click="navigate" :href="href" dark>Login</v-btn>
           </router-link>
         </v-list-item>
         <v-divider color="white" v-if="!loggedIn"></v-divider>
-        <v-list-item v-for="link in links" :key="link.text" router :to="link.route">
+        <v-list-item
+          v-for="link in links"
+          :key="link.text"
+          router
+          :to="link.route"
+        >
           <v-list-item-action>
             <v-icon class="white--text">{{ link.icon }}</v-icon>
           </v-list-item-action>
@@ -89,7 +122,11 @@ export default {
       { icon: "mdi-view-dashboard", text: "Dashboard", route: "/dashboard" },
       { icon: "mdi-castle", text: "Actions", route: "/actions" },
       { icon: "mdi-sword", text: "Items", route: "/items" },
-      { icon: "mdi-traffic-light", text: "Housing Limits", route: "/housing-limits" },
+      {
+        icon: "mdi-traffic-light",
+        text: "Housing Limits",
+        route: "/housing-limits",
+      },
       { icon: "mdi-movie", text: "Trailer", route: "/trailer" },
     ],
     loggedIn: localStorage.getItem("token") ? true : false,
@@ -100,7 +137,9 @@ export default {
   }),
   methods: {
     logout() {
-      ["token", "userId", "avatar", "name"].forEach((key) => localStorage.removeItem(key));
+      ["token", "userId", "avatar", "name"].forEach((key) =>
+        localStorage.removeItem(key)
+      );
       this.loggedIn = false;
       this.$router.push("/");
     },
