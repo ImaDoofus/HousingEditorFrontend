@@ -34,8 +34,7 @@ export default {
 				this.$refs.snackbar.shown = true;
 				this.$refs.snackbar.timeout = 10000;
 				this.$refs.snackbar.color = 'success';
-				this.$refs.snackbar.text = 'You cant nest conditionals! So get rick rolled instead!';
-				window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+				this.$refs.snackbar.text = 'You cant nest conditionals!';
 			}
 		}
 	},
