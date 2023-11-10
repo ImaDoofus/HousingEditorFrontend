@@ -7,6 +7,42 @@
 		<v-container>
 			<v-card class="mt-5 pa-5">
 				<v-card-title>
+					<span class="text-h3">HousingEditor Update!</span>
+				</v-card-title>
+				<v-row class="ml-5 py-0">
+					<div>
+						<span>Support for the NEW Teams + GUIs Update!</span>
+					</div>
+				</v-row>
+				<v-row class="ml-5">
+					<span class="overline grey--text">By
+						<router-link to="/profile/Alex">Alex</router-link>
+					</span>
+					<v-divider vertical class="mx-2"></v-divider>
+					<span class="overline grey--text">Posted • November 10th 2023</span>
+				</v-row>
+				<br>
+				<v-divider></v-divider>
+				<v-card-text>
+					<v-list dense>
+						<v-list-item-group>
+							<v-list-item>
+								<span>Housing has updated to include new Teams and GUIs. HousingEditor now supports them allowing you to utilize the new actions in the editor.</span>
+							</v-list-item>
+							<v-list-item>
+								<span>Make sure to install the latest version on the <a href="https://github.com/ImaDoofus/HousingEditor" target="_blank">GitHub</a>.</span>
+							</v-list-item>
+							<v-list-item>
+								<span>Enjoy.</span>
+							</v-list-item>
+						</v-list-item-group>
+					</v-list>
+				</v-card-text>
+			</v-card>
+		</v-container>
+		<v-container>
+			<v-card class="mt-5 pa-5">
+				<v-card-title>
 					<span class="text-h3">Housing Music Maker</span>
 				</v-card-title>
 				<v-row class="ml-5 py-0">

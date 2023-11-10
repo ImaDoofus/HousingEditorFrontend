@@ -17,7 +17,7 @@
 			<v-list-item>
 				<v-list-item-avatar tile>
 					<router-link to="/profile/62c6871f53cc93e40cd459b2" v-slot="{ href, navigate }" custom>
-						<img src="https://mc-heads.net/avatar/imadoofus" alt="Imadoofus" style="image-rendering: pixelated;" :href='href' @click='navigate' />
+						<img src="https://mc-heads.net/avatar/al3xwarrior" alt="Al3xWarrior" style="image-rendering: pixelated;" :href='href' @click='navigate' />
 					</router-link>
 				</v-list-item-avatar>
 				<v-list-item-content>
@@ -25,7 +25,7 @@
 						<v-tooltip top>
 							<template v-slot:activator="{ on, attrs }">
 								<span v-bind="attrs" v-on="on">
-									<span class='font-weight-bold' @click="$router.push({ name: 'profile', params: { userId: '62bfd50b0d3e3b3f455ee8f3' }})">ImaDoofus</span>
+									<span class='font-weight-bold' @click="$router.push({ name: 'profile', params: { userId: '62bfd50b0d3e3b3f455ee8f3' }})">Al3xWarrior</span>
 									<v-icon color="yellow darken-2">mdi-crown</v-icon>
 								</span>
 							</template>

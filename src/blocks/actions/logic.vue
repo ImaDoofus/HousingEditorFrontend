@@ -5,12 +5,15 @@
     <block v-if="!isItem" type="exit"></block>
     <block v-if="!isItem" type="change_player_stat"></block>
     <block v-if="!isItem" type="change_global_stat"></block>
+    <block v-if="!isItem" type="change_team_stat"></block>
+    <block v-if="!isItem" type="pause_execution"></block>
     <block v-if="!isItem" type="cancel_event"></block>
   </category>
 </template>
 
 <script>
 import Blockly from "blockly/core";
+//import { FieldSlider } from '@blockly/field-slider';
 
 export default {
   name: "LogicBlocks",
@@ -206,6 +209,58 @@ export default {
         this.setColour(150);
         this.setPreviousStatement(true, "action");
         this.setNextStatement(true, "action");
+      },
+    };
+    Blockly.Blocks["change_team_stat"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath("team_stat", 0, true), 20, 20))
+          .appendField(new Blockly.FieldLabel("Change Team Stat   ", "block_header"));
+
+        const dropdown = new Blockly.FieldDropdown([
+          ["Add", "increment"],
+          ["Subtract", "decrement"],
+          ["Set", "set"],
+          ["Multiply", "multiply"],
+          ["Divide", "divide"],
+        ]);
+
+        this.appendDummyInput().appendField("Stat").appendField(new Blockly.FieldTextInput("name"), "STAT");
+        this.appendDummyInput().appendField("Team").appendField(new Blockly.FieldTextInput("name"), "TEAM");
+        this.appendDummyInput()
+          .appendField("Operation")
+          .appendField(dropdown, "MODE")
+          .appendField(
+            new Blockly.FieldTextInput("1", function (newValue) {
+              if (!isNaN(newValue)) {
+                if (newValue < -9223372036854775808) return null;
+                if (newValue > 9223372036854775807) return null;
+                return newValue;
+              }
+              return newValue;
+            }),
+            "VALUE"
+          );
+
+        this.setColour(10);
+        this.setPreviousStatement(true, "action");
+        this.setNextStatement(true, "action");
+      },
+    };
+    Blockly.Blocks["pause_execution"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(347, 0), 20, 20))
+          .appendField(new Blockly.FieldLabel("Pause Execution   ", "block_header"));
+
+        this.appendDummyInput()
+          .appendField('Ticks')
+          .appendField(new Blockly.FieldTextInput(20), "TICKS"); 
+
+        this.setPreviousStatement(true, "action");
+        this.setNextStatement(true, "action");
+        this.setColour(200);
+        this.setTooltip("Pauses the amount of ticks set before continuing the actions.");
       },
     };
     Blockly.Blocks["cancel_event"] = {

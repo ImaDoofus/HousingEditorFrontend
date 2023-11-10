@@ -120,6 +120,7 @@ export default {
         "%player.version%",
         "%player.protocol%",
         "%player.gamemode%",
+        "%player.region.name%",
         "%player.location.x%",
         "%player.location.y%",
         "%player.location.z%",
@@ -129,10 +130,14 @@ export default {
         "%player.group.tag%",
         "%player.group.priority%",
         "%player.group.color%",
-        "%player.region.name%",
+        "%player.team.name%",
+        "%player.team.tag%",
+        "%player.team.color%",
+        "%player.team.players/<team name>%",
         "%house.name%",
         "%house.guests%",
         "%house.cookies%",
+        "%house.visitingrules%",
         "%date.day/[timezone]%",
         "%date.month/[timezone]%",
         "%date.year/[timezone]%",
@@ -143,6 +148,7 @@ export default {
         "%random.int/<inclusive origin> <exclusive bound>%",
         "%stat.player/<key>%",
         "%stat.global/<key>%",
+        "%stat.team/<key> <team name>%",
       ],
       statName: "",
       statNameDialog: false,
@@ -242,14 +248,16 @@ export default {
   height: 36px !important;
   width: 36px !important;
   vertical-align: sub !important;
-  border-radius: 0 !important;
+  border-radius: 6px !important;
   font-family: "Minecraft";
 }
 .preview {
   position: absolute;
   left: 50%;
   top: -50px;
+  padding-bottom: 10px;
   transform: translate(-50%, 0);
+  border-radius: 25px;
 }
 .font_select {
   font-family: "Minecraft" !important;

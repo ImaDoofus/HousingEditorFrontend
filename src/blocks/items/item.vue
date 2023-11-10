@@ -49,8 +49,8 @@ export default {
 			},
 			item_: {
 				type: 1,
-				meta: 0,
-				name: "Stone",
+				meta: 0, // yum!
+				name: "Stone", // basically its a lot of spagetthi
 				text_type: "stone",
 			},
 			saveExtraState: function() {

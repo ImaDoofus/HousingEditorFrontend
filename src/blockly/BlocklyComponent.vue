@@ -62,7 +62,7 @@ export default {
       wheel: true,
       startScale: 1.0,
       maxScale: 2.0,
-      minScale: 0.5,
+      minScale: 0.25,
       scaleSpeed: 1.02,
       pinch: true,
     };

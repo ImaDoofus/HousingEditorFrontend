@@ -44,7 +44,7 @@ export default {
           let routeData = this.$router.resolve({ name: "action", params: { id: uploadResult.id } });
           window.open(routeData.href, "_blank");
         });
-        this.$refs.snackbar.timeout = 3000;
+        this.$refs.snackbar.timeout = 1500;
         this.id = uploadResult.id;
         this.$refs.nav.setId(this.id);
       } else this.$refs.snackbar.show(uploadResult.message, "error");

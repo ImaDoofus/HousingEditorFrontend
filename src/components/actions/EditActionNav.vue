@@ -8,14 +8,26 @@
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn v-if="id" class="amber mr-4" text dark @click="copyId()">
-        <span>COPY ID</span>
-        <v-icon right>mdi-content-copy</v-icon>
-      </v-btn>
-      <v-btn @click="dialog = true">
-        <v-icon>mdi-file-outline</v-icon>
-        <span>Save</span>
-      </v-btn>
+      <div v-if="id" class="mr-4">
+        <v-btn v-if="id" class="amber lighten-3 mr-4" @click="copyId()">
+          <span>COPY ID</span>
+          <v-icon right>mdi-content-copy</v-icon>
+        </v-btn>
+        <v-btn @click="dialog = true" class="mr-4 red lighten-3">
+          <span>Edit</span>
+          <v-icon>mdi-cog</v-icon>
+        </v-btn>
+        <v-btn @click="save" @disabled="disabledSave" class="mr-4 green lighten-3">
+          <span>Save</span>
+          <v-icon>mdi-file-outline</v-icon>
+        </v-btn>
+      </div>
+      <div v-else>
+        <v-btn @click="dialog = true" class="mr-4">
+          <v-icon>mdi-file-outline</v-icon>
+          <span>Create</span>
+        </v-btn>
+      </div>
     </v-app-bar>
     <v-dialog
       v-model="dialog"
@@ -130,6 +142,8 @@ export default {
       ],
       actionTagsValue: [],
       visibility: "Public",
+
+      disabledSave: false,
     };
   },
   methods: {
@@ -137,14 +151,18 @@ export default {
       this.dialog = false;
     },
     save() {
-      if (this.$refs.form.validate()) {
-        this.$emit("submit", {
-          title: this.title,
-          content: this.content,
-          tags: this.getTags(),
-          isPublic: this.visibility === "Public",
-        });
-        this.dialog = false;
+      if (!this.dialog || this.refs.form.validate()) {
+                this.$emit("submit", {
+                  title: this.title,
+                  content: this.content,
+                  tags: this.getTags(),
+                  isPublic: this.visibility === "Public",
+                });
+                this.dialog = false;
+              this.disabledSave = true;
+              setTimeout(() => {
+                this.disabledSave = false;
+              }, 1000);
       }
     },
     ctrlSHandler(e) {

@@ -3,9 +3,11 @@
     <block v-if="!isItem" type="random_action"></block>
     <block type="give_experience_levels"></block>
     <block v-if="!isItem" type="change_player_group"></block>
+    <block type="set_player_team"></block>
     <block type="play_sound"></block>
     <block type="set_gamemode"></block>
     <block type="set_compass_target"></block>
+    <block type="balance_player_team"></block>
   </category>
 </template>
 
@@ -129,8 +131,9 @@ export default {
           .appendField(new Blockly.FieldLabel("Set Compass Target", "block_header"));
 
         const dropdown = new Blockly.FieldDropdown([
-          ["Custom Coordinates", "custom_coordinates"],
+          ["Custom Coordinates", "custom_coordinates"],          
           ["Housing Spawn", "house_spawn"],
+					["Invokers Location", "invokers_location"],
           ["Current Location", "current_location"],
         ]);
         dropdown.setValidator((newValue) => {
@@ -152,6 +155,30 @@ export default {
         this.setTooltip("Set the players compass to a location.");
 
         this.setColour(250);
+      },
+    };
+    Blockly.Blocks["set_player_team"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath("team_stat", 0, true), 20, 20))
+          .appendField(new Blockly.FieldLabel("Set Player Team   ", "block_header"));
+
+        this.appendDummyInput().appendField("Team").appendField(new Blockly.FieldTextInput("name"), "TEAM");
+        
+        this.setColour(360);
+        this.setPreviousStatement(true, "action");
+        this.setNextStatement(true, "action");
+      },
+    };
+    Blockly.Blocks["balance_player_team"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(356, 0), 20, 20))
+          .appendField(new Blockly.FieldLabel("Balance Player Team   ", "block_header"));
+
+        this.setColour(330);
+        this.setPreviousStatement(true, "action");
+        this.setNextStatement(true, "action");
       },
     };
   },

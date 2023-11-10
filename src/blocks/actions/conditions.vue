@@ -2,6 +2,7 @@
   <category name="Conditions" categorystyle="conditions_category">
     <block v-if="!isItem" type="condition_player_stat_requirement"></block>
     <block v-if="!isItem" type="condition_global_stat_requirement"></block>
+    <block v-if="!isItem" type="condition_team_stat_requirement"></block>
 
     <block v-if="!isItem" type="condition_block_type"></block>
     <block v-if="!isItem" type="condition_damage_amount"></block>
@@ -9,18 +10,22 @@
     <block v-if="!isItem" type="condition_doing_parkour"></block>
     <block v-if="!isItem" type="condition_fishing_environment"></block>
     <block v-if="!isItem" type="condition_has_item"></block>
+    <block v-if="!isItem" type="condition_is_item"></block>
     <block v-if="!isItem" type="condition_has_potion_effect"></block>
     <block v-if="!isItem" type="condition_placeholder_number_requirement"></block>
     <block v-if="!isItem" type="condition_player_health"></block>
     <block v-if="!isItem" type="condition_player_hunger"></block>
     <block v-if="!isItem" type="condition_player_max_health"></block>
     <block v-if="!isItem" type="condition_player_sneaking"></block>
+    <block v-if="!isItem" type="condition_player_flying"></block>
     <block v-if="!isItem" type="condition_portal_type"></block>
     <block v-if="!isItem" type="condition_pvp_enabled"></block>
     <block v-if="!isItem" type="condition_required_gamemode"></block>
     <block v-if="!isItem" type="condition_required_group"></block>
     <block v-if="!isItem" type="condition_required_permission"></block>
+    <block v-if="!isItem" type="condition_required_team"></block>
     <block v-if="!isItem" type="condition_within_region"></block>
+
   </category>
 </template>
 
@@ -83,6 +88,12 @@ export default {
       condition_required_group: "#4fd2d2",
       condition_required_permission: "#D6D696",
       condition_within_region: "#85c458",
+      // minecraft feather color
+      condition_player_flying: "#f2ed78",
+      condition_required_team: "#a947ff",
+      // light green pastel
+      condition_team_stat_requirement: "#b6f2c6",
+      condition_is_item: "#f58e02",
     };
 
     Blockly.Blocks["condition_player_stat_requirement"] = {
@@ -158,6 +169,48 @@ export default {
           .appendField(dropdown, "COMPARATOR")
           .appendField("value")
           .appendField(value, "VALUE");
+
+        dropdown.setValidator(dataChangeListener); // dataChangeListener requires the getSourceBlock()
+        value.setValidator(dataChangeListener); // dataChangeListener requires the getSourceBlock()
+      },
+      close_,
+    };
+    Blockly.Blocks["condition_team_stat_requirement"] = {
+      init: function () {
+        this.isOpened_ = true;
+        this.options_ = { STAT: "stat", COMPARATOR: "equal_to", VALUE: "0", TEAM: "team" };
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath("team_stat", 0, true), 20, 20))
+          .appendField(new Blockly.FieldLabel("Team Stat Requirement  ", "block_header"))
+          .appendField(getOpenIcon());
+
+        this.setColour(colorLookup[this.type]);
+        this.setOutput(true, "Condition");
+      },
+      saveExtraState,
+      loadExtraState,
+      updateShape_,
+      open_: function () {
+        const dropdown = new Blockly.FieldDropdown([
+          ["Equal To =", "equal_to"], // default
+          ["Less Than <", "less_than"],
+          ["Less Than or Equal To <=", "less_than_or_equal_to"],
+          ["Greater Than or Equal To >=", "greater_than_or_equal_to"],
+          ["Greater Than >", "greater_than"],
+        ]);
+        dropdown.setValue(this.options_["COMPARATOR"]);
+
+        const value = new Blockly.FieldTextInput(this.options_["VALUE"]);
+
+        this.appendDummyInput("DATA")
+          .appendField("Stat:")
+          .appendField(new Blockly.FieldTextInput(this.options_["STAT"], dataChangeListener), "STAT")
+          .appendField("is")
+          .appendField(dropdown, "COMPARATOR")
+          .appendField("value")
+          .appendField(value, "VALUE")
+          .appendField("for the team")
+          .appendField(new Blockly.FieldTextInput(this.options_["TEAM"], dataChangeListener), "TEAM");
 
         dropdown.setValidator(dataChangeListener); // dataChangeListener requires the getSourceBlock()
         value.setValidator(dataChangeListener); // dataChangeListener requires the getSourceBlock()
@@ -321,6 +374,65 @@ export default {
 
         this.setTooltip(
           "<h3>Returns true if the player has the specified item.</h3>" +
+            "<br>" +
+            "<b>Item ID</b> You can get an item ID from this website" +
+            "<br>" +
+            "<b>Check Metadata</b> If true, the item must have the specified metadata" +
+            "<br>" +
+            "e.g check for the same enchantment and name" +
+            "<br>" +
+            "<b>Where to Check</b> The item will be checked in the specified slot" +
+            "<br>" +
+            "<b>Require Amount</b> If true, the item must have the specified amount"
+        );
+      },
+      saveExtraState,
+      loadExtraState,
+      updateShape_,
+      open_: function () {
+        this.appendDummyInput("CHECK_METADATA")
+          .appendField("Check Metadata:")
+          .appendField(new Blockly.FieldCheckbox(this.options_["CHECK_METADATA"], dataChangeListener), "CHECK_METADATA");
+
+        const dropdown = new Blockly.FieldDropdown([
+          ["Anywhere", "anywhere"], // default
+          ["Hand", "hand"],
+          ["Armor", "armor"],
+          ["Hotbar", "hotbar"],
+          ["Inventory", "inventory"],
+        ]);
+        dropdown.setValue(this.options_["WHERE_TO_CHECK"]);
+
+        this.appendDummyInput("WHERE_TO_CHECK").appendField("Where to Check:").appendField(dropdown, "WHERE_TO_CHECK");
+
+        dropdown.setValidator(dataChangeListener); // dataChangeListener requires the getSourceBlock()
+
+        this.appendDummyInput("REQUIRE_AMOUNT")
+          .appendField("Equal To or Greater Amount")
+          .appendField(new Blockly.FieldCheckbox(this.options_["REQUIRE_AMOUNT"], dataChangeListener), "REQUIRE_AMOUNT");
+      },
+      close_: function () {
+        if (this.getInput("CHECK_METADATA")) this.removeInput("CHECK_METADATA");
+        if (this.getInput("WHERE_TO_CHECK")) this.removeInput("WHERE_TO_CHECK");
+        if (this.getInput("REQUIRE_AMOUNT")) this.removeInput("REQUIRE_AMOUNT");
+      },
+    };
+    Blockly.Blocks["condition_is_item"] = {
+      init: function () {
+        this.isOpened_ = true;
+        this.options_ = { CHECK_METADATA: "TRUE", WHERE_TO_CHECK: "ANYWHERE", REQUIRE_AMOUNT: "FALSE" };
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(54, 0), 20, 20))
+          .appendField(new Blockly.FieldLabel("Is Item  ", "block_header"))
+          .appendField(getOpenIcon());
+
+        this.appendValueInput("ITEM").setCheck(["CustomItem", "UseInventorySlot"]).appendField("Item:");
+
+        this.setColour(colorLookup[this.type]);
+        this.setOutput(true, "Condition");
+
+        this.setTooltip(
+          "<h3>Returns true if item changed from the event matches the item chosen.</h3>" +
             "<br>" +
             "<b>Item ID</b> You can get an item ID from this website" +
             "<br>" +
@@ -570,6 +682,40 @@ export default {
         this.setTooltip("Returns true if the player is sneaking");
       },
     };
+    Blockly.Blocks["condition_player_flying"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(288, 0), 20, 20))
+          .appendField(new Blockly.FieldLabel("Player Flying  ", "block_header"));
+
+        this.setColour(colorLookup[this.type]);
+        this.setOutput(true, "Condition");
+
+        this.setTooltip("Returns true if the player is flying");
+      },
+    };
+    Blockly.Blocks["condition_required_team"] = {
+      init: function () {
+        this.isOpened_ = true;
+        this.options_ = { TEAM: "team" };
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath("team_stat", 0, true), 20, 20))
+          .appendField(new Blockly.FieldLabel("Player Team  ", "block_header"))
+          .appendField(getOpenIcon());
+
+        this.setColour(colorLookup[this.type]);
+        this.setOutput(true, "Condition");
+      },
+      saveExtraState,
+      loadExtraState,
+      updateShape_,
+      open_: function () {
+        this.appendDummyInput("DATA")
+          .appendField("Team")
+          .appendField(new Blockly.FieldTextInput(this.options_["TEAM"], dataChangeListener), "TEAM");
+      },
+      close_,
+    };
     Blockly.Blocks["condition_portal_type"] = {
       init: function () {
         this.isOpened_ = true;
@@ -678,7 +824,14 @@ export default {
         this.setOutput(true, "Condition");
       },
       saveExtraState,
-      loadExtraState,
+      loadExtraState: function (state) {
+        // TODO: some of the permission names have changed, make a change on all actions in the database
+        let options = state["options"];
+        if (options.PERMISSION === "Slime") options.PERMISSION = "Use Launch Pads";
+        if (options.PERMISSION === "Tp Others") options.PERMISSION = "/tp Other Players";
+
+        loadExtraState.call(this, state);
+      },
       updateShape_,
       open_: function () {
         const dropdown = new Blockly.FieldDropdown([
@@ -689,9 +842,10 @@ export default {
           ["Iron Trap Door", "Iron Trap Door"],
           ["Fence Gate", "Fence Gate"],
           ["Button", "Button"],
-          ["Slime", "Slime"],
+          ["Lever", "Lever"],
+          ["Use Launch Pads", "Use Launch Pads"],
           ["/tp", "/tp"],
-          ["Tp Others", "Tp Others"],
+          ["/tp Other Players", "/tp Other Players"],
           ["Jukebox", "Jukebox"],
           ["Kick", "Kick"],
           ["Ban", "Ban"],
@@ -708,7 +862,29 @@ export default {
           ["Edit Stats", "Edit Stats"],
           ["Change Player Group", "Change Player Group"],
           ["Change Gamerules", "Change Gamerules"],
-        ]);
+          ["Housing Menu", "Housing Menu"],
+          ["Team Chat Spy", "Team Chat Spy"],
+          ["Edit Actions", "Edit Actions"],
+          ["Edit Regions", "Edit Regions"],
+          ["Edit Scoreboard", "Edit Scoreboard"],
+          ["Edit Event Actions", "Edit Event Actions"],
+          ["Edit Commands", "Edit Commands"],
+          ["Edit Functions", "Edit Functions"],
+          ["Edit Inventory Layouts", "Edit Inventory Layouts"],
+          ["Edit Teams", "Edit Teams"],
+          ["Edit Custom Menus", "Edit Custom Menus"],
+          ["Item: Mailbox", "Item: Mailbox"],
+          ["Item: Egg Hunt", "Item: Egg Hunt"],
+          ["Item: Teleport Pad", "Item: Teleport Pad"],
+          ["Item: Launch Pad", "Item: Launch Pad"],
+          ["Item: Action Pad", "Item: Action Pad"],
+          ["Item: Hologram", "Item: Hologram"],
+          ["Item: NPCs", "Item: NPCs"],
+          ["Item: Action Button", "Item: Action Button"],
+          ["Item: Leaderboard", "Item: Leaderboard"],
+          ["Item: Trash Can", "Item: Trash Can"],
+          ["Item: Biome Stick", "Item: Biome Stick"],
+      ]);
         dropdown.setValue(this.options_["PERMISSION"]);
 
         this.appendDummyInput("DATA").appendField("Permission:").appendField(dropdown, "PERMISSION");

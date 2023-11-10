@@ -2,41 +2,49 @@ import Blockly from "blockly";
 
 export default class EventUtil {
   static maxOfType = [
-    ["teleport_player", 1],
+    ["balance_player_team", 1],
+
+    ["set_player_team", 1],
+    ["teleport_player", 5],
     ["fail_parkour", 1],
-    ["play_sound", 1],
-    ["set_compass_target", 1],
+    ["play_sound", 25],
+    ["set_compass_target", 5],
     ["set_gamemode", 1],
-    ["set_health", 1],
-    ["set_hunger_level", 1],
-    ["clear_all_potion_effects", 1],
-    ["give_experience_levels", 1],
+    ["set_health", 5],
+    ["set_hunger_level", 5],
+    ["clear_all_potion_effects", 5],
+    ["give_experience_levels", 5],
     ["send_to_lobby", 1],
     ["change_player_group", 1],
     ["kill_player", 1],
-    ["full_heal", 1],
+    ["full_heal", 5],
     ["go_to_house_spawn", 1],
-    ["display_title", 1],
-    ["display_action_bar", 1],
+    ["display_title", 5],
+    ["display_action_bar", 5],
     ["reset_inventory", 1],
-    ["set_max_health", 1],
+    ["set_max_health", 5],
     ["parkour_checkpoint", 1],
-    ["apply_inventory_layout", 1],
+    ["apply_inventory_layout", 5],
     ["exit", 1],
-    ["change_player_stat", 5],
-    ["change_global_stat", 5],
+    ["change_player_stat", 10],
+    ["change_global_stat", 10],
+    ["change_team_stat", 10],
     ["random_action", 5],
-    ["send_a_chat_message", 5],
+    ["send_a_chat_message", 20],
     ["trigger_function", 10],
+    ["display_menu", 10],
+
     ["conditional", 15],
     ["give_item", 20],
     ["remove_item", 20],
     ["apply_potion_effect", 22],
     ["enchant_held_item", 23],
+    ["pause_execution", 30],
   ];
 
   // TODO: Validate these numbers
   static maxOfTypeInRandomAction = [
+    ["balance_player_team", 10],
     ["teleport_player", 10],
     ["fail_parkour", 10],
     ["play_sound", 10],
@@ -60,18 +68,19 @@ export default class EventUtil {
     ["exit", 10],
     ["change_player_stat", 10],
     ["change_global_stat", 10],
+    ["change_team_stat", 10],
     ["random_action", 10],
     ["send_a_chat_message", 10],
     ["trigger_function", 10],
-    ["conditional", 10],
+    ["set_player_team", 10],
+    ["display_menu", 10],
     ["give_item", 20],
     ["remove_item", 20],
     ["apply_potion_effect", 20],
     ["enchant_held_item", 23],
+    ["pause_execution", 30],
   ];
-
   static unnestable = ["conditional", "random_action"];
-
   static scoped_blocks = ["conditional", "random_action", "when_action_triggered", "right_click_action"];
 
   static findBlockScope(currentBlock, originalBlockID) {

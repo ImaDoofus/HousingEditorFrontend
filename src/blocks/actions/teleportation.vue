@@ -50,6 +50,7 @@ export default {
 
         const dropdown = new Blockly.FieldDropdown([
           ["Current Location", "current_location"],
+          ["Invokers Location", "invokers_location"],
           ["Custom Coordinates", "custom_coordinates"],
           ["Housing Spawn", "house_spawn"],
         ]);

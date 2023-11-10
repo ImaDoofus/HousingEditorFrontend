@@ -9,6 +9,8 @@
     <block v-if="!isItem" type="custom_item" class="custom_item_block"></block>
     <block v-if="isItem" type="use_remove_held_item"></block>
     <block type="apply_inventory_layout"></block>
+    <block type="display_menu"></block>
+    <block type="close_menu"></block>
     <block type="enchant_held_item"></block>
   </category>
 </template>
@@ -51,6 +53,8 @@ export default {
           .appendField(new Blockly.FieldLabel("Give Item  ", "block_header"));
         this.appendValueInput("ITEM").setCheck(["CustomItem", "UseInventorySlot"]).appendField("Item:");
         this.appendDummyInput().appendField("Allow Multiple").appendField(new Blockly.FieldCheckbox("FALSE"), "ALLOW_MULTIPLE");
+          this.appendDummyInput().appendField("Inventory Slot").appendField(new Blockly.FieldNumber(0, -2, 39), "INVENTORY_SLOT");
+        this.appendDummyInput().appendField("Replace Existing Item").appendField(new Blockly.FieldCheckbox("FALSE"), "REPLACE_EXISTING_ITEM");
         this.setPreviousStatement(true, "action");
         this.setNextStatement(true, "action");
         this.setTooltip("Give the player an item.");
@@ -220,6 +224,30 @@ export default {
         this.setTooltip("Enchant the player's held item.");
         this.setColour(230);
         this.setInputsInline(false);
+      },
+    };
+    Blockly.Blocks["display_menu"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(54, 0), 20, 20))
+          .appendField(new Blockly.FieldLabel("Display Menu   ", "block_header"));
+
+        this.appendDummyInput().appendField("Menu").appendField(new Blockly.FieldTextInput("name"), "MENU");
+        
+        this.setColour(220);
+        this.setPreviousStatement(true, "action");
+        this.setNextStatement(true, "action");
+      },
+    };
+    Blockly.Blocks["close_menu"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(54, 0), 20, 20))
+          .appendField(new Blockly.FieldLabel("Close Menu   ", "block_header"));
+
+        this.setColour(220);
+        this.setPreviousStatement(true, "action");
+        this.setNextStatement(true, "action");
       },
     };
   },
