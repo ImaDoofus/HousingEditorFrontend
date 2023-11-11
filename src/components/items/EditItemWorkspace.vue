@@ -18,21 +18,17 @@
     </v-card>
     <ItemBlock @itemSelected="itemWasSelected" />
     <BlocklyComponent id="workspace" :extraOptions="extraOptions" ref="workspace">
-      <category name="Customize Item" categorystyle="customize_item_category">
-        <block type="set_name"></block>
-        <block type="add_lore"></block>
-      </category>
       <TextComponent />
       <sep></sep>
-      <LogicBlocks :isItem="true" />
-      <ConditionBlocks :isItem="false" />
+      <LogicBlocks isItem />
+      <ConditionBlocks isItem />
       <MessagesBlocks />
       <PotionEffectsBlocks />
       <HealthBlocks />
       <TeleportationBlocks />
       <ParkourBlocks />
-      <MiscBlocks :isItem="true" />
-      <InventoryBlocks :isItem="true" />
+      <MiscBlocks isItem />
+      <InventoryBlocks isItem />
     </BlocklyComponent>
   </div>
 </template>

@@ -3,9 +3,9 @@
     <block v-if="!isItem" type="conditional"></block>
     <block type="trigger_function"></block>
     <block v-if="!isItem" type="exit"></block>
-    <block v-if="!isItem" type="change_player_stat"></block>
-    <block v-if="!isItem" type="change_global_stat"></block>
-    <block v-if="!isItem" type="change_team_stat"></block>
+    <block type="change_player_stat"></block>
+    <block type="change_global_stat"></block>
+    <block type="change_team_stat"></block>
     <block v-if="!isItem" type="pause_execution"></block>
     <block v-if="!isItem" type="cancel_event"></block>
   </category>

@@ -25,7 +25,6 @@
     <block v-if="!isItem" type="condition_required_permission"></block>
     <block v-if="!isItem" type="condition_required_team"></block>
     <block v-if="!isItem" type="condition_within_region"></block>
-
   </category>
 </template>
 
