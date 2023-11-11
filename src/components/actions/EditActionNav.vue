@@ -151,7 +151,7 @@ export default {
       this.dialog = false;
     },
     save() {
-      if (!this.dialog || this.refs.form?.validate()) {
+      if (!this.dialog || this.refs?.form?.validate()) {
         this.$emit("submit", {
           title: this.title,
           content: this.content,
