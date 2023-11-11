@@ -83,10 +83,10 @@ export default {
 
 				this.appendDummyInput()
 					.appendField('Volume')
-					.appendField(new FieldNumber(0.7, 0.1, 2, 0.00001), "VOLUME");
+					.appendField(new FieldNumber(0.7, 0.1, 2, 0.0000001), "VOLUME");
 				this.appendDummyInput()
 					.appendField('Pitch')
-					.appendField(new FieldNumber(1, 0.5, 2, 0.00001), "PITCH");
+					.appendField(new FieldNumber(1, 0.5, 2, 0.0000001), "PITCH");
 
 
 				const dropdown = new Blockly.FieldDropdown(dropdownData);
