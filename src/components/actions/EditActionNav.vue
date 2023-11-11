@@ -151,18 +151,18 @@ export default {
       this.dialog = false;
     },
     save() {
-      if (!this.dialog || this.refs.form.validate()) {
-                this.$emit("submit", {
-                  title: this.title,
-                  content: this.content,
-                  tags: this.getTags(),
-                  isPublic: this.visibility === "Public",
-                });
-                this.dialog = false;
-              this.disabledSave = true;
-              setTimeout(() => {
-                this.disabledSave = false;
-              }, 1000);
+      if (!this.dialog || this.refs.form?.validate()) {
+        this.$emit("submit", {
+          title: this.title,
+          content: this.content,
+          tags: this.getTags(),
+          isPublic: this.visibility === "Public",
+        });
+        this.dialog = false;
+        this.disabledSave = true;
+        setTimeout(() => {
+          this.disabledSave = false;
+        }, 1000);
       }
     },
     ctrlSHandler(e) {
