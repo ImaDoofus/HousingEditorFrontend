@@ -57,7 +57,6 @@ export default {
 		const snackbar = this.$refs.snackbar;
 
 		const response = await fetch(`${this.$apiHostname}/users/create-link-code`, {
-			method: 'POST',
 			headers: {
 				'authorization': `Bearer ${localStorage.getItem('token')}`,
 			}

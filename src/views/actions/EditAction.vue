@@ -70,7 +70,6 @@ export default {
     if (!this.isCopy()) this.$refs.nav.setId(this.id);
 
     const response = fetch(`${this.$apiHostname}/actions/${this.id}`, {
-      method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
