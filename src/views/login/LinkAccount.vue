@@ -23,7 +23,7 @@
 					</v-chip>
 				</v-card-text>
 				<v-card-actions class="justify-center mt-5">
-					<v-btn @click="$router.push('/')">Link my account later</v-btn>
+					<v-btn @click="$router.push('/')">Done</v-btn>
 				</v-card-actions>
 			</v-card>
 		</v-row>
@@ -39,7 +39,6 @@ export default {
 	name: 'LinkAccount',
 	data() {
 		return {
-			expired: false,
 			code: "",
 			copyText: "Click to copy",
 		}
@@ -49,14 +48,9 @@ export default {
 		RandomBackground
 	},
 	methods: {
-		async copyCode() {
-			if (this.expired) return; // Don't allow copying if the invitation has expired
-			await navigator.clipboard.writeText('/link-account ' + this.code);
+		copyCode() {
+			navigator.clipboard.writeText(`/link-account ${this.code}`);
 			this.copyText = "Copied!"
-		},
-		reset() {
-			if (this.expired) return this.copyText = "Code expired"; // If code has expired	set the text to say.
-			this.copyText = "Click to copy"
 		},
 	},
 	async mounted() {
@@ -68,46 +62,13 @@ export default {
 				'authorization': `Bearer ${localStorage.getItem('token')}`,
 			}
 		});
-		const reader = response.body.getReader();
-
-
-		while (reader) {
-			const { value, done } = await reader.read();
-			if (done) break;
-			let decoded = new TextDecoder().decode(value);
-			if (decoded === 'expired') {
-				snackbar.shown = true;
-				snackbar.text = 'Your code has expired!';
-				snackbar.color = 'red';
-				snackbar.buttonText = 'Refresh Code';
-				snackbar.buttonAction = () => {
-					this.$router.go() // refresh page
-				}
-				this.expired = true;
-				break;
-			} else if (decoded === 'success') {
-				snackbar.shown = true;
-				snackbar.text = 'Successfully linked your account!';
-				snackbar.color = 'success';
-				snackbar.buttonText = 'Continue';
-				snackbar.buttonAction = () => {
-					this.$router.push('/')
-				}
-				break;
-			} else if (decoded === 'error') {
-				snackbar.shown = true;
-				snackbar.text = 'An error occured. :(';
-				snackbar.color = 'red';
-				snackbar.buttonText = 'Reload';
-				snackbar.buttonAction = () => {
-					this.$router.go() // refresh page
-				}
-				this.expired = true;
-			} else {
-				this.code = decoded;
-			}
+		
+		if (response.ok) {
+			const json = await response.json();
+			this.code = json.code;
+		} else {
+			snackbar.show("Failed to create link code", "error");
 		}
-
 	}
 }
 </script>
