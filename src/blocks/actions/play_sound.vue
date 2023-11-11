@@ -6,7 +6,7 @@
 import housingSounds from '@/assets/sounds/soundHousingList.json';
 import SOUND_VARIANTS_LATEST from '@/assets/sounds/sounds.json';
 import SOUND_VARIANTS_LEGACY from '@/assets/sounds/sounds_legacy.json';
-import Blockly from 'blockly';
+import Blockly, { FieldNumber } from 'blockly';
 import { FieldSlider } from '@blockly/field-slider';
 
 const LATEST_VERSION_SOUNDS = Object.keys(SOUND_VARIANTS_LATEST).map(sound => {
@@ -83,10 +83,10 @@ export default {
 
 				this.appendDummyInput()
 					.appendField('Volume')
-					.appendField(new FieldSlider(0.7, 0.1, 2, 0.1), "VOLUME");
+					.appendField(new FieldNumber(0.7, 0.1, 2, 0.00001), "VOLUME");
 				this.appendDummyInput()
 					.appendField('Pitch')
-					.appendField(new FieldSlider(1, 0.5, 2, 0.1), "PITCH");
+					.appendField(new FieldNumber(1, 0.5, 2, 0.00001), "PITCH");
 
 
 				const dropdown = new Blockly.FieldDropdown(dropdownData);
