@@ -33,6 +33,7 @@ export default class EventUtil {
     ["send_a_chat_message", 20],
     ["trigger_function", 10],
     ["display_menu", 10],
+    ["close_menu", 1],
 
     ["conditional", 15],
     ["give_item", 20],
