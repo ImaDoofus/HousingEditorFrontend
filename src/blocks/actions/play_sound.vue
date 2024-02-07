@@ -96,9 +96,9 @@ export default {
 				.appendField(dropdown, 'SOUND');
 					
 				const locationDropdown = new Blockly.FieldDropdown([
+					["Invokers Location", "invokers_location"],
 					["Current Location", "current_location"],
 					["Custom Coordinates", "custom_coordinates"],
-					["Invokers Location", "invokers_location"],
 					["Housing Spawn", "house_spawn"],
 				]);
 				locationDropdown.setValidator((newValue) => {
