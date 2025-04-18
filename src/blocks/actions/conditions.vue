@@ -1,5 +1,6 @@
 <template>
   <category name="Conditions" categorystyle="conditions_category">
+    <block v-if="!isItem" type="inverted"></block>
     <block v-if="!isItem" type="condition_player_stat_requirement"></block>
     <block v-if="!isItem" type="condition_global_stat_requirement"></block>
     <block v-if="!isItem" type="condition_team_stat_requirement"></block>
@@ -57,6 +58,8 @@ export default {
       return color++ % 2 == 0 ? "#FFD180" : "#FFAB40";
     }
     let colorLookup = {
+      //dark red
+      inverted: "#d30101",
       // medium gray
       condition_player_stat_requirement: "#e5c0ec",
       // darkish earthy blue
@@ -94,6 +97,22 @@ export default {
       condition_team_stat_requirement: "#b6f2c6",
       condition_is_item: "#f58e02",
     };
+
+    Blockly.Blocks["inverted"] = {
+      init: function () {
+        this.inputCount_ = 1;
+
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath("inverted", 0, true), 20, 20))
+          .appendField(new Blockly.FieldLabel("Inverted  ", "block_header"));
+
+        this.appendValueInput("CONDITIONINPUTZ2").setCheck("Condition");
+
+        this.setColour(colorLookup[this.type]);
+        this.setOutput(true, "Condition");
+      },
+      updateShape_,
+    }
 
     Blockly.Blocks["condition_player_stat_requirement"] = {
       init: function () {

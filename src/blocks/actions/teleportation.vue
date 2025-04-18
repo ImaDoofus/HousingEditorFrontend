@@ -1,13 +1,15 @@
 <template>
-  <category name="Teleportation" categorystyle="teleportation_category">
+  <category name="TP & Velocity" categorystyle="teleportation_category">
     <block type="teleport_player"></block>
     <block type="go_to_house_spawn"></block>
     <block type="send_to_lobby"></block>
+    <block type="change_velocity"></block>
+    <block type="launch_to_target"></block>
   </category>
 </template>
 
 <script>
-import Blockly from "blockly/core";
+import Blockly, {Block} from "blockly/core";
 
 export default {
   name: "TeleportationBlocks",
@@ -25,7 +27,7 @@ export default {
     const component = this;
 
     function coordinateInputValidatorXZ(newValue) {
-      if (newValue.startsWith("~")) newValue = newValue.substring(1);
+      if (newValue.startsWith("~") || newValue.startsWith("^")) newValue = newValue.substring(1);
       const number = parseFloat(newValue);
       if (isNaN(number) || number < -190 || number > 190) return null;
 
@@ -33,8 +35,24 @@ export default {
       if (!coordinateRegex.test(newValue)) return null;
     }
 
+    function directionInputValidator(newValue) {
+      const number = parseFloat(newValue);
+      if (isNaN(number) || number < -50 || number > 50) return null;
+
+      const coordinateRegex = /^-?\d+(?:\.\d{1,2})?$/;
+      if (!coordinateRegex.test(newValue)) return null;
+    }
+
+    function strengthInputValidator(newValue) {
+      const number = parseFloat(newValue);
+      if (isNaN(number) || number < 0 || number > 20) return null;
+
+      const coordinateRegex = /^-?\d+(?:\.\d{1,2})?$/;
+      if (!coordinateRegex.test(newValue)) return null;
+    }
+
     function coordinateInputValidatorY(newValue) {
-      if (newValue.startsWith("~")) newValue = newValue.substring(1);
+      if (newValue.startsWith("~") || newValue.startsWith("^")) newValue = newValue.substring(1);
       const number = parseFloat(newValue);
       if (isNaN(number) || number < -50 || number > 300) return null;
 
@@ -148,6 +166,73 @@ export default {
         this.setColour(140);
       },
     };
+
+    Blockly.Blocks["change_velocity"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(165, 0), 20, 20))
+          .appendField(new Blockly.FieldLabel("Change Velocity  ", "block_header"));
+
+        this.appendDummyInput().appendField("X Direction:")
+          .appendField(new Blockly.FieldTextInput("10", directionInputValidator), "X")
+
+        this.appendDummyInput().appendField("Y Direction:")
+          .appendField(new Blockly.FieldTextInput("10", directionInputValidator), "Y")
+
+        this.appendDummyInput().appendField("Z Direction:")
+          .appendField(new Blockly.FieldTextInput("10", directionInputValidator), "Z")
+
+        this.setPreviousStatement(true, "action");
+        this.setNextStatement(true, "action");
+        this.setTooltip("Change the velocity direction of the player.");
+
+        this.setColour(110);
+      },
+    };
+
+    Blockly.Blocks["launch_to_target"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(341, 0), 20, 20))
+          .appendField(new Blockly.FieldLabel("Launch to Target  ", "block_header"));
+
+        const dropdown = new Blockly.FieldDropdown([
+          ["Housing Spawn", "house_spawn"],
+          ["Invokers Location", "invokers_location"],
+          ["Current Location", "current_location"],
+          ["Custom Coordinates", "custom_coordinates"]
+        ]);
+        dropdown.setValidator((newValue) => {
+          if (this.getInput("COORDINATES")) this.removeInput("COORDINATES");
+          if (this.getInput("YAW")) this.removeInput("YAW");
+          if (this.getInput("PITCH")) this.removeInput("PITCH");
+          if (this.getInput("STRENGTH")) this.removeInput("STRENGTH");
+          if (newValue === "custom_coordinates") {
+            this.appendDummyInput("COORDINATES")
+              .appendField("X:")
+              .appendField(new Blockly.FieldTextInput("0", coordinateInputValidatorXZ), "X")
+              .appendField("Y:")
+              .appendField(new Blockly.FieldTextInput("0", coordinateInputValidatorY), "Y")
+              .appendField("Z:")
+              .appendField(new Blockly.FieldTextInput("0", coordinateInputValidatorXZ), "Z");
+          }
+
+          this.appendDummyInput("STRENGTH").appendField("Strength:")
+            .appendField(new Blockly.FieldTextInput("2", directionInputValidator), "STRENGTH")
+
+        });
+        this.appendDummyInput().appendField("Location:").appendField(dropdown, "LOCATION");
+
+        this.appendDummyInput("STRENGTH").appendField("Strength:")
+          .appendField(new Blockly.FieldTextInput("2", directionInputValidator), "STRENGTH")
+
+        this.setPreviousStatement(true, "action");
+        this.setNextStatement(true, "action");
+        this.setTooltip("Change the velocity direction of the player.");
+
+        this.setColour(120);
+      },
+    }
   },
 };
 </script>

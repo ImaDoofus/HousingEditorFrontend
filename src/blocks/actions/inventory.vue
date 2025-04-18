@@ -12,6 +12,7 @@
     <block type="display_menu"></block>
     <block type="close_menu"></block>
     <block type="enchant_held_item"></block>
+    <block type="drop_item"></block>
   </category>
 </template>
 
@@ -44,6 +45,24 @@ export default {
     },
   },
   mounted() {
+    function coordinateInputValidatorXZ(newValue) {
+      if (newValue.startsWith("~")) newValue = newValue.substring(1);
+      const number = parseFloat(newValue);
+      if (isNaN(number) || number < -190 || number > 190) return null;
+
+      const coordinateRegex = /^-?\d+(?:\.\d{1,2})?$/;
+      if (!coordinateRegex.test(newValue)) return null;
+    }
+
+    function coordinateInputValidatorY(newValue) {
+      if (newValue.startsWith("~")) newValue = newValue.substring(1);
+      const number = parseFloat(newValue);
+      if (isNaN(number) || number < -50 || number > 300) return null;
+
+      const coordinateRegex = /^-?\d+(?:\.\d{1,2})?$/;
+      if (!coordinateRegex.test(newValue)) return null;
+    }
+
     const component = this;
 
     Blockly.Blocks["give_item"] = {
@@ -249,6 +268,57 @@ export default {
         this.setPreviousStatement(true, "action");
         this.setNextStatement(true, "action");
       },
+    };
+    Blockly.Blocks["drop_item"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(158, 0), 20, 20))
+          .appendField(new Blockly.FieldLabel("Drop Item   ", "block_header"));
+
+        this.appendValueInput("ITEM").setCheck(["CustomItem", "UseInventorySlot"]).appendField("Item:");
+
+        const dropdown = new Blockly.FieldDropdown([
+          ["Custom Coordinates", "custom_coordinates"],
+          ["Housing Spawn", "house_spawn"],
+          ["Invokers Location", "invokers_location"],
+          ["Current Location", "current_location"],
+        ]);
+        dropdown.setValidator((newValue) => {
+          if (this.getInput("COORDINATES")) this.removeInput("COORDINATES");
+          if (this.getInput("DROP_NATURALLY")) this.removeInput("DROP_NATURALLY");
+          if (this.getInput("DISABLE_ITEM_MERGING")) this.removeInput("DISABLE_ITEM_MERGING");
+          if (this.getInput("PRIORITIZE_PLAYER")) this.removeInput("PRIORITIZE_PLAYER");
+          if (this.getInput("FALLBACK_TO_INVENTORY")) this.removeInput("FALLBACK_TO_INVENTORY");
+
+          if (newValue === "custom_coordinates") {
+            this.appendDummyInput("COORDINATES")
+              .appendField("X:")
+              .appendField(new Blockly.FieldTextInput("0", coordinateInputValidatorXZ), "X")
+              .appendField("Y:")
+              .appendField(new Blockly.FieldTextInput("0", coordinateInputValidatorY), "Y")
+              .appendField("Z:")
+              .appendField(new Blockly.FieldTextInput("0", coordinateInputValidatorXZ), "Z");
+            this.appendDummyInput()
+          }
+
+          this.appendDummyInput("DROP_NATURALLY").appendField("Drop Naturally").appendField(new Blockly.FieldCheckbox("TRUE"), "DROP_NATURALLY");
+          this.appendDummyInput("DISABLE_ITEM_MERGING").appendField("Disable Item Merging").appendField(new Blockly.FieldCheckbox("FALSE"), "DISABLE_ITEM_MERGING");
+          this.appendDummyInput("PRIORITIZE_PLAYER").appendField("Prioritize Player").appendField(new Blockly.FieldCheckbox("FALSE"), "PRIORITIZE_PLAYER");
+          this.appendDummyInput("FALLBACK_TO_INVENTORY").appendField("Fallback to Inventory").appendField(new Blockly.FieldCheckbox("FALSE"), "FALLBACK_TO_INVENTORY");
+
+        });
+        this.appendDummyInput().appendField("Location:").appendField(dropdown, "LOCATION");
+
+        this.appendDummyInput("DROP_NATURALLY").appendField("Drop Naturally").appendField(new Blockly.FieldCheckbox("TRUE"), "DROP_NATURALLY");
+        this.appendDummyInput("DISABLE_ITEM_MERGING").appendField("Disable Item Merging").appendField(new Blockly.FieldCheckbox("FALSE"), "DISABLE_ITEM_MERGING");
+        this.appendDummyInput("PRIORITIZE_PLAYER").appendField("Prioritize Player").appendField(new Blockly.FieldCheckbox("FALSE"), "PRIORITIZE_PLAYER");
+        this.appendDummyInput("FALLBACK_TO_INVENTORY").appendField("Fallback to Inventory").appendField(new Blockly.FieldCheckbox("FALSE"), "FALLBACK_TO_INVENTORY");
+
+        this.setColour("#898989");
+        this.setPreviousStatement(true, "action");
+        this.setNextStatement(true, "action");
+        // this.setInputsInline(false);
+      }
     };
   },
 };
