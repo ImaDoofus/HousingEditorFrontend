@@ -8,6 +8,9 @@
     <block type="set_gamemode"></block>
     <block type="set_compass_target"></block>
     <block type="balance_player_team"></block>
+    <block type="set_player_weather"></block>
+    <block type="set_player_time"></block>
+    <block type="toggle_nametag_display"></block>
   </category>
 </template>
 
@@ -131,9 +134,9 @@ export default {
           .appendField(new Blockly.FieldLabel("Set Compass Target", "block_header"));
 
         const dropdown = new Blockly.FieldDropdown([
-          ["Custom Coordinates", "custom_coordinates"],          
+          ["Custom Coordinates", "custom_coordinates"],
           ["Housing Spawn", "house_spawn"],
-					["Invokers Location", "invokers_location"],
+          ["Invokers Location", "invokers_location"],
           ["Current Location", "current_location"],
         ]);
         dropdown.setValidator((newValue) => {
@@ -164,7 +167,7 @@ export default {
           .appendField(new Blockly.FieldLabel("Set Player Team   ", "block_header"));
 
         this.appendDummyInput().appendField("Team").appendField(new Blockly.FieldTextInput("name"), "TEAM");
-        
+
         this.setColour(360);
         this.setPreviousStatement(true, "action");
         this.setNextStatement(true, "action");
@@ -179,6 +182,81 @@ export default {
         this.setColour(330);
         this.setPreviousStatement(true, "action");
         this.setNextStatement(true, "action");
+      },
+    };
+    Blockly.Blocks["set_player_weather"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(326, 0), 20, 20))
+          .appendField(new Blockly.FieldLabel("Set Player Weather", "block_header"));
+
+        const dropdown = new Blockly.FieldDropdown([
+          ["Sunny", "sunny"],
+          ["Rainy", "rainy"]
+        ]);
+
+        this.appendDummyInput().appendField("Weather:").appendField(dropdown, "WEATHER");
+
+        this.setPreviousStatement(true, "action");
+        this.setNextStatement(true, "action");
+        this.setTooltip("Set the players weather.");
+
+        this.setColour("#2d6afd");
+      },
+    };
+    Blockly.Blocks["set_player_time"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(347, 0), 20, 20))
+          .appendField(new Blockly.FieldLabel("Set Player Time", "block_header"));
+
+        const dropdown = new Blockly.FieldDropdown([
+          ["Reset to World Time", "reset_to_world_time"],
+          ["Sunrise", "sunrise"],
+          ["Noon", "noon"],
+          ["Sunset", "sunset"],
+          ["Midnight", "midnight"],
+          ["Custom Time", "custom_time"],
+        ]);
+
+        dropdown.setValidator((newValue) => {
+          if (this.getInput("CUSTOM_TIME")) this.removeInput("CUSTOM_TIME");
+          if (newValue === "custom_time") {
+            this.appendDummyInput("CUSTOM_TIME")
+              .appendField("Time:")
+              .appendField(new Blockly.FieldTextInput("0", (m) => {
+                const number = parseFloat(m);
+                if (isNaN(number) || number < 0 || number > 24000) return null;
+
+                const coordinateRegex = /^-?\d+(?:\.\d{1,2})?$/;
+                if (!coordinateRegex.test(m)) return null;
+              }), "CUSTOM_TIME");
+          }
+        });
+
+        this.appendDummyInput().appendField("Time:").appendField(dropdown, "TIME");
+
+        this.setPreviousStatement(true, "action");
+        this.setNextStatement(true, "action");
+        this.setTooltip("Set the players time.");
+
+        this.setColour("#f8d044");
+      },
+    };
+    Blockly.Blocks["toggle_nametag_display"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(421, 0), 20, 20))
+          .appendField(new Blockly.FieldLabel("Toggle Nametag Display", "block_header"));
+
+        this.appendDummyInput()
+          .appendField("Display Nametag")
+          .appendField(new Blockly.FieldCheckbox(false), "DISPLAY_NAMETAG");
+
+        this.setPreviousStatement(true, "action");
+        this.setNextStatement(true, "action");
+        this.setTooltip("Toggle the display of the players nametag.");
+        this.setColour("#cecece");
       },
     };
   },

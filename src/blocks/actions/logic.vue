@@ -3,6 +3,7 @@
     <block v-if="!isItem" type="conditional"></block>
     <block type="trigger_function"></block>
     <block v-if="!isItem" type="exit"></block>
+    <block type="change_variable"></block>
     <block type="change_player_stat"></block>
     <block type="change_global_stat"></block>
     <block type="change_team_stat"></block>
@@ -34,6 +35,24 @@ export default {
   },
   mounted() {
     const component = this;
+
+    function valueInputValidator(newValue) {
+      if (newValue.startsWith("\"") && newValue.endsWith("\"")) {
+        return newValue
+      }
+      if (newValue.startsWith("%") && newValue.endsWith("%")) {
+        return newValue;
+      }
+
+      console.log(newValue);
+      if (newValue.endsWith("L")) newValue = newValue.substring(0, newValue.length - 1);
+      console.log(newValue);
+      const number = parseFloat(newValue);
+      if (isNaN(number) || number < -2147483648 || number > 2147483647) return null;
+
+      const regex = /^-?\d+(?:\.\d{1,32})?$/;
+      if (!regex.test(newValue)) return null;
+    }
 
     Blockly.Blocks["trigger_function"] = {
       init: function () {
@@ -141,11 +160,11 @@ export default {
         }
       },
     };
-    Blockly.Blocks["change_player_stat"] = {
+    Blockly.Blocks["change_variable"] = {
       init: function () {
         this.appendDummyInput()
           .appendField(new Blockly.FieldImage(component.getImagePath(288, 0), 20, 20))
-          .appendField(new Blockly.FieldLabel("Change Player Stat   ", "block_header"));
+          .appendField(new Blockly.FieldLabel("Change Variable   ", "block_header"));
 
         const dropdown = new Blockly.FieldDropdown([
           ["Add", "increment"],
@@ -153,23 +172,60 @@ export default {
           ["Set", "set"],
           ["Multiply", "multiply"],
           ["Divide", "divide"],
+          ["Unset", "unset"],
         ]);
 
-        this.appendDummyInput().appendField("Stat").appendField(new Blockly.FieldTextInput("name"), "STAT");
+        const holder = new Blockly.FieldDropdown([
+          ["Player", "player"],
+          ["Global", "global"],
+          ["Team", "team"]
+        ]);
+
+        this.appendDummyInput().appendField("Holder").appendField(holder, "HOLDER");
+        holder.setValidator((newValue) => {
+          if (this.getInput("TEAM")) this.removeInput("TEAM");
+          if (newValue === "team") {
+            this.appendDummyInput("TEAM").appendField("Team").appendField(new Blockly.FieldTextInput("name"), "TEAM");
+          }
+        });
+        this.appendDummyInput().appendField("Variable").appendField(new Blockly.FieldTextInput("name"), "STAT");
         this.appendDummyInput()
-          .appendField("Operation")
+          .appendField("Mode")
+          .appendField(dropdown, "MODE")
+        this.appendDummyInput().appendField("Value").appendField(
+          new Blockly.FieldTextInput("1L", valueInputValidator),
+          "VALUE"
+        );
+        this.appendDummyInput().appendField("Automatic Unset").appendField(new Blockly.FieldCheckbox(false), "AUTOMATIC_UNSET");
+        this.setColour("#46fce0");
+        this.setPreviousStatement(true, "action");
+        this.setNextStatement(true, "action");
+      },
+    }
+    Blockly.Blocks["change_player_stat"] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(397, 3), 20, 20))
+          .appendField(new Blockly.FieldLabel("Change Player Variable   ", "block_header"));
+
+        const dropdown = new Blockly.FieldDropdown([
+          ["Add", "increment"],
+          ["Subtract", "decrement"],
+          ["Set", "set"],
+          ["Multiply", "multiply"],
+          ["Divide", "divide"],
+          ["Unset", "unset"],
+        ]);
+
+        this.appendDummyInput().appendField("Variable").appendField(new Blockly.FieldTextInput("name"), "STAT");
+        this.appendDummyInput()
+          .appendField("Mode")
           .appendField(dropdown, "MODE")
           .appendField(
-            new Blockly.FieldTextInput("1", function (newValue) {
-              if (!isNaN(newValue)) {
-                if (newValue < -9223372036854775807) return null;
-                if (newValue > 9223372036854775807) return null;
-                return newValue;
-              }
-              return newValue;
-            }),
+            new Blockly.FieldTextInput("1L", valueInputValidator),
             "VALUE"
           );
+        this.appendDummyInput().appendField("Automatic Unset").appendField(new Blockly.FieldCheckbox(false), "AUTOMATIC_UNSET");
 
         this.setColour(60);
         this.setPreviousStatement(true, "action");
@@ -180,7 +236,7 @@ export default {
       init: function () {
         this.appendDummyInput()
           .appendField(new Blockly.FieldImage(component.getImagePath("global_stat", 0, true), 20, 20))
-          .appendField(new Blockly.FieldLabel("Change Global Stat   ", "block_header"));
+          .appendField(new Blockly.FieldLabel("Change Global Variable   ", "block_header"));
 
         const dropdown = new Blockly.FieldDropdown([
           ["Add", "increment"],
@@ -188,23 +244,18 @@ export default {
           ["Set", "set"],
           ["Multiply", "multiply"],
           ["Divide", "divide"],
+          ["Unset", "unset"],
         ]);
 
-        this.appendDummyInput().appendField("Stat").appendField(new Blockly.FieldTextInput("name"), "STAT");
+        this.appendDummyInput().appendField("Variable").appendField(new Blockly.FieldTextInput("name"), "STAT");
         this.appendDummyInput()
-          .appendField("Operation")
+          .appendField("Mode")
           .appendField(dropdown, "MODE")
           .appendField(
-            new Blockly.FieldTextInput("1", function (newValue) {
-              if (!isNaN(newValue)) {
-                if (newValue < -9223372036854775808) return null;
-                if (newValue > 9223372036854775807) return null;
-                return newValue;
-              }
-              return newValue;
-            }),
+            new Blockly.FieldTextInput("1L", valueInputValidator),
             "VALUE"
           );
+        this.appendDummyInput().appendField("Automatic Unset").appendField(new Blockly.FieldCheckbox(false), "AUTOMATIC_UNSET");
 
         this.setColour(150);
         this.setPreviousStatement(true, "action");
@@ -215,7 +266,7 @@ export default {
       init: function () {
         this.appendDummyInput()
           .appendField(new Blockly.FieldImage(component.getImagePath("team_stat", 0, true), 20, 20))
-          .appendField(new Blockly.FieldLabel("Change Team Stat   ", "block_header"));
+          .appendField(new Blockly.FieldLabel("Change Team Variable   ", "block_header"));
 
         const dropdown = new Blockly.FieldDropdown([
           ["Add", "increment"],
@@ -223,24 +274,19 @@ export default {
           ["Set", "set"],
           ["Multiply", "multiply"],
           ["Divide", "divide"],
+          ["Unset", "unset"],
         ]);
 
-        this.appendDummyInput().appendField("Stat").appendField(new Blockly.FieldTextInput("name"), "STAT");
+        this.appendDummyInput().appendField("Variable").appendField(new Blockly.FieldTextInput("name"), "STAT");
         this.appendDummyInput().appendField("Team").appendField(new Blockly.FieldTextInput("name"), "TEAM");
         this.appendDummyInput()
-          .appendField("Operation")
+          .appendField("Mode")
           .appendField(dropdown, "MODE")
           .appendField(
-            new Blockly.FieldTextInput("1", function (newValue) {
-              if (!isNaN(newValue)) {
-                if (newValue < -9223372036854775808) return null;
-                if (newValue > 9223372036854775807) return null;
-                return newValue;
-              }
-              return newValue;
-            }),
+            new Blockly.FieldTextInput("1L", valueInputValidator),
             "VALUE"
           );
+        this.appendDummyInput().appendField("Automatic Unset").appendField(new Blockly.FieldCheckbox(false), "AUTOMATIC_UNSET");
 
         this.setColour(10);
         this.setPreviousStatement(true, "action");

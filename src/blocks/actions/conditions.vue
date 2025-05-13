@@ -1,6 +1,7 @@
 <template>
   <category name="Conditions" categorystyle="conditions_category">
     <block v-if="!isItem" type="inverted"></block>
+    <block v-if="!isItem" type="condition_variable_requirement"></block>
     <block v-if="!isItem" type="condition_player_stat_requirement"></block>
     <block v-if="!isItem" type="condition_global_stat_requirement"></block>
     <block v-if="!isItem" type="condition_team_stat_requirement"></block>
@@ -64,6 +65,8 @@ export default {
       condition_player_stat_requirement: "#e5c0ec",
       // darkish earthy blue
       condition_global_stat_requirement: "#90CAF9",
+      //idk some random color
+      condition_variable_requirement: "#46fce0",
       // minecraft dirt block color
       condition_block_type: "#85c458",
       // minecraft gold sword color
@@ -114,12 +117,67 @@ export default {
       updateShape_,
     }
 
-    Blockly.Blocks["condition_player_stat_requirement"] = {
+    Blockly.Blocks["condition_variable_requirement"] = {
       init: function () {
         this.isOpened_ = true;
         this.options_ = { STAT: "stat", COMPARATOR: "equal_to", VALUE: "0" };
         this.appendDummyInput()
           .appendField(new Blockly.FieldImage(component.getImagePath(288, 0), 20, 20))
+          .appendField(new Blockly.FieldLabel("Variable Requirement  ", "block_header"))
+          .appendField(getOpenIcon());
+        this.setColour(colorLookup[this.type]);
+        this.setOutput(true, "Condition");
+      },
+      saveExtraState,
+      loadExtraState,
+      updateShape_,
+      open_: function () {
+        const dropdown = new Blockly.FieldDropdown([
+          ["Equal To =", "equal_to"], // default
+          ["Less Than <", "less_than"],
+          ["Less Than or Equal To <=", "less_than_or_equal_to"],
+          ["Greater Than or Equal To >=", "greater_than_or_equal_to"],
+          ["Greater Than >", "greater_than"],
+        ]);
+        dropdown.setValue(this.options_["COMPARATOR"]);
+
+        const value = new Blockly.FieldTextInput(this.options_["VALUE"]);
+        const holder = new Blockly.FieldDropdown([
+          ["Player", "player"],
+          ["Global", "global"],
+          ["Team", "team"]
+        ]);
+
+        this.appendDummyInput().appendField("Holder").appendField(holder, "HOLDER");
+        holder.setValidator((newValue) => {
+          if (this.getInput("TEAM")) this.removeInput("TEAM");
+          if (newValue === "team") {
+            this.appendDummyInput("TEAM").appendField("Team").appendField(new Blockly.FieldTextInput("name"), "TEAM");
+          }
+        });
+        this.appendDummyInput("DATA")
+          .appendField("Variable:")
+          .appendField(new Blockly.FieldTextInput(this.options_["STAT"], dataChangeListener), "STAT")
+          .appendField("is")
+          .appendField(dropdown, "COMPARATOR")
+          .appendField("value")
+          .appendField(value, "VALUE");
+        this.appendDummyInput("FALLBACK")
+          .appendField("Fallback Value")
+          .appendField(new Blockly.FieldTextInput(this.options_["FALLBACK"], dataChangeListener), "FALLBACK");
+
+        dropdown.setValidator(dataChangeListener); // dataChangeListener requires the getSourceBlock()
+        value.setValidator(dataChangeListener); // dataChangeListener requires the getSourceBlock()
+      },
+      close_,
+    };
+
+    Blockly.Blocks["condition_player_stat_requirement"] = {
+      init: function () {
+        this.isOpened_ = true;
+        this.options_ = { STAT: "stat", COMPARATOR: "equal_to", VALUE: "0" };
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage(component.getImagePath(397, 3), 20, 20))
           .appendField(new Blockly.FieldLabel("Player Stat Requirement  ", "block_header"))
           .appendField(getOpenIcon());
         this.setColour(colorLookup[this.type]);
