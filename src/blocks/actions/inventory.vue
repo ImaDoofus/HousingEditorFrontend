@@ -277,19 +277,14 @@ export default {
 
         this.appendValueInput("ITEM").setCheck(["CustomItem", "UseInventorySlot"]).appendField("Item:");
 
-        const dropdown = new Blockly.FieldDropdown([
-          ["Custom Coordinates", "custom_coordinates"],
-          ["Housing Spawn", "house_spawn"],
-          ["Invokers Location", "invokers_location"],
-          ["Current Location", "current_location"],
+        const locationDropdown = new Blockly.FieldDropdown([
+            ["Invokers Location", "invokers_location"],
+            ["Current Location", "current_location"],
+            ["Custom Coordinates", "custom_coordinates"],
+            ["Housing Spawn", "house_spawn"],
         ]);
-        dropdown.setValidator((newValue) => {
+        locationDropdown.setValidator((newValue) => {
           if (this.getInput("COORDINATES")) this.removeInput("COORDINATES");
-          if (this.getInput("DROP_NATURALLY")) this.removeInput("DROP_NATURALLY");
-          if (this.getInput("DISABLE_ITEM_MERGING")) this.removeInput("DISABLE_ITEM_MERGING");
-          if (this.getInput("PRIORITIZE_PLAYER")) this.removeInput("PRIORITIZE_PLAYER");
-          if (this.getInput("FALLBACK_TO_INVENTORY")) this.removeInput("FALLBACK_TO_INVENTORY");
-
           if (newValue === "custom_coordinates") {
             this.appendDummyInput("COORDINATES")
               .appendField("X:")
@@ -298,21 +293,16 @@ export default {
               .appendField(new Blockly.FieldTextInput("0", coordinateInputValidatorY), "Y")
               .appendField("Z:")
               .appendField(new Blockly.FieldTextInput("0", coordinateInputValidatorXZ), "Z");
-            this.appendDummyInput()
           }
-
-          this.appendDummyInput("DROP_NATURALLY").appendField("Drop Naturally").appendField(new Blockly.FieldCheckbox("TRUE"), "DROP_NATURALLY");
-          this.appendDummyInput("DISABLE_ITEM_MERGING").appendField("Disable Item Merging").appendField(new Blockly.FieldCheckbox("FALSE"), "DISABLE_ITEM_MERGING");
-          this.appendDummyInput("PRIORITIZE_PLAYER").appendField("Prioritize Player").appendField(new Blockly.FieldCheckbox("FALSE"), "PRIORITIZE_PLAYER");
-          this.appendDummyInput("FALLBACK_TO_INVENTORY").appendField("Fallback to Inventory").appendField(new Blockly.FieldCheckbox("FALSE"), "FALLBACK_TO_INVENTORY");
-
         });
-        this.appendDummyInput().appendField("Location:").appendField(dropdown, "LOCATION");
 
         this.appendDummyInput("DROP_NATURALLY").appendField("Drop Naturally").appendField(new Blockly.FieldCheckbox("TRUE"), "DROP_NATURALLY");
         this.appendDummyInput("DISABLE_ITEM_MERGING").appendField("Disable Item Merging").appendField(new Blockly.FieldCheckbox("FALSE"), "DISABLE_ITEM_MERGING");
+        this.appendDummyInput("DESPAWN_DURATION").appendField("Despawn Duration (Ticks)").appendField(new Blockly.FieldNumber(6000, 1, 18000), "DESPAWN_DURATION");
+        this.appendDummyInput("PICKUP_DELAY").appendField("Pickup Delay (Ticks)").appendField(new Blockly.FieldNumber(10, 0, 18000), "PICKUP_DELAY");
         this.appendDummyInput("PRIORITIZE_PLAYER").appendField("Prioritize Player").appendField(new Blockly.FieldCheckbox("FALSE"), "PRIORITIZE_PLAYER");
         this.appendDummyInput("FALLBACK_TO_INVENTORY").appendField("Fallback to Inventory").appendField(new Blockly.FieldCheckbox("FALSE"), "FALLBACK_TO_INVENTORY");
+        this.appendDummyInput().appendField("Location:").appendField(locationDropdown, "LOCATION");
 
         this.setColour("#898989");
         this.setPreviousStatement(true, "action");

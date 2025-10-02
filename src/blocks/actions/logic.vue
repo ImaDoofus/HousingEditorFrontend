@@ -167,12 +167,18 @@ export default {
           .appendField(new Blockly.FieldLabel("Change Variable   ", "block_header"));
 
         const dropdown = new Blockly.FieldDropdown([
+          ["Set", "set"],
+          ["Unset", "unset"],
           ["Add", "increment"],
           ["Subtract", "decrement"],
-          ["Set", "set"],
           ["Multiply", "multiply"],
           ["Divide", "divide"],
-          ["Unset", "unset"],
+          ["Bitwise AND", "bitwise_and"],
+          ["Bitwise OR", "bitwise_or"],
+          ["Bitwise XOR", "bitwise_xor"],
+          ["Left Shift", "left_shift"],
+          ["Arithmetic Right Shift", "arithmetic_right_shift"],
+          ["Logical Right Shift", "logical_right_shift"],
         ]);
 
         const holder = new Blockly.FieldDropdown([
@@ -209,12 +215,18 @@ export default {
           .appendField(new Blockly.FieldLabel("Change Player Variable   ", "block_header"));
 
         const dropdown = new Blockly.FieldDropdown([
+          ["Unset", "unset"],
+          ["Set", "set"],
           ["Add", "increment"],
           ["Subtract", "decrement"],
-          ["Set", "set"],
           ["Multiply", "multiply"],
           ["Divide", "divide"],
-          ["Unset", "unset"],
+          ["Bitwise AND", "bitwise_and"],
+          ["Bitwise OR", "bitwise_or"],
+          ["Bitwise XOR", "bitwise_xor"],
+          ["Left Shift", "left_shift"],
+          ["Arithmetic Right Shift", "arithmetic_right_shift"],
+          ["Logical Right Shift", "logical_right_shift"],
         ]);
 
         this.appendDummyInput().appendField("Variable").appendField(new Blockly.FieldTextInput("name"), "STAT");
@@ -239,12 +251,18 @@ export default {
           .appendField(new Blockly.FieldLabel("Change Global Variable   ", "block_header"));
 
         const dropdown = new Blockly.FieldDropdown([
+          ["Unset", "unset"],
+          ["Set", "set"],
           ["Add", "increment"],
           ["Subtract", "decrement"],
-          ["Set", "set"],
           ["Multiply", "multiply"],
           ["Divide", "divide"],
-          ["Unset", "unset"],
+          ["Bitwise AND", "bitwise_and"],
+          ["Bitwise OR", "bitwise_or"],
+          ["Bitwise XOR", "bitwise_xor"],
+          ["Left Shift", "left_shift"],
+          ["Arithmetic Right Shift", "arithmetic_right_shift"],
+          ["Logical Right Shift", "logical_right_shift"],
         ]);
 
         this.appendDummyInput().appendField("Variable").appendField(new Blockly.FieldTextInput("name"), "STAT");
@@ -269,12 +287,18 @@ export default {
           .appendField(new Blockly.FieldLabel("Change Team Variable   ", "block_header"));
 
         const dropdown = new Blockly.FieldDropdown([
+          ["Unset", "unset"],
+          ["Set", "set"],
           ["Add", "increment"],
           ["Subtract", "decrement"],
-          ["Set", "set"],
           ["Multiply", "multiply"],
           ["Divide", "divide"],
-          ["Unset", "unset"],
+          ["Bitwise AND", "bitwise_and"],
+          ["Bitwise OR", "bitwise_or"],
+          ["Bitwise XOR", "bitwise_xor"],
+          ["Left Shift", "left_shift"],
+          ["Arithmetic Right Shift", "arithmetic_right_shift"],
+          ["Logical Right Shift", "logical_right_shift"],
         ]);
 
         this.appendDummyInput().appendField("Variable").appendField(new Blockly.FieldTextInput("name"), "STAT");

@@ -7,6 +7,49 @@
 		<v-container>
 			<v-card class="mt-5 pa-5">
 				<v-card-title>
+					<span class="text-h3">HousingEditor 1.0 Final Update, 2.0 is Coming!</span>
+				</v-card-title>
+				<v-row class="ml-5 py-0">
+					<div>
+						<span>TLDR; HousingEditor 2.0 is coming!</span>
+					</div>
+				</v-row>
+				<v-row class="ml-5">
+					<span class="overline grey--text">By
+						<router-link to="/profile/62c6871f53cc93e40cd459b2">ImaDoofus</router-link>
+					</span>
+					<v-divider vertical class="mx-2"></v-divider>
+					<span class="overline grey--text">Posted • September 30th 2025</span>
+				</v-row>
+				<br>
+				<v-divider></v-divider>
+				<v-card-text>
+					<v-list dense>
+						<v-list-item-group>
+							<!-- <v-list-item>
+								<span>This update adds all the features in the Sep 19, 2025 Housing Update, make sure to install the latest version on <a href="https://github.com/ImaDoofus/HousingEditor" target="_blank">GitHub</a></span>
+							</v-list-item>
+							<v-list-item>
+								<span>	I wrote my first line of HousingEditor code in 2022 when I finished 9th grade, at that point I barely had any knowledge in programming but was driven by the agonizing housing guis and how limiting minecraft was. It took all summer to get HousingEditor to a point I liked and I bought the domain and over the next few years a community grew to thousands of members. Seeing all the feedback for HousingEditor is what gave me my deep love for programming, I'm a uni student working on my compsci degree (and we can thank HousingEditor for a $2,000 scholarship)</span>
+							</v-list-item>
+							<v-list-item>
+								<span>	Over time the coding and developer community in Housing has grown so much. I'll admit sadly I haven't been upkeeping HousingEditor very well (only a few updates since 2022), and I admittingly made negligent management mistakes with the database and leaking updates. Life can be busy sometimes or lacking motivation for updates. But maybe that's for the better, if HousingEditor went any further than where it is now, it would have accumulated years of technical debt and possibly fully burnt out. Since then however instead of working on Housing Editor, I have written hundreds of thousands of lines of code, studied algorithms, practiced katas, learned design concepts, and debugged programs.</span>
+							</v-list-item>
+							<v-list-item>
+								<span>The next iteration of HousingEditor is built on principles</span>
+							</v-list-item>
+							<v-list-item>
+								<span>.</span>
+							</v-list-item> -->
+						</v-list-item-group>
+					</v-list>
+				</v-card-text>
+			</v-card>
+		</v-container>
+
+		<v-container>
+			<v-card class="mt-5 pa-5">
+				<v-card-title>
 					<span class="text-h3">HousingEditor Update!</span>
 				</v-card-title>
 				<v-row class="ml-5 py-0">

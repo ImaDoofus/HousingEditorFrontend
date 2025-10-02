@@ -7,7 +7,6 @@ import housingSounds from '@/assets/sounds/soundHousingList.json';
 import SOUND_VARIANTS_LATEST from '@/assets/sounds/sounds.json';
 import SOUND_VARIANTS_LEGACY from '@/assets/sounds/sounds_legacy.json';
 import Blockly, { FieldNumber } from 'blockly';
-import { FieldSlider } from '@blockly/field-slider';
 
 const LATEST_VERSION_SOUNDS = Object.keys(SOUND_VARIANTS_LATEST).map(sound => {
 	return [sound + ' 1.20', sound];
