@@ -45,23 +45,41 @@ export default {
     },
   },
   mounted() {
-    function coordinateInputValidatorXZ(newValue) {
-      if (newValue.startsWith("~")) newValue = newValue.substring(1);
-      const number = parseFloat(newValue);
-      if (isNaN(number) || number < -190 || number > 190) return null;
+function coordinateInputValidatorXZ(newValue: string): number | null {
+  if (!newValue) return null;
 
-      const coordinateRegex = /^-?\d+(?:\.\d{1,2})?$/;
-      if (!coordinateRegex.test(newValue)) return null;
-    }
+  if (newValue.startsWith("~") || newValue.startsWith("^")) {
+    newValue = newValue.substring(1);
+  }
 
-    function coordinateInputValidatorY(newValue) {
-      if (newValue.startsWith("~")) newValue = newValue.substring(1);
-      const number = parseFloat(newValue);
-      if (isNaN(number) || number < -50 || number > 300) return null;
+  if (newValue === "") return 0;
 
-      const coordinateRegex = /^-?\d+(?:\.\d{1,2})?$/;
-      if (!coordinateRegex.test(newValue)) return null;
-    }
+  const number = parseFloat(newValue);
+  if (isNaN(number) || number < -190 || number > 190) return null;
+
+  const coordinateRegex = /^-?\d+(?:\.\d{1,2})?$/;
+  if (!coordinateRegex.test(newValue)) return null;
+
+  return number;
+}
+
+function coordinateInputValidatorY(newValue: string): number | null {
+  if (!newValue) return null;
+
+  if (newValue.startsWith("~") || newValue.startsWith("^")) {
+    newValue = newValue.substring(1);
+  }
+
+  if (newValue === "") return 0;
+
+  const number = parseFloat(newValue);
+  if (isNaN(number) || number < -50 || number > 300) return null;
+
+  const coordinateRegex = /^-?\d+(?:\.\d{1,2})?$/;
+  if (!coordinateRegex.test(newValue)) return null;
+
+  return number;
+}
 
     const component = this;
 
